@@ -15,7 +15,7 @@ TITULOS = [
 ]
 TITULOS_GARIMPO = TITULOS
 TITULOS_ANA = TITULOS
-FINAIS = ["Gostou de algum?", "Qual é o seu favorito?", "Qual você levaria pra casa?"]
+FINAIS = ["Gostou de algum achadinho?", "Qual é o seu favorito?", "Qual você levaria pra casa?"]
 FINAIS_GARIMPO = FINAIS
 FINAIS_ANA = FINAIS
 N_PRODUTO, N_FINAL_GARIMPO, N_FINAL_ANA, N_TITULO = 3, 2, 3, 3
@@ -250,37 +250,80 @@ def fim_de_mes(hoje=None):
 
 
 def final_garimpo(v, n, n_variante, youtube=False, frase=None, tiktok=False):
-    from . import top
-    tipo = "semana" if v % N_FINAL_GARIMPO == 0 else "mes"
-    tm = top.TEMAS[tipo]
-    bg, img, m, ih = top._cena(tipo)
-    im = Image.new("RGB", (L, A), tm["fundo"])
-    im.paste(bg.crop((0, 0, L, A)), (0, 0))
-    im.paste(img, (0, 0), m)
+    im = Image.new("RGB", (L, A), (250, 247, 242))
     d = ImageDraw.Draw(im)
-    es = tm["borda"]
-    top._ctext(d, 830, FINAIS[n_variante % len(FINAIS)], top._f(66), top.AM, 5, es)
-    fim = "que enviamos o link aqui" if youtube else "que enviamos o link no seu direct"
-    linhas = [f"Comente  QUERO + o número (1 a {n})", fim]
+
+    # Borda elegante sutil
+    d.rounded_rectangle((35, 35, L - 35, A - 35), radius=32, outline=(220, 195, 155), width=2)
+    d.rounded_rectangle((42, 42, L - 42, A - 42), radius=28, outline=(240, 228, 210), width=1)
+
+    # Logo grande e em destaque na parte superior
+    if config.LOGO.exists():
+        try:
+            logo = Image.open(config.LOGO).convert("RGBA")
+            tam = 530
+            logo = logo.resize((tam, tam), Image.Resampling.LANCZOS)
+            im.paste(logo, ((L - tam) // 2, 80), logo)
+        except Exception:
+            pass
+
+    # Titulo / Pergunta
+    f_tit = imagem._fonte(52, "Bold")
+    tit = FINAIS[n_variante % len(FINAIS)]
+    d.text(((L - d.textlength(tit, font=f_tit)) / 2, 650), tit, font=f_tit, fill=(44, 34, 30))
+
+    # Card com as instrucoes de como receber o link
+    d.rounded_rectangle((80, 730, L - 80, 1030), radius=28, fill=(255, 255, 255), outline=(230, 218, 202), width=2)
+
     if tiktok:
-        linhas = ["Digite o número do achado", "no link da bio para abrir na loja"]
-    for i, ln in enumerate(linhas):
-        top._ctext(d, 935 + i * 60, ln, top._f(42), top.BR, 3, es)
-    extras = []
-    if frase:
-        pergunta, _, resto = frase.partition("? ")
-        extras += [(pergunta + "?", top.AM), (resto, top.AM)] if resto else [(frase, top.AM)]
-    if not youtube and not tiktok and fim_de_mes():
-        extras.append(("Salve este post para não perder as ofertas!", top.BR))
-    for i, (ln, cor) in enumerate(extras):
-        f = _ajustar(d, ln, top._f, 36, L - 100, minimo=28)
-        top._ctext(d, 1068 + i * 46, ln, f, cor, 3, es)
-    arroba = config.ARROBA
-    t = f"Siga {arroba} para não perder nenhum achadinho"
-    f = top._f(30)
-    w = d.textlength(t, font=f)
-    d.rounded_rectangle(((L - w) / 2 - 30, A - 130, (L + w) / 2 + 30, A - 62), 34, fill=top.AM)
-    top._ctext(d, A - 121, t, f, es)
+        f1 = imagem._fonte(36, "Medium")
+        t1 = "Para receber o link com desconto:"
+        d.text(((L - d.textlength(t1, font=f1)) / 2, 770), t1, font=f1, fill=(90, 80, 75))
+
+        f_dest = imagem._fonte(46, "ExtraBold")
+        t2 = f"Digite o número (1 a {n})"
+        d.text(((L - d.textlength(t2, font=f_dest)) / 2, 830), t2, font=f_dest, fill=(180, 130, 60))
+
+        f_ex = imagem._fonte(32, "SemiBold")
+        t_ex = "no link da bio para abrir direto na loja!"
+        d.text(((L - d.textlength(t_ex, font=f_ex)) / 2, 895), t_ex, font=f_ex, fill=(120, 110, 105))
+
+        f3 = imagem._fonte(34, "Bold")
+        t3 = "Link direto com desconto exclusivo!"
+        d.text(((L - d.textlength(t3, font=f3)) / 2, 955), t3, font=f3, fill=(44, 34, 30))
+    else:
+        f1 = imagem._fonte(36, "Medium")
+        t1 = "Para receber o link com desconto:"
+        d.text(((L - d.textlength(t1, font=f1)) / 2, 770), t1, font=f1, fill=(90, 80, 75))
+
+        f_dest = imagem._fonte(46, "ExtraBold")
+        t2 = "Comente  QUERO + NÚMERO"
+        d.text(((L - d.textlength(t2, font=f_dest)) / 2, 830), t2, font=f_dest, fill=(180, 130, 60))
+
+        f_ex = imagem._fonte(32, "SemiBold")
+        t_ex = f"(exemplo: QUERO 1 a QUERO {n})" if n > 2 else "(exemplo: QUERO 1 ou QUERO 2)"
+        d.text(((L - d.textlength(t_ex, font=f_ex)) / 2, 895), t_ex, font=f_ex, fill=(120, 110, 105))
+
+        f3 = imagem._fonte(34, "Bold")
+        t3 = "Enviamos o link aqui nos comentários!" if youtube else "Enviamos o link na hora no seu Direct!"
+        d.text(((L - d.textlength(t3, font=f3)) / 2, 955), t3, font=f3, fill=(44, 34, 30))
+
+    # Dica / Salvar / Compartilhar
+    f_dica = imagem._fonte(30, "Medium")
+    t_dica = frase if frase else "Salve esse post para não perder as ofertas!"
+    if d.textlength(t_dica, font=f_dica) > L - 160:
+        f_dica = _ajustar(d, t_dica, lambda t: imagem._fonte(t, "Medium"), 30, L - 160, minimo=22)
+    d.text(((L - d.textlength(t_dica, font=f_dica)) / 2, 1075), t_dica, font=f_dica, fill=(100, 90, 85))
+
+    # Botao de chamada para seguir
+    f_btn = imagem._fonte(32, "Bold")
+    arroba = config.ARROBA or "@ba.homeliving"
+    t_btn = f"Siga {arroba} para mais achados"
+    bw = d.textlength(t_btn, font=f_btn) + 80
+    bx0 = (L - bw) / 2
+    d.rounded_rectangle((bx0, 1150, bx0 + bw, 1230), radius=40, fill=(197, 168, 128))
+    d.text(((L - d.textlength(t_btn, font=f_btn)) / 2, 1172), t_btn, font=f_btn, fill=(255, 255, 255))
+
     return im
 
 
