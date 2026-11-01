@@ -1,113 +1,72 @@
-🧭 Buscas da rodada: 6 dos virais, 10 novas da IA, 4 da memória, 4 fixas
-   📡 lar: batedeira portátil
-   📡 lar: mesa de cabeceira
-   📡 eletronicos: top fitness alta sustentacao
-   📡 eletronicos: simulador de escada academia
-   📡 pet: filtro aquario tanque
-   📡 pet: moldura para foto pet
-   🧠 brinquedos: brinquedo educativo
-   🧠 automotivo: almofada de pescoco carro
-   🧠 pet: bebedouro fonte pet
-   🧠 eletronicos: amplificador wifi
-   ✨ cabelo: pente térmico rotativo
-   ✨ autocuidado: almofada massagem cervical
-   ✨ masculino: chaveiro canivete dobrável
-   ✨ lar: cortina luz led sensorial
-   ✨ brinquedos: puzzle cubo magnético
-   ✨ automotivo: luz ambiente teto led
-   ✨ moda: pulseira luz neon
-   ✨ casa_fofa: luminária nuvem led
-   ✨ eletronicos: monitor de pulso oled
-   ✨ pet: bebedouro auto limpante
-🔎 'batedeira portátil' (lar, viral): 1000 resultados
-ℹ️  AliExpress: a lista 'aliexpress.affiliate.hotproduct.query' ainda não foi liberada para a conta — seguindo só com a busca.
-   🅰️ AliExpress: 25 resultados com entrega rápida
-🔎 'mesa de cabeceira' (lar, viral): 1000 resultados
-   🅰️ AliExpress: 100 resultados com entrega rápida
-🔎 'top fitness alta sustentacao' (eletronicos, viral): 1000 resultados
-🔎 'simulador de escada academia' (eletronicos, viral): 168 resultados
-🔎 'filtro aquario tanque' (pet, viral): 1000 resultados
-🔎 'moldura para foto pet' (pet, viral): 1000 resultados
-🔎 'brinquedo educativo' (brinquedos, memoria): 1000 resultados
-   🅰️ AliExpress: 98 resultados com entrega rápida
-🔎 'almofada de pescoco carro' (automotivo, memoria): 1000 resultados
-   🅰️ AliExpress: 99 resultados com entrega rápida
-🔎 'bebedouro fonte pet' (pet, memoria): 1000 resultados
-   🅰️ AliExpress: 37 resultados com entrega rápida
-🔎 'amplificador wifi' (eletronicos, memoria): 1000 resultados
-   🅰️ AliExpress: 76 resultados com entrega rápida
-🔎 'pente térmico rotativo' (cabelo, ia): 0 resultados
-🔎 'almofada massagem cervical' (autocuidado, ia): 588 resultados
-   🅰️ AliExpress: 98 resultados com entrega rápida
-🔎 'chaveiro canivete dobrável' (masculino, ia): 233 resultados
-🔎 'cortina luz led sensorial' (lar, ia): 0 resultados
-🔎 'puzzle cubo magnético' (brinquedos, ia): 122 resultados
-🔎 'luz ambiente teto led' (automotivo, ia): 475 resultados
-🔎 'pulseira luz neon' (moda, ia): 547 resultados
-🔎 'luminária nuvem led' (casa_fofa, ia): 902 resultados
-🔎 'monitor de pulso oled' (eletronicos, ia): 316 resultados
-🔎 'bebedouro auto limpante' (pet, ia): 0 resultados
-🔎 'dispenser automático' (lar): 1000 resultados
-   🅰️ AliExpress: 48 resultados com entrega rápida
-🔎 'esmalte em gel kit' (beleza): 1000 resultados
-   🅰️ AliExpress: 50 resultados com entrega rápida
-🔎 'mini ventilador portátil' (eletronicos): 1000 resultados
-   🅰️ AliExpress: 50 resultados com entrega rápida
-🔎 'lanterna tática' (masculino): 1000 resultados
-   🅰️ AliExpress: 50 resultados com entrega rápida
-🏪 Loja 'Florence Espelhos': 26 produtos (26 do nosso nicho)
-🏪 Loja 'Rei dos Vidros': 200 produtos (200 do nosso nicho)
-🏪 Loja 'ENSSU Loja Oficial': 62 produtos (62 do nosso nicho)
-🏪 Loja 'Invention Hunters': 76 produtos (63 do nosso nicho)
-🔥 Em alta na Shopee: 500 produtos (387 do nosso nicho)
-🗂️  Categoria 101986 (eletronicos): 900 produtos
-🗂️  Categoria 102231 (automotivo): 350 produtos
-🗂️  Categoria 101403 (brinquedos): 900 produtos
-🗂️  Categoria 100392 (brinquedos): 900 produtos
-🗂️  Categoria 100916 (pet): 900 produtos
-🗂️  Categoria 102001 (eletronicos): 900 produtos
-📊 Passaram nos números: 770 {'viral': 139, 'memoria': 175, 'ia': 15, 'fixa': 155, 'loja': 50, 'em_alta': 51, 'categoria': 185} | Recusados: {'comissão baixa': 3607, 'nota baixa': 8062, 'poucas vendas': 9616, 'preço fora da faixa': 10, 'vendedor pouco avaliado': 6, 'já está na Ana': 12, 'palavra proibida': 3}
-🔁 Sem repetidos/parecidos: 604 de 770
-🧭 Ouro/Achado por origem da busca: {'fixa': 6, 'categoria': 1, 'viral': 5, 'memoria': 7, 'loja': 2}
-📏 Ouro/Achado por página dos mais vendidos: 1-8 = 3 | 9+ = 0
-🏅 Ouro: 21 | 💎 Achado escondido: 0 | 🥈 Prata: 26 | descartados pela curadoria: 102
-🏆 Buscas que mais renderam nesta rodada: esmalte em gel kit (5), mesa de cabeceira (5), almofada de pescoco carro (3), amplificador wifi (3), loja florence espelhos (2)
-🏬 Marcas (Awin): 916 produtos válidos no feed {'Shark Ninja': 13, 'Arno': 124, 'VX Case': 779} | recusados: {'acessório ou reposição': 1519, 'sem nome': 7} | versões de voltagem repetidas: 140
-🏬 Marcas para o perfil garimpo: 878 disponíveis, entram na rodada: {'Shark Ninja': 3, 'Arno': 3, 'VX Case': 3}.
-   ↪️  ouro fora da fila (loja Stone's Store cheia na fila): Almofada de Massagem Vibratória com Calor Infravermelho Shia
-   ↪️  ouro fora da fila (loja Stone's Store cheia na fila): Almofada de Pescoço para Carro em Espuma de Memória Ajustáve
-   ↪️  ouro fora da fila (loja Stone's Store cheia na fila): Almofada de Massagem para Carro Multifuncional, Combina Vibr
-   ↪️  ouro fora da fila (loja Stone's Store cheia na fila): Conjunto de esmaltes em gel para unhas, kit de ferramentas p
-   ↪️  ouro fora da fila (família fonte pet já tem 1 na fila): Aço Inoxidável Fonte para Gatos com Filtro 3.2L Dispensador 
-   ↪️  ouro fora da fila (família fonte pet já tem 1 na fila): Newpet Inoxidável Bebedouro Para Gatos 3L Aço Inoxidável Dis
-   ↪️  ouro fora da fila (família luminaria já tem 1 na fila): Luminária Pendente Cerâmica Retro para Restaurante e Hotel, 
-   ↪️  ouro fora da fila (família ventilador já tem 1 na fila): Ventilador de Teto Arno Ultimate Bivolt Preto com 3 Pás e Co
-   ↪️  ouro fora da fila (loja Arno BR cheia na fila): Liquidificador Arno Blendforce Preto 700W Limpa Fácil com Lâ
-   ↪️  ouro fora da fila (loja Arno BR cheia na fila): Multiprocessador Arno 700W 24 Funções Preto MP72
-   ↪️  ouro fora da fila (família espelho já tem 1 na fila): Espelho Orgânico Nuvem 70x50cm Lapidado
-   ↪️  ouro fora da fila (loja Stone's Store cheia na fila): Criativo nórdico candeeiro de mesa arte madeira led volta ca
-   ↪️  ouro fora da fila (família modelador já tem 2 na fila): Modelador Shark FlexStyle - Lisos e Ondulados 110V
-   ↪️  ouro fora da fila (família modelador já tem 2 na fila): Modelador Shark Flexstyle - Cacheados e Crespos 110V
-   ↪️  ouro fora da fila (loja VX Case BR cheia na fila): Clock Charger Pro 15W VX Case - Bege e Rosé Gold
-   ↪️  ouro fora da fila (loja VX Case BR cheia na fila): Mochila VX Case Golden Glow - Dourada
-   ↪️  ouro fora da fila (família carregador já tem 1 na fila): Carregador Veicular MagSafe Preto - Smart Holder Magnetic
-   ↪️  ouro fora da fila (loja Stone's Store cheia na fila): Kebidumei ax3000 wifi 6 repetidor roteador sem fio banda dup
-   ↪️  ouro fora da fila (loja Stone's Store cheia na fila): Fenvi 5ghz ax1500 wifi 6 repetidor extensor amplificador de 
-   ↪️  ouro fora da fila (loja Stone's Store cheia na fila): Fenvi wifi 6 repetidor ax1500mbps banda dupla 2.4ghz/5ghz ex
-   ↪️  ouro fora da fila (mesma palavra): Kit de esmalte em gel para unhas, com lâmpada led semi-perma
-   ↪️  ouro fora da fila (mesma palavra): Kit de esmalte em gel com lâmpada uv, máquina elétrica de br
-   ↪️  ouro fora da fila (mesma palavra): Conjunto de Ferramentas para Extensão de Unhas em Poly Gel, 
-   ↪️  ouro fora da fila (família espelho já tem 1 na fila): Espelho Orgânico 120X50 e 80x40 Lapidado Moderno Grande Form
-   ↪️  ouro fora da fila (mesma palavra): Candeeiro de mesa cogumelo bonito, controle de toque 3 cores
-   ↪️  ouro fora da fila (loja Stone's Store cheia na fila): Alimentador digital automático de peixes Tanque de peixes Aq
-   ↪️  ouro fora da fila (mesma palavra): 7 cores mudando luz noturna rgb controle remoto toque regulá
-⏳ Groq/openai/gpt-oss-120b: limite por minuto — esperando 2s
-🏅 beleza      R$   380,72  comissão R$ 26.65 (7%)  588 vendas  uau 7  Kit de esmalte acrílico completo
-⏳ Groq/openai/gpt-oss-120b: limite por minuto — esperando 7s
-🥈 pet         R$    44,54  comissão R$ 5.79 (13%)  587 vendas  uau 7  Quadro Decorativo Personalizado
+🧭 Buscas da rodada: 3 dos virais, 10 novas da IA, 4 da memória, 7 fixas
+   📡 lar: painel led e27
+   📡 lar: varal retratil parede
+   📡 eletronicos: regata fitness ziper gola
+   🧠 lar: organizador cozinha
+   🧠 eletronicos: mini scanner portátil
+   🧠 eletronicos: câmera wifi
+   🧠 masculino: tênis masculino
+   ✨ moda: cinto de bolso oculto
+   ✨ lar: dispensador de sabão automático
+   ✨ casa_fofa: luminária nuvem 3d
+   ✨ beleza: aplicador de máscara facial
+   ✨ masculino: kit grooming portátil
+   ✨ pet: cama elevatória para gato
+   ✨ brinquedos: cubo de equilíbrio magnético
+   ✨ automotivo: limpador de para-brisa ultrassônico
+   ✨ cabelo: secador de cabelo dobrável
+   ✨ lar: organizador de tampas giratório
+🔎 'painel led e27' (lar, viral): 88 resultados
+🔎 'varal retratil parede' (lar, viral): 1000 resultados
+🔎 'regata fitness ziper gola' (eletronicos, viral): 26 resultados
+🔎 'organizador cozinha' (lar, memoria): 1000 resultados
+🔎 'mini scanner portátil' (eletronicos, memoria): 923 resultados
+🔎 'câmera wifi' (eletronicos, memoria): 1000 resultados
+🔎 'tênis masculino' (masculino, memoria): 1000 resultados
+🔎 'cinto de bolso oculto' (moda, ia): 63 resultados
+🔎 'dispensador de sabão automático' (lar, ia): 979 resultados
+🔎 'luminária nuvem 3d' (casa_fofa, ia): 81 resultados
+🔎 'aplicador de máscara facial' (beleza, ia): 749 resultados
+🔎 'kit grooming portátil' (masculino, ia): 739 resultados
+🔎 'cama elevatória para gato' (pet, ia): 0 resultados
+🔎 'cubo de equilíbrio magnético' (brinquedos, ia): 0 resultados
+🔎 'limpador de para-brisa ultrassônico' (automotivo, ia): 0 resultados
+🔎 'secador de cabelo dobrável' (cabelo, ia): 1000 resultados
+🔎 'organizador de tampas giratório' (lar, ia): 719 resultados
+🔎 'jogo de tabuleiro' (brinquedos): 1000 resultados
+🔎 'escova alisadora' (cabelo): 1000 resultados
+🔎 'projetor galáxia' (casa_fofa): 1000 resultados
+🔎 'bolsa transversal' (moda): 1000 resultados
+🔎 'mochila masculina' (masculino): 750 resultados
+🔎 'câmera de ré' (automotivo): 1000 resultados
+🔎 'bebedouro fonte pet' (pet): 1000 resultados
+🏪 Loja 'Basike oficial': 39 produtos (37 do nosso nicho)
+🏪 Loja 'Caixinhas da Felicidade': 146 produtos (112 do nosso nicho)
+🏪 Loja 'DSD Multi Comercio': 200 produtos (177 do nosso nicho)
+🏪 Loja 'Global Shop21': 18 produtos (15 do nosso nicho)
+🔥 Em alta na Shopee: 500 produtos (368 do nosso nicho)
+🗂️  Categoria 101219 (lar): 900 produtos
+🗂️  Categoria 101035 (brinquedos): 900 produtos
+🗂️  Categoria 101426 (automotivo): 900 produtos
+🗂️  Categoria 101100 (eletronicos): 900 produtos
+🗂️  Categoria 101373 (eletronicos): 900 produtos
+🗂️  Categoria 101143 (lar): 900 produtos
+📊 Passaram nos números: 1321 {'viral': 33, 'memoria': 346, 'ia': 11, 'fixa': 401, 'loja': 55, 'em_alta': 48, 'categoria': 427} | Recusados: {'poucas vendas': 6413, 'nota baixa': 7982, 'comissão baixa': 5459, 'palavra proibida': 42, 'já está na Ana': 29, 'preço fora da faixa': 33}
+🔁 Sem repetidos/parecidos: 1005 de 1321
+⏳ Groq/openai/gpt-oss-120b: limite por minuto — esperando 3s
+⏳ Groq/openai/gpt-oss-120b: limite por minuto — esperando 5s
 ⏳ Groq/openai/gpt-oss-120b: limite por minuto — esperando 6s
-🏅 lar         R$   129,37  comissão R$ 10.35 (8%)  2005 vendas  uau 7  Kit 2 Mesas de Cabeceira MAX
-⏳ Groq/openai/gpt-oss-120b: limite por minuto — esperando 9s
-🏅 cabelo      R$ 1.332,22  comissão R$ 106.58 (8%)  0 vendas  uau 8  Secador Shark SpeedStyle
+🧭 Ouro/Achado por origem da busca: {'viral': 2, 'fixa': 1}
+📏 Ouro/Achado por página dos mais vendidos: 1-8 = 3 | 9+ = 0
+🏅 Ouro: 3 | 💎 Achado escondido: 0 | 🥈 Prata: 31 | descartados pela curadoria: 182
+🏆 Buscas que mais renderam nesta rodada: varal retratil parede (2), bebedouro fonte pet (1)
+   ↪️  ouro fora da fila (família fonte pet já tem 1 na fila): Sensor Sem Fio Bebedouro Fonte Para Gato Cão 2.6l Newpet NP8
+   ↪️  ouro fora da fila (mesma palavra): Varal De Roupas Retrátil Recolhivel Para Parede Seca Fácil C
+⏳ Groq/openai/gpt-oss-120b: limite por minuto — esperando 6s
+🏅 lar         R$    52,44  comissão R$ 9.96 (19%)  848 vendas  uau 7  Varal de Parede Retrátil
+⏳ Groq/openai/gpt-oss-120b: limite por minuto — esperando 5s
+🥈 eletronicos R$    39,89  comissão R$ 5.19 (13%)  7865 vendas  uau 7  Monitor Pressão XYY-2551
+⏳ Groq/openai/gpt-oss-120b: limite por minuto — esperando 4s
+🥈 masculino   R$    39,54  comissão R$ 5.93 (15%)  1172 vendas  uau 7  Mochila Pochete Tática Preta
 
-🏁 4 novas ofertas (4 com legenda da IA). Pendentes na fila: 54.
+🏁 3 novas ofertas (3 com legenda da IA). Pendentes na fila: 54.
