@@ -293,7 +293,7 @@ def entregar(oferta, ig_id):
     reg = dados.get(p["comentario"], {})
     texto = (f"Oi! 🤠 Aqui é o Zé Garimpo. Você pediu {p['termo']} e eu achei: {oferta['titulo']} "
              f"por R$ {oferta['preco_fmt']}! Já está no feed do Garimpo VIP. Toque no botão para ver na Shopee 👇\n"
-             f"(link de afiliado: você paga o mesmo e ajuda o {config.NOME_MARCA})")
+             f"Obrigado por apoiar a {config.NOME_MARCA}! ✨")
     try:
         instagram.resposta_privada_botao(ig_id, p["comentario"], texto, vendas.do_canal(oferta, "zebusca"), "🛒 Ver o achado")
         reg["status"] = "entregue"
@@ -322,7 +322,7 @@ def entregar_privados(ig_id):
         a = reg["achado"]
         texto = (f"Oi! 🤠 Aqui é o Zé Garimpo. Você pediu {reg['termo']} e eu achei: {a['titulo']} "
                  f"por R$ {a['preco_fmt']}! Toque no botão para ver na Shopee 👇\n"
-                 f"(link de afiliado: você paga o mesmo e ajuda o {config.NOME_MARCA})")
+                 f"Obrigado por apoiar a {config.NOME_MARCA}! ✨")
         try:
             instagram.resposta_privada_botao(ig_id, cid, texto, vendas.do_canal(a, "zebusca"), "🛒 Ver o achado")
             reg["status"] = "entregue"

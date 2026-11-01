@@ -76,7 +76,7 @@ def responder_stories(api, minha):
         loja = NOME_LOJA.get(o.get("plataforma") or "shopee", "loja")
         link = vendas.do_canal(o, "igstory")
         titulo = (o.get("titulo") or o.get("nome", ""))[:80]
-        subtitulo = f"R$ {o.get('preco_fmt', '')} no story ({loja}) • link de afiliado: você paga o mesmo"[:80]
+        subtitulo = f"R$ {o.get('preco_fmt', '')} ({loja}) • Obrigado por apoiar a {config.NOME_MARCA}!"[:80]
         botoes = [(TITULO_BOTAO, link)]
         if config.PAGINA_BIO:
             botoes.append(("🔗 Achados de hoje", f"https://{config.PAGINA_BIO}"))

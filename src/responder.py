@@ -29,14 +29,14 @@ GATILHO = re.compile(
 
 DM_BOTAO = ("Oi! 😊 Aqui está a oferta {titulo} 👇\n"
             "Toque no botão para abrir a oferta ({loja}). Corre que preço de oferta muda rápido! 🛒\n"
-            f"(link de afiliado: você paga o mesmo e ajuda a página {config.NOME_MARCA})")
+            f"Obrigado por apoiar a {config.NOME_MARCA}! ✨")
 TITULO_BOTAO = "🛒 Ver oferta"
 NOME_LOJA = {"shopee": "Shopee", "aliexpress": "AliExpress", **{p: m["nome"] for p, m in marcas.MARCAS.items()}}
 
 # Plano B, se o Instagram recusar o botão
 DM = ("Oi! 😊 Aqui está o link da oferta {titulo} 👇\n{link}\n\n"
       "Corre que preço de oferta muda rápido! 🛒\n"
-      f"(link de afiliado — você paga o mesmo e ajuda a página {config.NOME_MARCA} a continuar garimpando)")
+      f"Obrigado por apoiar a {config.NOME_MARCA}! ✨")
 
 PUBLICAS = ["Te mandei no direct! 📩", "Enviado no seu direct! 💌", "Já está no seu direct! 😉",
             "Confere o direct, te mandei o link! 📲", "Link enviado no direct! 🛍️"]
@@ -49,7 +49,7 @@ class _Variado(list):
         return random.choice(self).format(**kw)
 
 
-_AVISO = f"\n\n(link de afiliado: você paga o mesmo e ajuda a página {config.NOME_MARCA})"
+_AVISO = f"\n\nObrigado por apoiar a {config.NOME_MARCA}! ✨"
 DM_BOTAO = _Variado([
     "Olá! ✨ Aqui está o link que você pediu: {titulo}\nToque no botão para abrir direto na {loja}. Boas compras!" + _AVISO,
     "Oi! Separamos essa oferta especial para você 🛍️: {titulo}\nÉ só tocar no botão para ver na {loja}." + _AVISO,
@@ -334,10 +334,10 @@ def so_pediu_link(texto):
 DM_TOP_TODOS = ("Olá! ✨ Aqui estão todos os links selecionados:\n\n{lista}\n\n"
                 "Aproveite as ofertas antes que o estoque esgote! 🛍️\n"
                 + (f"🔗 Veja todos os achados em: {config.PAGINA_BIO}\n" if config.PAGINA_BIO else "") +
-                f"(links de afiliado: você paga o mesmo preço e apoia a {config.NOME_MARCA} ✨)")
+                f"Obrigado por apoiar a {config.NOME_MARCA}! ✨")
 
 
-CARTAO_SUB = "R$ {preco} no post ({loja}) • link de afiliado: você paga o mesmo"
+CARTAO_SUB = "R$ {preco} ({loja}) • Obrigado por apoiar a " + config.NOME_MARCA + "!"
 
 
 def _dm_item_top(api, minha, cid, it, n):
@@ -558,7 +558,7 @@ def responder_facebook_top(tops, respondidos):
 # No YouTube não existe direct: a resposta vai no próprio comentário, com o link da oferta.
 RESPOSTA_YT = ("Oi, {nome}! 😊 Aqui está o link do {titulo} 👉 {link}\n"
                "Corre que preço de oferta muda rápido! Todos os achados também no Telegram: \n"
-               f"(link de afiliado: você paga o mesmo e ajuda o {config.NOME_MARCA})")
+               f"Obrigado por apoiar a {config.NOME_MARCA}! ✨")
 
 
 def responder_youtube(respondidos):
@@ -601,7 +601,7 @@ RESPOSTA_YT_SEM_LINK_TODOS = ("Oi, {nome}! 😊 Os links tão no Instagram @{arr
                               "Ofertas o dia todo no nosso Telegram (link no perfil do canal).")
 RESPOSTA_YT_LISTA = ("Oi, {nome}! 😊 Os links dos achados deste vídeo:\n{lista}\n"
                      "Corre que preço de oferta muda rápido! Mais achados no Telegram: \n"
-                     f"(links de afiliado: você paga o mesmo e ajuda o {config.NOME_MARCA})")
+                     f"Obrigado por apoiar a {config.NOME_MARCA}! ✨")
 
 
 def responder_youtube_carrossel(c, info, respondidos):

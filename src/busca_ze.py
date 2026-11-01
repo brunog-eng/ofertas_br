@@ -269,7 +269,7 @@ def mensagem(t, ofs):
     if config.PAGINA_BIO:
         linhas += ["", f"🔗 Os outros achados de hoje: {config.PAGINA_BIO}"]
     linhas += ["", "Toque no botão do que gostou 👇",
-               (AVISO_ANA if ANA else f"(links de afiliado: você paga o mesmo e ajuda o {config.NOME_MARCA})")]
+               (AVISO_ANA if ANA else f"Obrigado por apoiar a {config.NOME_MARCA}! ✨")]
     return "\n".join(linhas)
 
 
@@ -283,7 +283,7 @@ def _cartao(i, o):
     if config.PAGINA_BIO:
         botoes.append({"type": "web_url", "url": f"https://{config.PAGINA_BIO}", "title": "🔗 Achados de hoje"})
     return {"title": f"{i}. {_curto(o['nome'], 70)}",
-            "subtitle": f"R$ {o['preco_fmt']} • ⭐ {nota} • {vendas_txt}+ vendidos{intl} • link de afiliado"[:80],
+            "subtitle": f"R$ {o['preco_fmt']} • ⭐ {nota} • {vendas_txt}+ vendidos{intl} • BA Home & Living"[:80],
             "image_url": o["imagem"], "default_action": {"type": "web_url", "url": link}, "buttons": botoes}
 
 
@@ -311,7 +311,7 @@ def enviar_dm(api, ig_id, cid, t, ofs, destinatario=None):
         links = "\n".join(f"{i}️⃣ {vendas.do_canal(o, 'zebusca')}" for i, o in enumerate(ofs, 1))
         return api._req("POST", f"{ig_id}/messages", json={"recipient": para, "message": {
             "text": f"{texto.split('Toque no botão')[0].strip()}\n\n{links}\n\n"
-                    + (AVISO_ANA if ANA else f"(links de afiliado: você paga o mesmo e ajuda o {config.NOME_MARCA})")}})
+                    + (AVISO_ANA if ANA else f"Obrigado por apoiar a {config.NOME_MARCA}! ✨")}})
 
 
 # ------------------------------------------------------------------ busca pelo direct
@@ -444,7 +444,7 @@ def responder_atalho(api, ig_id, autor, cod, d):
         for i, o in enumerate(ofs, 1):
             linhas.append(f"{i}️⃣ {_curto(o.get('titulo') or o.get('nome', ''))} — R$ {o['preco_fmt']}")
         linhas += ["", f"Tem muito mais no Telegram: {TELEGRAM}",
-                   (AVISO_ANA if ANA else f"(links de afiliado: você paga o mesmo e ajuda o {config.NOME_MARCA})")]
+                   (AVISO_ANA if ANA else f"Obrigado por apoiar a {config.NOME_MARCA}! ✨")]
         botoes = [{"type": "web_url", "url": vendas.do_canal(o, "zebusca"), "title": f"🛒 Ver achado {i}"}
                   for i, o in enumerate(ofs, 1)]
         return enviar({"attachment": {"type": "template", "payload": {
