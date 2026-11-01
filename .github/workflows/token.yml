@@ -1,15 +1,8 @@
 name: 4 - Renovar token do Instagram
-
-run-name: 4 - Renovar token do Instagram (${{ inputs.perfil || 'garimpo' }})
+run-name: 4 - Renovar token do Instagram
 
 on:
   workflow_dispatch:
-    inputs:
-      perfil:
-        description: 'Conta do Instagram'
-        type: choice
-        options: [garimpo, ana]
-        default: garimpo
 
 jobs:
   renovar:
@@ -25,15 +18,14 @@ jobs:
 
       - name: Renovar token
         env:
-          PERFIL: ${{ inputs.perfil || 'garimpo' }}
+          PERFIL: default
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
-          IG_ACCESS_TOKEN_ANA: ${{ secrets.IG_ACCESS_TOKEN_ANA }}
         run: python -m src.renovar_token
 
       - name: Atualizar segredo do token
         env:
           GH_TOKEN: ${{ secrets.GH_PAT }}
-          SEGREDO: ${{ (inputs.perfil || 'garimpo') == 'ana' && 'IG_ACCESS_TOKEN_ANA' || 'IG_ACCESS_TOKEN' }}
+          SEGREDO: IG_ACCESS_TOKEN
         run: |
           [ -f "$RUNNER_TEMP/ig_token.txt" ] || exit 0
           if [ -z "$GH_TOKEN" ]; then

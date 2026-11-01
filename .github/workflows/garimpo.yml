@@ -1,17 +1,9 @@
 name: 1 - Garimpo de ofertas
-
-run-name: 1 - Garimpo de ofertas (${{ inputs.perfil || 'garimpo' }})
+run-name: 1 - Garimpo de ofertas
 
 on:
   workflow_dispatch:
-    inputs:
-      perfil:
-        description: 'Conta do Instagram'
-        type: choice
-        options: [garimpo, ana]
-        default: garimpo
 
-# Impede que dois robôs gravem no repositório ao mesmo tempo
 concurrency:
   group: grava-repositorio
   cancel-in-progress: false
@@ -22,11 +14,11 @@ jobs:
     permissions:
       contents: write
     env:
-      PERFIL: ${{ inputs.perfil || 'garimpo' }}
+      PERFIL: default
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main   # sempre o estado mais recente (não o do momento do disparo)
+          ref: main
 
       - uses: actions/setup-python@v5
         with:
@@ -44,25 +36,18 @@ jobs:
           ALIEXPRESS_APP_KEY: ${{ secrets.ALIEXPRESS_APP_KEY }}
           ALIEXPRESS_APP_SECRET: ${{ secrets.ALIEXPRESS_APP_SECRET }}
           ALIEXPRESS_TRACKING_ID: ${{ secrets.ALIEXPRESS_TRACKING_ID }}
-          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}          # radar de virais (só leitura)
-          FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}   # radar: IA olha as fotos dos carrosséis (opcional)
           AWIN_FEED_URL: ${{ secrets.AWIN_FEED_URL }}
-          AWIN_ATIVO: ${{ vars.AWIN_ATIVO || '1' }}   # Shark Ninja ligada; para desligar: Settings → Secrets and variables → Actions → Variables → AWIN_ATIVO = 0
+          AWIN_ATIVO: ${{ vars.AWIN_ATIVO || '1' }}
         run: |
-          # relatório da rodada salvo no repositório (para conferir o que a busca profunda achou)
-          set -o pipefail
-          mkdir -p data/relatorios
-          python -u -m src.garimpar 2>&1 | tee "data/relatorios/garimpo_${PERFIL}.txt"
+          python -u -m src.garimpar
 
       - name: Salvar fila
         run: |
-          git config user.name "GarimpoBot"
+          git config user.name "AutoOfertasBot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A data
           git diff --cached --quiet && exit 0
-          git commit -m "🤖 Garimpo $PERFIL $(TZ=America/Sao_Paulo date +'%d/%m/%Y %H:%M')"
-          # outro workflow pode ter salvo junto: tenta de novo até 5 vezes
+          git commit -m "🤖 Garimpo de ofertas $(TZ=America/Sao_Paulo date +'%d/%m/%Y %H:%M')"
           for i in 1 2 3 4 5; do
             git pull --rebase && git push && break
             [ $i = 5 ] && exit 1
