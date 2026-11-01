@@ -240,19 +240,22 @@ def responder(api=instagram):
                     reg["formato"] = "texto"
                 reg["dm"] = "ok"
                 enviados += 1
-                if RESPOSTA_PUBLICA:
-                    try:
-                        api.responder_comentario(cid, _publica(usuario))
-                        reg["publica"] = "ok"
-                    except Exception as e:
-                        reg["publica"] = f"erro: {str(e)[:300]}"
-                        print(f"::warning::Resposta pública falhou: {e}")
                 print(f"📩 Link enviado para @{reg['usuario']} — {o['titulo']}")
             except Exception as e:
                 falhas += 1
                 reg["dm"] = f"erro: {str(e)[:200]}"
                 print(f"⚠️  DM para @{reg['usuario']} falhou: {e}")
-            respondidos[cid] = reg
+
+            if RESPOSTA_PUBLICA:
+                try:
+                    api.responder_comentario(cid, _publica(usuario))
+                    reg["publica"] = "ok"
+                except Exception as e:
+                    reg["publica"] = f"erro: {str(e)[:300]}"
+                    print(f"::warning::Resposta pública falhou: {e}")
+
+            if reg.get("dm") == "ok":
+                respondidos[cid] = reg
             time.sleep(2)
     if config.PERFIL == "garimpo" and facebook.configurado():
         try:
@@ -373,17 +376,21 @@ def responder_top(api, minha, tops, respondidos):
                     reg["formato"] = "lista"
                 reg["dm"] = "ok"
                 enviados += 1
-                if RESPOSTA_PUBLICA:
-                    try:
-                        api.responder_comentario(cid, _publica(usuario))
-                        reg["publica"] = "ok"
-                    except Exception as e:
-                        reg["publica"] = f"erro: {str(e)[:300]}"
                 print(f"🏆 Top: link {n or 'de todos'} enviado para @{usuario}")
             except Exception as e:
                 reg["dm"] = f"erro: {str(e)[:200]}"
                 print(f"⚠️  DM do Top para @{usuario} falhou: {e}")
-            respondidos[cid] = reg
+
+            if RESPOSTA_PUBLICA:
+                try:
+                    api.responder_comentario(cid, _publica(usuario))
+                    reg["publica"] = "ok"
+                except Exception as e:
+                    reg["publica"] = f"erro: {str(e)[:300]}"
+                    print(f"⚠️  Resposta pública falhou: {e}")
+
+            if reg.get("dm") == "ok":
+                respondidos[cid] = reg
             time.sleep(2)
     return enviados
 
