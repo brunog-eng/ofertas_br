@@ -1,11 +1,12 @@
-"""Cliente da API do Instagram (login do Instagram, host graph.instagram.com)."""
+"""Cliente da API do Instagram (login Graph API v23.0)."""
 import os
 import time
 
 import requests
 
 VERSAO = os.getenv("IG_API_VERSION", "v23.0")
-API = f"https://graph.facebook.com/{VERSAO}"
+API_HOST = os.getenv("IG_API_HOST", "graph.facebook.com").strip()
+API = f"https://{API_HOST}/{VERSAO}"
 
 
 class ErroInstagram(RuntimeError):
@@ -13,29 +14,35 @@ class ErroInstagram(RuntimeError):
 
 
 def _nome_token():
-    """Cada conta tem o seu segredo — nunca cai no token de outra conta."""
-    from . import config
-    return "IG_ACCESS_TOKEN_ANA" if config.PERFIL == "ana" else "IG_ACCESS_TOKEN"
+    """Identifica o nome da variável de ambiente com o token."""
+    if os.getenv("IG_ACCESS_TOKEN"):
+        return "IG_ACCESS_TOKEN"
+    if os.getenv("IG_ACCESS_TOKEN_ANA"):
+        return "IG_ACCESS_TOKEN_ANA"
+    if os.getenv("INSTAGRAM_TOKEN"):
+        return "INSTAGRAM_TOKEN"
+    return "IG_ACCESS_TOKEN"
 
 
 def token():
-    t = (os.getenv(_nome_token()) or "").strip()
+    t = (os.getenv("IG_ACCESS_TOKEN") or os.getenv("IG_ACCESS_TOKEN_ANA") or os.getenv("INSTAGRAM_TOKEN") or "").strip()
     if not t:
-        raise ErroInstagram(f"Segredo {_nome_token()} não configurado.")
+        raise ErroInstagram("Segredo de acesso do Instagram (IG_ACCESS_TOKEN) não configurado.")
     return t
 
 
 def tem_token():
-    return bool((os.getenv(_nome_token()) or "").strip())
+    return bool((os.getenv("IG_ACCESS_TOKEN") or os.getenv("IG_ACCESS_TOKEN_ANA") or os.getenv("INSTAGRAM_TOKEN") or "").strip())
 
 
 def conferir_conta():
-    """Trava de segurança: o token tem que ser da conta deste perfil (ex.: @garimpovip4)."""
+    """Trava de segurança: confere se o token pertence à conta configurada."""
     from . import config
     c = conta()
-    esperado = config.ARROBA.lstrip("@").lower()
-    if (c.get("username") or "").lower() != esperado:
-        raise ErroInstagram(f"Token é da conta @{c.get('username')}, mas o perfil {config.PERFIL} é @{esperado}. Nada foi publicado.")
+    esperado = (config.ARROBA or "").lstrip("@").strip().lower()
+    atual = (c.get("username") or "").strip().lower()
+    if esperado and atual and atual != esperado:
+        raise ErroInstagram(f"Token é da conta @{atual}, mas a marca configurada é @{esperado}. Nada foi publicado.")
     return c
 
 
@@ -48,8 +55,10 @@ def _req(metodo, caminho, params=None, json=None, url=None):
         raise ErroInstagram(f"HTTP {r.status_code}: {r.text[:300]}")
     if r.status_code >= 400 or "error" in corpo:
         erro = corpo.get("error", corpo)
-        raise ErroInstagram(f"HTTP {r.status_code}: {erro.get('message', erro)} "
-                            f"(code {erro.get('code')}, subcode {erro.get('error_subcode')})")
+        msg = erro.get("message", erro) if isinstance(erro, dict) else str(erro)
+        code = erro.get("code") if isinstance(erro, dict) else None
+        subcode = erro.get("error_subcode") if isinstance(erro, dict) else None
+        raise ErroInstagram(f"HTTP {r.status_code}: {msg} (code {code}, subcode {subcode})")
     return corpo
 
 
@@ -141,7 +150,7 @@ def resposta_privada_botao(ig_id, comment_id, texto, url, titulo_botao):
 
 def resposta_privada_cartao(ig_id, comment_id, titulo, subtitulo, imagem_url, botoes):
     """Resposta privada em cartão (template genérico): foto do produto, nome, uma linha e até 3 botões
-    [(titulo, url), ...]. Só cabe 1 resposta privada por comentário, então quem chama tem o plano B pronto."""
+    [(titulo, url), ...]."""
     return _req("POST", f"{ig_id}/messages", json={
         "recipient": {"comment_id": comment_id},
         "message": {"attachment": {"type": "template", "payload": {
@@ -161,9 +170,13 @@ def responder_comentario(comment_id, texto):
 
 
 def renovar_token():
-    """Renova o token de longa duração (precisa ter mais de 24h e não estar vencido)."""
+    """Renova o token de longa duração quando aplicável."""
+    t = token()
+    if t.startswith("EAA"):
+        print("ℹ️ Token Meta EAA... (gerenciado via Meta for Developers / Graph API).")
+        return t, None
     r = requests.get("https://graph.instagram.com/refresh_access_token", timeout=30,
-                     params={"grant_type": "ig_refresh_token", "access_token": token()})
+                     params={"grant_type": "ig_refresh_token", "access_token": t})
     corpo = r.json()
     if "access_token" not in corpo:
         raise ErroInstagram(f"Falha ao renovar token: {corpo}")

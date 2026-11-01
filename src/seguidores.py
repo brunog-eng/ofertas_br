@@ -4,7 +4,7 @@ Mede (só leitura, com os segredos que o robô já usa):
   - Instagram @garimpovip4 e @ananovoachados (IG_ACCESS_TOKEN / IG_ACCESS_TOKEN_ANA);
   - Página do Facebook (FB_PAGE_ID + FB_PAGE_TOKEN);
   - Canal do Telegram (TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID; o bot é admin do canal);
-  - YouTube @garimpoVIP4 (YT_*; número público do canal, que o YouTube arredonda acima de 1.000).
+  - YouTube YouTube (YT_*; número público do canal, que o YouTube arredonda acima de 1.000).
 O Canal do WhatsApp não tem API: fica de fora.
 
 Guarda uma medição por dia em data/seguidores.json (o workflow 22 salva no repositório) e compara
@@ -70,11 +70,11 @@ def _youtube():
 
 # chave → (nome na mensagem, função)
 CANAIS = {
-    "ig_garimpo": ("Instagram @garimpovip4", lambda: _instagram("IG_ACCESS_TOKEN")),
-    "ig_ana": ("Instagram @ananovoachados", lambda: _instagram("IG_ACCESS_TOKEN_ANA")),
+    from . import config
+    "instagram": (f"Instagram {config.ARROBA}", lambda: _instagram("IG_ACCESS_TOKEN")),
     "facebook": ("Facebook Garimpo VIP", _facebook),
-    "telegram": ("Telegram garimpovipofertas", _telegram),
-    "youtube": ("YouTube @garimpoVIP4", _youtube),
+    "telegram": ("Telegram", _telegram),
+    "youtube": ("YouTube YouTube", _youtube),
 }
 
 

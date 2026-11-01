@@ -1,10 +1,11 @@
-name: 3 - Responder EU QUERO
+name: Responder Comentários e Direct
+run-name: Responder Comentários e Direct
 
 on:
   workflow_dispatch:
 
 concurrency:
-  group: responder          # fila própria: não espera atrás de post/garimpo
+  group: responder
   cancel-in-progress: false
 
 jobs:
@@ -15,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main   # sempre o estado mais recente (não o do momento do disparo)
+          ref: main
 
       - uses: actions/setup-python@v5
         with:
@@ -24,37 +25,25 @@ jobs:
       - name: Instalar dependências
         run: pip install requests
 
-      - name: Enviar links no direct (todas as contas ao mesmo tempo)
+      - name: Enviar links no direct
         env:
-          TOKEN_GARIMPO: ${{ secrets.IG_ACCESS_TOKEN }}
-          TOKEN_ANA: ${{ secrets.IG_ACCESS_TOKEN_ANA }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN || secrets.IG_ACCESS_TOKEN_ANA }}
+          IG_USER_ID: ${{ secrets.IG_USER_ID || '17841432150685143' }}
           FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
           FB_PAGE_TOKEN: ${{ secrets.FB_PAGE_TOKEN }}
-          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
-          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
-          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           SHOPEE_APP_ID: ${{ secrets.SHOPEE_APP_ID }}
           SHOPEE_APP_SECRET: ${{ secrets.SHOPEE_APP_SECRET }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_PRIVADO: ${{ secrets.TELEGRAM_CHAT_PRIVADO }}
         run: |
-          PERFIL=garimpo IG_ACCESS_TOKEN="$TOKEN_GARIMPO" python -m src.responder & P1=$!
-          PERFIL=ana IG_ACCESS_TOKEN_ANA="$TOKEN_ANA" python -m src.responder & P2=$!
-          OK=0
-          wait $P1 || OK=1
-          wait $P2 || OK=1
-          exit $OK
+          python -m src.responder
 
       - name: Salvar respondidos
         if: always()
         run: |
-          git config user.name "GarimpoBot"
+          git config user.name "AutoOfertasBot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A data
           git diff --cached --quiet && exit 0
           git commit -m "📩 Respostas $(TZ=America/Sao_Paulo date +'%d/%m/%Y %H:%M')"
-          # outro workflow pode ter salvo junto: tenta de novo até 5 vezes
           for i in 1 2 3 4 5; do
             git pull --rebase && git push && break
             [ $i = 5 ] && exit 1

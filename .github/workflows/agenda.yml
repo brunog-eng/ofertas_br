@@ -1,9 +1,8 @@
-name: 0 - Agenda (relógio do robô)
+name: 0 - Agenda (Orquestrador Automático)
 
-# O cron-job.org "toca" este relógio a cada 15 minutos (00, 15, 30, 45) — o agendamento
-# do próprio GitHub atrasa horas, por isso não é usado. A cada toque, o relógio olha a hora
-# de Brasília e dispara as rotinas daquele quarto de hora.
 on:
+  schedule:
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -17,76 +16,31 @@ jobs:
   disparar:
     runs-on: ubuntu-latest
     steps:
-      - name: Disparar as rotinas deste horário
+      - name: Executar rotinas programadas
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
         run: |
           export TZ=America/Sao_Paulo
-          H=$(date +%H); M=$(date +%M); DOW=$(date +%u)   # DOW: 1=seg ... 7=dom
+          H=$(date +%H); M=$(date +%M); DOW=$(date +%u)
           Q=$(( (10#$M / 15) * 15 )); HQ=$(printf '%02d:%02d' $((10#$H)) $Q)
-          echo "⏰ Agora: $(date +'%d/%m %H:%M') → quarto de hora $HQ (dia $DOW)"
-          WFS="responder.yml"                                        # sempre: respostas EU QUERO (aprovacao.yml entra lá embaixo, nos quartos de hora livres)
+          echo "⏰ Horário atual: $(date +'%d/%m %H:%M') → $HQ (Dia da semana: $DOW)"
+
+          WFS="responder.yml"
+
+          # Garimpar ofertas
           case "$HQ" in 06:45|11:45|17:45) WFS="$WFS garimpo.yml" ;; esac
-          # 27/10/2026: carrossel de achados só 1 por dia (alcançava ~5 contas cada; o Reels do Zé alcança ~130).
-          # 28/10/2026: quarta e sábado o carrossel das 18:45 vira Kit do Zé (carrossel temático, src/kits.py), ok do Fred
-          # 30/10/2026: volta o carrossel das 07:45 (abre com o vídeo do Zé); o das 18:45 abre com a capa de produto
-          # e o Zé pequeno embaixo (src/achados.py capa_de_produto), ok do Fred
-          if [ "$HQ" = "07:45" ]; then WFS="$WFS achados.yml"; fi
-          if [ "$HQ" = "18:45" ]; then
-            if [ "$DOW" = "3" ] || [ "$DOW" = "6" ]; then WFS="$WFS kits.yml"; else WFS="$WFS achados.yml"; fi
-          fi
-          # postar.yml agora só entrega "Você pediu, o Zé achou" e vídeos manuais (não faz nada se não houver)
-          case "$HQ" in 10:45|15:45|20:45) WFS="$WFS postar.yml" ;; esac
-          if [ "$Q" = "15" ] && [ $((10#$H)) -ge 8 ] && [ $((10#$H)) -le 22 ]; then WFS="$WFS telegram-ofertas.yml"; fi
-          case "$HQ" in 00:15|08:15|12:15|18:15) WFS="$WFS campanhas.yml" ;; esac
-          case "$HQ" in 09:00|12:00|18:00|20:30) WFS="$WFS whatsapp.yml" ;; esac   # kit do Canal do WhatsApp no seu Telegram privado
-          if [ "$HQ" = "19:30" ] && { [ "$DOW" = "2" ] || [ "$DOW" = "5" ]; }; then WFS="$WFS chamada.yml"; fi   # chamada da vitrine da bio (terça e sexta)
+
+          # Publicar carrossel de achados
+          case "$HQ" in 09:30|18:45) WFS="$WFS achados.yml" ;; esac
+
+          # Renovar token toda segunda-feira às 08:30
           if [ "$HQ" = "08:30" ] && [ "$DOW" = "1" ]; then WFS="$WFS token.yml"; fi
-          if [ "$HQ" = "11:30" ]; then WFS="$WFS busca.yml"; fi     # Reels da Busca do Zé: 1x por semana
-          if [ "$HQ" = "13:30" ]; then WFS="$WFS ze.yml"; fi        # Reels do Zé Garimpo: todo dia desde 27/10/2026 (ZE_DIAS)
-          # Limpeza de posts antigos DESLIGADA (12/10/2026): a legenda já mostra quando o preço foi conferido.
-          # Para religar: if [ "$HQ" = "03:15" ]; then WFS="$WFS limpeza.yml"; fi
-          if [ "$HQ" = "17:00" ] && [ "$DOW" = "5" ]; then WFS="$WFS revisao.yml"; fi
-          if [ "$HQ" = "16:00" ] && { [ "$DOW" = "5" ] || [ "$(date -d tomorrow +%d)" = "01" ]; }; then WFS="$WFS top.yml"; fi   # Top 5: semana (sexta) / mês (último dia)   # revisão semanal no seu Telegram privado
-          # Ana Novo Achados (@ananovoachados): LIGADA em 13/10/2026.
-          # Para pausar: troque ANA_LIGADA=1 por ANA_LIGADA=0.
-          ANA_LIGADA=1
-          ANA=""
-          # 31/10/2026: Ana em stand-by (decisão do Fred: concentrar no Garimpo). Só 1 carrossel por dia (19:15)
-          # e 1 busca de ofertas (17:00); post próprio da Ana (ze.yml) pausado.
-          # Para voltar ao normal: busca 06:30|11:30|17:00, carrossel 09:15|14:30|19:15 e descomentar o ze.yml.
-          case "$HQ" in 17:00) ANA="$ANA garimpo.yml" ;; esac
-          case "$HQ" in 19:15) ANA="$ANA achados.yml" ;; esac
-          if [ "$HQ" = "08:45" ] && [ "$DOW" = "1" ]; then ANA="$ANA token.yml"; fi
-          # if [ "$HQ" = "16:00" ]; then ANA="$ANA ze.yml"; fi        # post próprio da Ana: terças, quintas e sábados (ANA_DIAS)
-          # Posts de marca aprovados pelo Fred (manuais/posts.json), dia e horário combinados (Brasília)
-          DATA=$(date +%F); MANUAL=""
-          case "$DATA $HQ" in
-            "2026-10-24 10:00") MANUAL="ze2:garimpo" ;;
-            "2026-10-25 10:00") MANUAL="ana2:ana" ;;
-            "2026-10-26 10:00") MANUAL="ze2:garimpo" ;;   # reagendado: falhou 24/10 (erro já corrigido)
-            "2026-10-26 10:15") MANUAL="ana2:ana" ;;      # reagendado: falhou 25/10
-            "2026-10-27 10:00") MANUAL="ze3:garimpo" ;;
-            "2026-10-27 10:15") MANUAL="ana3:ana" ;;
-          esac
-          # Status do robô todo dia às 08:00 (Brasília), mandado no seu Telegram privado
+
+          # Revisão / Métricas
           if [ "$HQ" = "08:00" ]; then WFS="$WFS revisao.yml"; fi
-          for M in $MANUAL; do
-            gh api -X POST "repos/$REPO/actions/workflows/publicar-manual.yml/dispatches" -f ref=main -f "inputs[nome]=${M%%:*}" -f "inputs[perfil]=${M##*:}" || echo "::warning::falhou post ${M%%:*}"
-          done
-          [ "$ANA_LIGADA" = "1" ] || ANA=""
-          # Aprovações/direct pelo Telegram (28/10/2026) só nos quartos de hora livres: elas dividem a fila
-          # "grava-repositorio" com posts e Telegram, e o GitHub só guarda 1 rotina esperando nessa fila —
-          # com 3 juntas, a do meio era cancelada (30/10/2026: 5 rodadas de Ofertas no Telegram perdidas por dia).
-          LIVRE=1
-          for WF in $WFS $ANA; do case "$WF" in responder.yml|revisao.yml) ;; *) LIVRE=0 ;; esac; done
-          if [ "$LIVRE" = "1" ]; then WFS="$WFS aprovacao.yml"; fi
+
           for WF in $WFS; do
-            echo "▶️  $WF"
-            gh api -X POST "repos/$REPO/actions/workflows/$WF/dispatches" -f ref=main || echo "::warning::falhou $WF"
-          done
-          for WF in $ANA; do
-            echo "▶️  $WF (ana)"
-            gh api -X POST "repos/$REPO/actions/workflows/$WF/dispatches" -f ref=main -f "inputs[perfil]=ana" || echo "::warning::falhou $WF (ana)"
+            echo "▶️ Disparando $WF"
+            gh api -X POST "repos/$REPO/actions/workflows/$WF/dispatches" -f ref=main || echo "::warning::Falhou ao disparar $WF"
           done

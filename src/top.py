@@ -32,7 +32,7 @@ QTD = 5
 # O Top é vitrine: a Busca do Zé aceita qualquer preço, mas aqui só entra produto de achado
 TOP_PRECO_MIN = float(os.getenv("TOP_PRECO_MIN", "5"))
 TOP_PRECO_MAX = float(os.getenv("TOP_PRECO_MAX", str(config.PRECO_MAXIMO)))
-DONOS = {"fredericosn"}          # testes do próprio Fred não entram no ranking
+DONOS = set()          # testes do próprio Fred não entram no ranking
 MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto",
          "setembro", "outubro", "novembro", "dezembro"]
 
@@ -178,19 +178,32 @@ def _quebrar(d, t, f, largura, maximo=2):
 
 
 def _cena(tipo):
-    """A arte do Zé (4:3) encaixada no 4:5, com o fundo feito da própria cena desfocada."""
     tm = TEMAS[tipo]
-    src = Image.open(CAPAS / f"{tipo}.jpg").convert("RGB")
-    img = src.resize((W, int(src.height * W / src.width)), Image.LANCZOS)
-    ih = img.height
-    bg = src.resize((W, H)).filter(ImageFilter.GaussianBlur(40))
-    bg = Image.blend(bg, Image.new("RGB", (W, H), tm["mistura"]), tm["forca"])
+    arq = CAPAS / f"{tipo}.jpg"
+    if arq.exists():
+        src = Image.open(arq).convert("RGB")
+        img = src.resize((W, int(src.height * W / src.width)), Image.LANCZOS)
+        ih = img.height
+        bg = src.resize((W, H)).filter(ImageFilter.GaussianBlur(40))
+        bg = Image.blend(bg, Image.new("RGB", (W, H), tm["mistura"]), tm["forca"])
+        m = Image.new("L", (W, ih), 255)
+        md = ImageDraw.Draw(m)
+        for y in range(70):
+            a = int(255 * y / 70)
+            md.line((0, y, W, y), fill=a)
+            md.line((0, ih - 1 - y, W, ih - 1 - y), fill=a)
+        return bg, img, m, ih
+    bg = Image.new("RGB", (W, H), tm["fundo"])
+    d = ImageDraw.Draw(bg)
+    for y in range(H):
+        k = y / (H - 1)
+        r = int(tm["fundo"][0] * (1 - k) + tm["mistura"][0] * k)
+        g = int(tm["fundo"][1] * (1 - k) + tm["mistura"][1] * k)
+        b = int(tm["fundo"][2] * (1 - k) + tm["mistura"][2] * k)
+        d.line([(0, y), (W, y)], fill=(r, g, b))
+    ih = 400
+    img = Image.new("RGB", (W, ih), tm["mistura"])
     m = Image.new("L", (W, ih), 255)
-    md = ImageDraw.Draw(m)
-    for y in range(70):
-        a = int(255 * y / 70)
-        md.line((0, y, W, y), fill=a)
-        md.line((0, ih - 1 - y, W, ih - 1 - y), fill=a)
     return bg, img, m, ih
 
 
@@ -207,12 +220,12 @@ def capa(tipo, rotulo, n=QTD):
     d.rounded_rectangle(((W - w) / 2 - 24, 28, (W + w) / 2 + 24, 78), 25, fill=es)
     _ctext(d, 34, t, f, AM)
     _ctext(d, 82, f"TOP {n} DA SEMANA" if tipo == "semana" else f"TOP {n} DO MÊS", _f(96), AM, 6, es)
-    _ctext(d, 196, "o que vocês mais pediram pro Zé" if tipo == "semana" else "o que mais saiu da mina esse mês",
+    _ctext(d, 196, "os achados mais pedidos da semana" if tipo == "semana" else "os melhores achados do mês",
            _f(44), BR, 4, es)
     yb = top + ih - 60
-    _ctext(d, yb + 60, "Arrasta pro lado e vê o que ele achou" if tipo == "semana"
-           else "Arrasta pro lado e vê os campeões", _f(44), BR, 4, es)
-    t = "Não achou o seu? Comenta aqui que o Zé garimpa!"
+    _ctext(d, yb + 60, "Arrasta pro lado e confira os destaques" if tipo == "semana"
+           else "Arrasta pro lado e confira os campeões", _f(44), BR, 4, es)
+    t = "Não achou o seu? Comenta aqui que buscamos pra você!"
     f = _f(32)
     w = d.textlength(t, font=f)
     d.rounded_rectangle(((W - w) / 2 - 28, yb + 142, (W + w) / 2 + 28, yb + 204), 31, fill=AM)
@@ -307,7 +320,7 @@ def _curto(nome, n=55):
 
 def legenda(info):
     num = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
-    titulo = (f"🏆 TOP {len(info['itens'])} DA SEMANA — o que vocês mais pediram pro Zé!" if info["tipo"] == "semana"
+    titulo = (f"🏆 TOP {len(info['itens'])} DA SEMANA — os achados mais pedidos da semana!" if info["tipo"] == "semana"
               else f"🏆 TOP {len(info['itens'])} DO MÊS — os campeões de {info['rotulo'].split(' de ')[0]}!")
     linhas = [titulo, ""]
     for i, it in enumerate(info["itens"]):

@@ -49,47 +49,29 @@ class _Variado(list):
         return random.choice(self).format(**kw)
 
 
-if config.PERFIL == "ana":   # a Ana fala do jeito dela (contas independentes), cada vez de um jeito
-    _AVISO = "\n\n(é link de afiliada: você paga o mesmo e me ajuda a continuar caçando achadinhos 💚)"
-    DM_BOTAO = _Variado([
-        "Oiê! 💚 Olha ele aqui: {titulo} ✨\nToca no botão que abre direto na {loja}." + _AVISO,
-        "Oi, amiga! Separei pra você 🥰 {titulo}\nÉ só tocar no botão pra ver na {loja}. Me conta depois se gostou!" + _AVISO,
-        "Aaah, que bom que você curtiu! 😍 Tá aqui: {titulo}\nO botão abre na {loja}, mas corre que esses somem rápido." + _AVISO,
-        "Prontinho! ✨ {titulo}\nToca no botão pra ver na {loja}. Espero que você goste! 💬" + _AVISO,
-        "Oi! Esse tá saindo muito 💚 {titulo}\nÉ só tocar no botão que abre na {loja}." + _AVISO,
-    ])
-    TITULO_BOTAO = "💚 Quero ver"
-    DM = _Variado([
-        "Oiê! 💚 Olha ele aqui: {titulo} ✨\n{link}" + _AVISO,
-        "Oi, amiga! Separei pra você 🥰 {titulo}\n{link}\nMe conta depois se gostou!" + _AVISO,
-        "Aaah, que bom que você curtiu! 😍 {titulo}\n{link}\nCorre que esses somem rápido." + _AVISO,
-        "Prontinho! ✨ {titulo}\n{link}\nEspero que você goste! 💬" + _AVISO,
-    ])
-    PUBLICAS = ["Corre no direct, te mandei! 💚", "Mandei no seu direct ✨", "Tá no seu direct, amore! 💌",
-                "Olha o direct! ✨", "Te mandei lá no privado 🥰", "Já tá no seu direct, me conta se gostou! 💚",
-                "Separei pra você, olha o direct 😍", "Mandei! Confere lá 💌", "Prontinho, tá no direct ✨",
-                "Ai, esse é lindo né? Te mandei no direct 💚"]
-else:   # Garimpo VIP: o Zé também responde cada vez de um jeito (os começos têm que estar em busca_ze.MARCAS_ROBO)
-    _AVISO_ZE = f"\n\n(link de afiliado: você paga o mesmo e ajuda a página {config.NOME_MARCA})"
-    DM_BOTAO = _Variado([
-        "Oi! 🤠 O Zé cavou e achou: {titulo}\nToca no botão que abre direto na {loja}. Garimpo bom some rápido! ⛏️" + _AVISO_ZE,
-        "Oi! 🤠 Pedido anotado, achado entregue 💎 {titulo}\nÉ só tocar no botão pra ver na {loja}." + _AVISO_ZE,
-        "Prontinho! 🤠 Olha o que o Zé separou pra você: {titulo}\nO botão abre na {loja}. Corre que o preço pode mudar!" + _AVISO_ZE,
-        "Aaah, boa escolha! 🤠 {titulo}\nToca no botão pra abrir na {loja}." + _AVISO_ZE,
-        "Oi! 🤠 Chegou o seu achado: {titulo}\nO botão abre na {loja}. Quer mais? Comenta o que você procura no post fixado da Busca do Zé! ⛏️" + _AVISO_ZE,
-    ])
-    DM = _Variado([
-        "Oi! 🤠 O Zé cavou e achou: {titulo}\n{link}\nGarimpo bom some rápido! ⛏️" + _AVISO_ZE,
-        "Oi! 🤠 Pedido anotado, achado entregue 💎 {titulo}\n{link}" + _AVISO_ZE,
-        "Prontinho! 🤠 Olha o que o Zé separou pra você: {titulo}\n{link}\nCorre que o preço pode mudar!" + _AVISO_ZE,
-        "Aaah, boa escolha! 🤠 {titulo}\n{link}" + _AVISO_ZE,
-    ])
-    PUBLICAS = ["Te mandei no direct! 📩", "Enviado no seu direct! 💌", "Já está no seu direct! 😉",
-                "Confere o direct, te mandei o link! 📲", "Link enviado no direct! 🛍️",
-                "O Zé cavou e mandou no seu direct ⛏️", "Achado entregue, olha o direct! 💎",
-                "Tá no seu direct, corre lá! 🤠", "Mandei no privado, confere! 📩"]
-
-
+_AVISO = f"\n\n(link de afiliado: você paga o mesmo e ajuda a página {config.NOME_MARCA})"
+DM_BOTAO = _Variado([
+    "Olá! ✨ Aqui está o link que você pediu: {titulo}\nToque no botão para abrir direto na {loja}. Boas compras!" + _AVISO,
+    "Oi! Separamos essa oferta especial para você 🛍️: {titulo}\nÉ só tocar no botão para ver na {loja}." + _AVISO,
+    "Prontinho! ✨ Aqui está o achado: {titulo}\nToque no botão para conferir na {loja}. Aproveite antes que o preço mude!" + _AVISO,
+    "Excelente escolha! 💛 {titulo}\nO botão abaixo abre direto o produto na {loja}." + _AVISO,
+    "Chegou o seu link! ✨ {titulo}\nAproveite as ofertas e cupons disponíveis na {loja}!" + _AVISO,
+])
+TITULO_BOTAO = "🛍️ Ver Oferta"
+DM = _Variado([
+    "Olá! ✨ Aqui está o link do produto que você pediu:\n{titulo}\n🔗 {link}" + _AVISO,
+    "Oi! Separamos essa oferta para você 🛍️:\n{titulo}\n🔗 {link}\nAproveite antes que o estoque esgote!" + _AVISO,
+    "Prontinho! ✨ Aqui está o seu link:\n{titulo}\n🔗 {link}" + _AVISO,
+    "Excelente escolha! 💛 Confira os detalhes no link:\n{titulo}\n🔗 {link}" + _AVISO,
+])
+PUBLICAS = [
+    "Te enviei o link no direct! 📩✨",
+    "Enviado com sucesso no seu direct! 💌",
+    "Já está no seu direct, confere lá! 😉🛍️",
+    "Link enviado no privado! Boas compras ✨",
+    "Prontinho, te mandei no direct! 📦💛",
+    "Confira seu direct, o link já está lá! ✨",
+]
 def _publica(usuario=""):
     """Resposta pública do comentário: cada vez de um jeito, e às vezes chamando a pessoa pelo @."""
     texto = random.choice(PUBLICAS)
@@ -320,14 +302,10 @@ def so_pediu_link(texto):
     return len(palavras) <= 1
 
 
-DM_TOP_TODOS = ("Oi! 🤠 Aqui é o Zé Garimpo. Os links do {titulo}:\n\n{lista}\n\n"
-                "Corre que preço de oferta muda rápido! 🛒\n"
-                + (f"🔗 Os outros achados de hoje, sem precisar comentar: {config.PAGINA_BIO}\n" if config.PAGINA_BIO else "") +
-                f"(links de afiliado: você paga o mesmo e ajuda a página {config.NOME_MARCA})")
-if config.PERFIL == "ana":
-    DM_TOP_TODOS = ("Oi! 💚 Aqui é a Ana. Os links do {titulo}:\n\n{lista}\n\n"
-                    "Corre que esses somem rápido! ✨\n"
-                    "(são links de afiliada: você paga o mesmo e me ajuda a continuar caçando achadinhos 💚)")
+DM_TOP_TODOS = ("Olá! ✨ Aqui estão todos os links selecionados:\n\n{lista}\n\n"
+                "Aproveite as ofertas antes que o estoque esgote! 🛍️\n"
+                + (f"🔗 Veja todos os achados em: {config.PAGINA_BIO}\n" if config.PAGINA_BIO else "") +
+                f"(links de afiliado: você paga o mesmo preço e apoia a {config.NOME_MARCA} ✨)")
 
 
 CARTAO_SUB = "R$ {preco} no post ({loja}) • link de afiliado: você paga o mesmo"
@@ -522,7 +500,7 @@ def responder_facebook_top(tops, respondidos):
 
 # No YouTube não existe direct: a resposta vai no próprio comentário, com o link da oferta.
 RESPOSTA_YT = ("Oi, {nome}! 😊 Aqui está o link do {titulo} 👉 {link}\n"
-               "Corre que preço de oferta muda rápido! Todos os achados também no Telegram: t.me/garimpovipofertas\n"
+               "Corre que preço de oferta muda rápido! Todos os achados também no Telegram: \n"
                f"(link de afiliado: você paga o mesmo e ajuda o {config.NOME_MARCA})")
 
 
@@ -559,13 +537,13 @@ def responder_youtube(respondidos):
 
 
 RESPOSTA_YT_SEM_LINK = ("Oi, {nome}! 😊 O {n}º é o {titulo}. O link tá no Instagram @{arroba}: comenta QUERO {n} "
-                        "no carrossel de achados que o Zé te manda no direct na hora! 🤠 "
+                        "no carrossel de achados que enviamos no direct na hora! ✨ "
                         "Ofertas o dia todo no nosso Telegram (link no perfil do canal).")
 RESPOSTA_YT_SEM_LINK_TODOS = ("Oi, {nome}! 😊 Os links tão no Instagram @{arroba}: comenta QUERO no carrossel de achados "
-                              "que o Zé te manda todos no direct na hora! 🤠 "
+                              "que enviamos todos no direct na hora! ✨ "
                               "Ofertas o dia todo no nosso Telegram (link no perfil do canal).")
 RESPOSTA_YT_LISTA = ("Oi, {nome}! 😊 Os links dos achados deste vídeo:\n{lista}\n"
-                     "Corre que preço de oferta muda rápido! Mais achados no Telegram: t.me/garimpovipofertas\n"
+                     "Corre que preço de oferta muda rápido! Mais achados no Telegram: \n"
                      f"(links de afiliado: você paga o mesmo e ajuda o {config.NOME_MARCA})")
 
 

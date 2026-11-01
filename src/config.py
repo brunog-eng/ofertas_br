@@ -1,4 +1,6 @@
-"""Configurações do Garimpo VIP. Ajuste aqui o nicho, os filtros e o ritmo."""
+"""Configurações gerais do Robô de Ofertas da Shopee.
+Customizável via variáveis de ambiente para qualquer marca ou nicho.
+"""
 import os
 from pathlib import Path
 
@@ -6,237 +8,161 @@ RAIZ = Path(__file__).resolve().parent.parent
 PASTA_DADOS = RAIZ / "data"
 FONTE = RAIZ / "assets" / "Montserrat.ttf"
 
-# --- Credenciais (segredos do GitHub) ---
+# --- Credenciais (Secrets do GitHub) ---
 SHOPEE_APP_ID = (os.getenv("SHOPEE_APP_ID") or "").strip()
 SHOPEE_APP_SECRET = (os.getenv("SHOPEE_APP_SECRET") or "").strip()
 GROQ_API_KEY = (os.getenv("GROQ_API_KEY") or "").strip()
 
 SHOPEE_API_URL = "https://open-api.affiliate.shopee.com.br/graphql"
 GROQ_URL = "https://api.groq.com/openai/v1"
-# Ordem de preferência; se nenhum existir mais, o robô escolhe sozinho um modelo disponível.
-# (a Groq desligou os modelos Llama em out/2026 — agora o principal é o gpt-oss-120b)
 GROQ_MODELOS = [m.strip() for m in os.getenv(
     "GROQ_MODELOS", "openai/gpt-oss-120b,openai/gpt-oss-20b,qwen/qwen3.8-27b,llama-3.3-70b-versatile").split(",") if m.strip()]
 
-# --- Nicho: palavras-chave buscadas na Shopee, por categoria ---
-NICHO_GARIMPO = {
-    "eletronicos": [
-        "fone bluetooth", "smartwatch", "caixa de som bluetooth", "carregador turbo",
-        "power bank", "mouse sem fio", "teclado sem fio", "suporte celular",
-        "lâmpada inteligente", "câmera wifi", "fone tws", "ring light",
-        "mini projetor portátil", "gadget criativo", "luminária lua", "mini impressora térmica",
-        "tomada inteligente", "mini ventilador portátil",
+# --- Identidade da Marca (Customizável por Variáveis de Ambiente) ---
+BRAND_NAME = os.getenv("BRAND_NAME", "BA Home & Living")
+BRAND_HANDLE = os.getenv("BRAND_HANDLE", "@ba.homeliving")
+BRAND_HASHTAG = os.getenv("BRAND_HASHTAG", "#BAHomeLiving")
+BRAND_TONE = os.getenv("BRAND_TONE", "Tom acolhedor, moderno e elegante, focado em achadinhos úteis para transformar o lar.")
+BRAND_AUDIENCE = os.getenv("BRAND_AUDIENCE", "Pessoas que buscam praticidade, decoração e organização para casa.")
+
+# --- Nichos de Busca (Categorias e Palavras-chave) ---
+NICHOS = {
+    "casa_e_decoracao": [
+        "organizador acrílico", "luminária decorativa", "espelho decorativo",
+        "organizador closet", "potes herméticos", "luminária nuvem",
+        "tapete banheiro", "utilidades domésticas criativas", "porta joias",
+        "caneca criativa", "fita led quarto", "copo térmico", "organizador cozinha",
+        "mop giratório", "almofada decorativa", "mini seladora"
     ],
-    "lar": [
-        "organizador cozinha", "luminária led", "air fryer acessórios", "jogo de panelas",
-        "organizador guarda roupa", "mop giratório", "fita led", "potes herméticos",
-        "umidificador", "aspirador portátil", "utensílios cozinha", "tapete banheiro",
-        "utilidades domésticas criativas", "organizador multifuncional", "cortador multifuncional",
-        "dispenser automático", "luminária sensor de presença", "mini seladora",
+    "utilidades_praticas": [
+        "aspirador portátil", "dispenser automático", "umidificador de ar",
+        "cortador multifuncional", "air fryer acessórios", "organizador multifuncional",
+        "luminária sensor de presença", "difusor de aromas", "massageador elétrico",
+        "mini impressora térmica", "suporte organizador"
     ],
-    "brinquedos": [
-        "brinquedo educativo", "blocos de montar", "carrinho controle remoto",
-        "boneca", "quebra cabeça infantil", "massinha de modelar", "pista hot wheels",
-        "brinquedo montessori", "kit slime", "jogo de tabuleiro",
-        "brinquedo criativo", "projetor estrelas", "lousa mágica", "robô brinquedo",
-    ],
-    "pet": [
-        "caminha pet", "comedouro automático", "brinquedo para cachorro", "tapete higiênico",
-        "arranhador gato", "bebedouro fonte pet", "coleira peitoral", "escova pet removedor pelos",
-        "caixa de transporte pet", "roupa para cachorro",
-        "brinquedo interativo gato", "comedouro lento", "bebedouro portátil pet", "luva removedora de pelos",
-    ],
-    "automotivo": [
-        "aspirador automotivo", "suporte veicular celular", "câmera de ré", "organizador porta malas",
-        "carregador veicular", "capa banco carro", "compressor de ar portátil", "kit limpeza automotiva",
-        "lâmpada led farol", "tapete automotivo",
-        "gadget carro", "organizador banco carro", "luz ambiente carro", "suporte magnético carro",
-    ],
-    "masculino": [
-        "máquina de barbear", "carteira masculina", "relógio masculino", "kit barba",
-        "aparador de pelos", "mochila masculina", "boné masculino", "perfume masculino",
-        "camiseta masculina", "tênis masculino",
-        "gadget masculino", "carteira inteligente", "kit ferramentas multifuncional", "lanterna tática",
-    ],
+    "eletronicos_e_gadgets": [
+        "fone bluetooth", "smartwatch", "carregador turbo", "power bank",
+        "lâmpada inteligente", "câmera wifi", "mini projetor portátil",
+        "suporte celular articulado", "mini ventilador portátil", "tomada inteligente"
+    ]
 }
 
-# --- Filtros de qualidade (recalibrados em 09/10/2026 com 21.858 produtos dos dois perfis) ---
-# Ouro: vai para o Instagram. Prata: completa o Instagram e vai para o Telegram. Abaixo: descartado.
-# O que mais segura o Ouro é o "fator uau" (mantido em 7); vendas e comissão do Ouro foram
-# afrouxadas (1000→500 vendas, R$8/10%→R$6/8%), o que ~triplica as ofertas Ouro sem perder qualidade.
+# --- Filtros de Qualidade ---
+MIN_VENDAS = int(os.getenv("MIN_VENDAS", "100"))
+MIN_COMISSAO_RS = float(os.getenv("MIN_COMISSAO_RS", "4.0"))
+MIN_COMISSAO_PCT = float(os.getenv("MIN_COMISSAO_PCT", "6.0"))
+NOTA_MINIMA = float(os.getenv("NOTA_MINIMA", "4.6"))
+PRECO_MAXIMO = float(os.getenv("PRECO_MAXIMO", "500.0"))
+
 NIVEIS = {
-    "ouro": {"vendas": 500, "comissao_rs": 6.0, "comissao_pct": 8.0, "uau": 7},
-    "prata": {"vendas": 500, "comissao_rs": 5.0, "comissao_pct": 8.0, "uau": 6},
+    "ouro": {"vendas": MIN_VENDAS, "comissao_rs": MIN_COMISSAO_RS, "comissao_pct": MIN_COMISSAO_PCT, "uau": 7},
+    "prata": {"vendas": max(50, MIN_VENDAS // 2), "comissao_rs": max(2.0, MIN_COMISSAO_RS - 1.0), "comissao_pct": MIN_COMISSAO_PCT, "uau": 6},
 }
-# 🌎 AliExpress (produto internacional): no máximo isso por dia em cada canal (religado 27/10/2026, plano do Fred)
-ALIEXPRESS_POR_DIA_INSTAGRAM = int(os.getenv("ALIEXPRESS_POR_DIA_INSTAGRAM", "2"))
-ALIEXPRESS_POR_DIA_TELEGRAM = int(os.getenv("ALIEXPRESS_POR_DIA_TELEGRAM", "2"))
-COMISSAO_PCT_ALIEXPRESS = 7.0  # AliExpress paga 7% padrão; o corte em R$ (5 prata / 6 ouro) segue igual
-# --- Marcas oficiais pela Awin (src/awin.py, lista em src/marcas.py): Shark Ninja BR e Arno BR, sem teto de preço ---
-# Segredo AWIN_FEED_URL = URL do feed com todas as marcas (Awin → Ferramentas → Crie um Feed). Ligue com AWIN_ATIVO=1.
-AWIN_FEED_URL = (os.getenv("AWIN_FEED_URL") or "").strip()
-AWIN_ATIVO = os.getenv("AWIN_ATIVO", "0") == "1"
-AWIN_COMISSAO_PCT = float(os.getenv("AWIN_COMISSAO_PCT", "8"))      # CPA da Shark-Ninja BR (jun/2026) e da Arno BR (out/2026): 8% nas duas
-SHARK_POR_GARIMPO = int(os.getenv("SHARK_POR_GARIMPO", "3"))        # produtos novos de cada marca por rodada, por conta
-SHARK_UAU = 8                                                       # marca oficial: não passa pela nota de "uau" da IA
-SHARK_PONTOS = int(os.getenv("SHARK_PONTOS", "70"))                 # prioridade na fila (Shopee costuma ficar entre 40 e 80)
-SHARK_POR_DIA_INSTAGRAM = int(os.getenv("SHARK_POR_DIA_INSTAGRAM", "1"))   # no máximo isso por dia de cada marca, em cada conta
-SHARK_POR_DIA_TELEGRAM = int(os.getenv("SHARK_POR_DIA_TELEGRAM", "3"))
-# 💎 Achado escondido: produto excelente e muito diferente que ainda não viralizou (poucas vendas).
-# Pouca prova social → só entra com nota alta e uau altíssimo, e no máximo ACHADOS_POR_DIA no Instagram.
-NIVEL_ACHADO = {"vendas_min": 50, "nota": 4.8, "uau": 8, "comissao_rs": 3.0, "comissao_pct": 8.0}  # R$3 liberado pelo Fred em 09/10/2026
-ACHADOS_POR_DIA = int(os.getenv("ACHADOS_POR_DIA", "3"))   # 3 desde 27/10/2026 (Fred): abre espaço para as novidades do radar de virais
-NOTA_MINIMA = float(os.getenv("NOTA_MINIMA", "4.7"))
-PRECO_MAXIMO = float(os.getenv("PRECO_MAXIMO", "500"))   # 300 até 30/10/2026 (Fred subiu para 500; marcas da Awin não têm teto)
-UAU_SEM_IA = 6                 # nota padrão se a IA de curadoria estiver fora do ar
-SIMILARIDADE_MAX = 0.55        # nomes mais parecidos que isso contam como o mesmo produto
-# Palavras que barram o produto (fora do nicho ou arriscadas para anunciar)
+
+NIVEL_ACHADO = {"vendas_min": 30, "nota": 4.8, "uau": 8, "comissao_rs": 3.0, "comissao_pct": 6.0}
+ACHADOS_POR_DIA = int(os.getenv("ACHADOS_POR_DIA", "4"))
+UAU_SEM_IA = 6
+SIMILARIDADE_MAX = 0.55
+
 PALAVRAS_PROIBIDAS = [
     "réplica", "replica", "vape", "cigarro", "arma", "faca tática", "sex", "erótic",
-    "lingerie", "remédio", "emagrecedor", "suplemento", "bob marley", "maconha",
+    "lingerie", "remédio", "emagrecedor", "suplemento", "maconha",
 ]
 
-# --- Ritmo ---
+# --- Ritmo e Volume de Busca ---
 OFERTAS_POR_GARIMPO = int(os.getenv("OFERTAS_POR_GARIMPO", "15"))
-PALAVRAS_POR_GARIMPO = int(os.getenv("PALAVRAS_POR_GARIMPO", "24"))   # total de buscas por rodada
-# Garimpo profundo: parte das buscas é inventada pela IA a cada rodada (termos específicos e curiosos)
-# e parte vem da memória (termos que já trouxeram Ouro/Achado). O resto são as palavras fixas do nicho.
-PALAVRAS_IA_POR_GARIMPO = int(os.getenv("PALAVRAS_IA_POR_GARIMPO", "10"))
+PALAVRAS_POR_GARIMPO = int(os.getenv("PALAVRAS_POR_GARIMPO", "20"))
+PALAVRAS_IA_POR_GARIMPO = int(os.getenv("PALAVRAS_IA_POR_GARIMPO", "8"))
 PALAVRAS_MEMORIA_POR_GARIMPO = int(os.getenv("PALAVRAS_MEMORIA_POR_GARIMPO", "4"))
-# Radar de virais (src/radar_virais.py): termos tirados dos posts que bombaram em outras páginas
-# de achadinhos entram primeiro. Com 24 buscas por rodada, sobram ~4 para as palavras fixas.
-PALAVRAS_VIRAIS_POR_GARIMPO = int(os.getenv("PALAVRAS_VIRAIS_POR_GARIMPO", "6"))
-VIRAIS_NA_FRENTE_POR_DIA = int(os.getenv("VIRAIS_NA_FRENTE_POR_DIA", "3"))  # produtos do radar que furam a fila no Instagram
-# Páginas da Shopee por busca (página, ordem): 1 relevância, 2 mais vendidos, 5 maior comissão.
-# As páginas fundas dos mais vendidos e a ordem "relevância" mostram o que fica escondido do topo.
-# "ams" = só ofertas em que o vendedor paga comissão extra (20–40%): barato e diferente passa no filtro.
-# A busca para sozinha quando a Shopee entrega página incompleta (acabaram os resultados).
-PROFUNDIDADE = int(os.getenv("PROFUNDIDADE", "12"))   # até que página dos "mais vendidos" o robô desce (8 até 27/10/2026; teste de 1 semana com 12)
-
+PALAVRAS_VIRAIS_POR_GARIMPO = int(os.getenv("PALAVRAS_VIRAIS_POR_GARIMPO", "4"))
+VIRAIS_NA_FRENTE_POR_DIA = int(os.getenv("VIRAIS_NA_FRENTE_POR_DIA", "2"))
+PROFUNDIDADE = int(os.getenv("PROFUNDIDADE", "10"))
 
 def _pags(ate, ordem, *extra, de=1):
     return tuple((p, ordem, *extra) for p in range(de, ate + 1))
 
-
 PAGINAS_FIXAS = _pags(PROFUNDIDADE, 2) + _pags(3, 1) + _pags(2, 5) + _pags(3, 2, "ams")
 PAGINAS_PROFUNDAS = PAGINAS_FIXAS
-# Além das palavras: cavar nas lojas que já deram achado e garimpar direto por categoria da Shopee
-LOJAS_POR_GARIMPO = int(os.getenv("LOJAS_POR_GARIMPO", "4"))
-PAGINAS_LOJA = int(os.getenv("PAGINAS_LOJA", "4"))
-CATEGORIAS_POR_GARIMPO = int(os.getenv("CATEGORIAS_POR_GARIMPO", "6"))
-PAGINAS_CATEGORIA = _pags(PROFUNDIDADE + 2, 2, de=2) + _pags(2, 1) + _pags(3, 2, "ams")
-# Quantos produtos a IA avalia por rodada (o resto nem chega a ser julgado)
-IA_MAX_POR_GARIMPO = int(os.getenv("IA_MAX_POR_GARIMPO", "400"))   # 300 até 27/10/2026: subiu junto com a profundidade
-# Variedade de lojas: no máximo isso de ofertas da mesma loja esperando na fila
-MAX_POR_LOJA_NA_FILA = int(os.getenv("MAX_POR_LOJA_NA_FILA", "5"))
-DIAS_SEM_REPETIR = 30          # Instagram: não repete o mesmo produto dentro desse prazo
-DIAS_SEM_REPETIR_TELEGRAM = 14 # Telegram: campeão de vendas pode voltar depois disso
-DIAS_APAGAR_POSTS = int(os.getenv("DIAS_APAGAR_POSTS", "15"))  # posts de oferta somem depois disso
-DIAS_VALIDADE_PENDENTE = 3     # oferta não postada vence depois disso (preço muda)
-# Variedade (src/variedade.py): mesmo TIPO de produto (ex.: bomba de ar / compressor / inflador)
-HORAS_ENTRE_FAMILIA = int(os.getenv("HORAS_ENTRE_FAMILIA", "48"))                    # Instagram/Facebook
-HORAS_ENTRE_FAMILIA_TELEGRAM = int(os.getenv("HORAS_ENTRE_FAMILIA_TELEGRAM", "12"))  # Telegram (posta mais)
-PAGINAS_EM_ALTA = int(os.getenv("PAGINAS_EM_ALTA", "10"))   # páginas da lista "em alta" da Shopee por garimpo
-# Só sai o que é DIFERENCIADO: abaixo disso (fator uau da IA) não posta em lugar nenhum
-UAU_MINIMO_POSTAR = int(os.getenv("UAU_MINIMO_POSTAR", "7"))
-MAX_PENDENTES_POR_FAMILIA = int(os.getenv("MAX_PENDENTES_POR_FAMILIA", "2"))         # na fila ao mesmo tempo
+LOJAS_POR_GARIMPO = int(os.getenv("LOJAS_POR_GARIMPO", "3"))
+PAGINAS_LOJA = int(os.getenv("PAGINAS_LOJA", "3"))
+CATEGORIAS_POR_GARIMPO = int(os.getenv("CATEGORIAS_POR_GARIMPO", "4"))
+PAGINAS_CATEGORIA = _pags(PROFUNDIDADE, 2, de=2) + _pags(2, 1) + _pags(2, 2, "ams")
+IA_MAX_POR_GARIMPO = int(os.getenv("IA_MAX_POR_GARIMPO", "300"))
+MAX_POR_LOJA_NA_FILA = int(os.getenv("MAX_POR_LOJA_NA_FILA", "4"))
+DIAS_SEM_REPETIR = int(os.getenv("DIAS_SEM_REPETIR", "30"))
+DIAS_SEM_REPETIR_TELEGRAM = int(os.getenv("DIAS_SEM_REPETIR_TELEGRAM", "14"))
+DIAS_APAGAR_POSTS = int(os.getenv("DIAS_APAGAR_POSTS", "15"))
+DIAS_VALIDADE_PENDENTE = int(os.getenv("DIAS_VALIDADE_PENDENTE", "3"))
+HORAS_ENTRE_FAMILIA = int(os.getenv("HORAS_ENTRE_FAMILIA", "24"))
+HORAS_ENTRE_FAMILIA_TELEGRAM = int(os.getenv("HORAS_ENTRE_FAMILIA_TELEGRAM", "12"))
+PAGINAS_EM_ALTA = int(os.getenv("PAGINAS_EM_ALTA", "8"))
+UAU_MINIMO_POSTAR = int(os.getenv("UAU_MINIMO_POSTAR", "6"))
+MAX_PENDENTES_POR_FAMILIA = int(os.getenv("MAX_PENDENTES_POR_FAMILIA", "2"))
 
+# --- Marcas da Awin (opcional) ---
+AWIN_FEED_URL = (os.getenv("AWIN_FEED_URL") or "").strip()
+AWIN_ATIVO = os.getenv("AWIN_ATIVO", "0") == "1"
+AWIN_COMISSAO_PCT = float(os.getenv("AWIN_COMISSAO_PCT", "8"))
+SHARK_POR_GARIMPO = int(os.getenv("SHARK_POR_GARIMPO", "2"))
+SHARK_UAU = 8
+SHARK_PONTOS = int(os.getenv("SHARK_PONTOS", "70"))
+SHARK_POR_DIA_INSTAGRAM = int(os.getenv("SHARK_POR_DIA_INSTAGRAM", "1"))
+SHARK_POR_DIA_TELEGRAM = int(os.getenv("SHARK_POR_DIA_TELEGRAM", "2"))
 
-# --- Ana Novo Achados (@ananovoachados): público feminino ---
-NICHO_ANA = {
-    "beleza": [
-        "kit maquiagem", "skincare", "kit pincel maquiagem", "organizador de maquiagem",
-        "massageador facial", "espelho led", "esponja maquiagem", "paleta de sombras",
-        "lip tint", "rolo facial jade", "máscara facial led", "esmalte em gel kit",
-        "cabine led unha", "curvex aquecido", "glitter corporal", "skincare coreano",
-    ],
-    "cabelo": [
-        "escova secadora", "prancha alisadora", "escova alisadora", "modelador de cachos",
-        "babyliss automático", "touca de cetim", "difusor cabelo cacheado", "kit acessórios cabelo",
-        "presilha de cabelo", "secador de cabelo potente", "fronha de cetim", "escova desembaraçadora",
-    ],
-    "moda": [
-        "bolsa feminina", "brinco feminino", "colar feminino", "relógio feminino",
-        "vestido feminino", "sandália feminina", "organizador de joias", "óculos de sol estiloso",
-        "bolsa transversal", "anel ajustável", "pochete estilosa", "kit pulseiras",
-        "camiseta oversized", "kit presilhas", "bolsa de praia", "brinco de pérola",
-    ],
-    "autocuidado": [
-        "massageador elétrico", "difusor de aromas", "pantufa fofinha", "kit spa em casa",
-        "máscara para dormir", "garrafa motivacional", "massageador pescoço", "almofada de pescoço",
-        "bolsa térmica", "kit manicure", "luminária sunset", "vela aromática",
-    ],
-    "casa_fofa": [
-        "decoração quarto aesthetic", "luminária nuvem", "fita led quarto", "espelho decorativo",
-        "luminária neon", "porta joias", "caneca criativa", "organizador acrílico",
-        "projetor galáxia", "luminária decorativa", "almofada fofa", "copo térmico stanley",
-        "kit organizador closet", "cabideiro de chão",
-    ],
-}
+# --- AliExpress (opcional) ---
+ALIEXPRESS_POR_DIA_INSTAGRAM = int(os.getenv("ALIEXPRESS_POR_DIA_INSTAGRAM", "1"))
+ALIEXPRESS_POR_DIA_TELEGRAM = int(os.getenv("ALIEXPRESS_POR_DIA_TELEGRAM", "2"))
+COMISSAO_PCT_ALIEXPRESS = 7.0
 
-# 31/10/2026 (Fred): com a Ana em stand-by, o Garimpo também busca as palavras do nicho da Ana
-# (beleza, cabelo, moda, autocuidado, casa fofa). Desliga com GARIMPO_COM_ANA=0.
-GARIMPO_COM_ANA = os.getenv("GARIMPO_COM_ANA", "1") != "0"
-NICHO_GARIMPO_TOTAL = {**NICHO_GARIMPO, **(NICHO_ANA if GARIMPO_COM_ANA else {})}
-
-# --- Perfis (contas do Instagram). Escolha com a variável PERFIL (padrão: garimpo) ---
+# --- Perfis da Aplicação ---
 PERFIS = {
-    "garimpo": {
-        "nicho": NICHO_GARIMPO_TOTAL,
-        "marca": "GARIMPO VIP",
-        "nome": "Garimpo VIP",
-        "arroba": "@garimpovip4",
-        "hashtag": "#garimpovip",
+    "default": {
+        "nicho": NICHOS,
+        "marca": BRAND_NAME,
+        "nome": BRAND_NAME,
+        "arroba": BRAND_HANDLE,
+        "hashtag": BRAND_HASHTAG,
         "pasta_dados": PASTA_DADOS,
         "logo": RAIZ / "assets" / "logo.png",
-        "telegram": True,
-        "tom": "Tom animado e direto, de quem garimpa as melhores ofertas.",
-        "publico": "público geral que ama achadinhos",
-        "cores": {"fundo": "#EEEDE9", "escuro": "#24150A", "destaque": "#A07E30",
-                  "destaque_claro": "#E2BE68", "preco": "#24150A", "cinza": "#6E6458",
-                  "sombra": "#DCD6CB"},
-    },
-    "ana": {
-        "nicho": NICHO_GARIMPO_TOTAL,
-        "marca": "BA Home & Living",
-        "nome": "BA Home & Living",
-        "arroba": "@ba.homeliving",
-        "hashtag": "#BAHome&Living",
-        "pasta_dados": PASTA_DADOS,
-        "logo": RAIZ / "assets" / "logo.png",
-        "telegram": False,
-        # "proibidas": ["infantil", "criança", "crianca", "bebê", "bebe", "menina", "menino", "kids"],
-        "tom": ("Tom acolhedor, divertido e inclusivo, como uma amiga que indica achadinhos. "
-                "Fale com mulheres com carinho, leveza e sem estereótipos, "
-                "tratando por \"você\" (ex.: \"pra quem ama...\")."),
-        "publico": "público feminino que ama beleza, moda, autocuidado e casa aesthetic",
-        # paleta leve e feminina da Ana (a arte própria fica em src/layout_ana.py)
-        "cores": {"fundo": "#FFF8F4", "escuro": "#4A2C3F", "destaque": "#D9668A",
-                  "destaque_claro": "#F2A7B8", "preco": "#4A2C3F", "cinza": "#A08893",
-                  "sombra": "#FBE3E8"},
-    },
+        "telegram": bool(os.getenv("TELEGRAM_BOT_TOKEN")),
+        "tom": BRAND_TONE,
+        "publico": BRAND_AUDIENCE,
+        "cores": {
+            "fundo": os.getenv("COR_FUNDO", "#FFF8F4"),
+            "escuro": os.getenv("COR_ESCURO", "#2C221E"),
+            "destaque": os.getenv("COR_DESTAQUE", "#C5A880"),
+            "destaque_claro": os.getenv("COR_DESTAQUE_CLARO", "#E8D8C3"),
+            "preco": os.getenv("COR_PRECO", "#2C221E"),
+            "cinza": os.getenv("COR_CINZA", "#7A706A"),
+            "sombra": os.getenv("COR_SOMBRA", "#EFE7DF")
+        },
+    }
 }
+# Aliases para compatibilidade total
+PERFIS["ba_home"] = PERFIS["default"]
+PERFIS["ana"] = PERFIS["default"]
+PERFIS["garimpo"] = PERFIS["default"]
 
-PERFIL = (os.getenv("PERFIL") or "garimpo").strip().lower()
+PERFIL = (os.getenv("PERFIL") or "default").strip().lower()
 if PERFIL not in PERFIS:
-    raise SystemExit(f"PERFIL desconhecido: {PERFIL} (use: {', '.join(PERFIS)})")
-_P = PERFIS[PERFIL]
+    _P = PERFIS["default"]
+else:
+    _P = PERFIS[PERFIL]
+
 NICHO = _P["nicho"]
 MARCA, NOME_MARCA, ARROBA, HASHTAG_MARCA = _P["marca"], _P["nome"], _P["arroba"], _P["hashtag"]
-# Página da bio do Garimpo VIP (vitrine com os achados do dia). A Ana não usa: as contas não podem parecer ligadas.
-PAGINA_BIO = "garimpovipbr.github.io" if PERFIL == "garimpo" else ""
-ARROBA_TIKTOK = "@vipgarimpo4" if PERFIL == "garimpo" else ""   # conta criada em 31/10/2026 (tiktok.com/@vipgarimpo4)
+
+PAGINA_BIO = (os.getenv("PAGINA_BIO") or "").strip()
+ARROBA_TIKTOK = (os.getenv("ARROBA_TIKTOK") or "").strip()
 LEMBRETE_BIO = f"🔗 Todos os achados de hoje num lugar só: {PAGINA_BIO} (link na bio)" if PAGINA_BIO else ""
 LOGO = _P["logo"]
 CORES = _P["cores"]
 TOM, PUBLICO = _P["tom"], _P["publico"]
 TELEGRAM_ATIVO = _P["telegram"]
 PALAVRAS_PROIBIDAS = PALAVRAS_PROIBIDAS + _P.get("proibidas", [])
-PASTA_PERFIL = _P["pasta_dados"]                 # fila e respostas de cada conta
-ARQ_FILA = PASTA_PERFIL / "fila.json"            # ofertas garimpadas e seu status
-ARQ_PALAVRAS = PASTA_PERFIL / "palavras.json"    # memória das buscas: quais termos trazem achados
+PASTA_PERFIL = _P["pasta_dados"]
+ARQ_FILA = PASTA_PERFIL / "fila.json"
+ARQ_PALAVRAS = PASTA_PERFIL / "palavras.json"
 
-# ⏸️ Em espera (out/2026): a API de afiliados não traz as avaliações dos compradores.
-# Para religar, mude para "1" (ou crie a variável no workflow).
-VALE_A_PENA_ATIVO = os.getenv("VALE_A_PENA_ATIVO", "0") == "1"   # "Zé, isso vale a pena?" no direct
-RAIO_X_ATIVO = os.getenv("RAIO_X_ATIVO", "0") == "1"             # 📊 Raio-X do Zé nas legendas
+VALE_A_PENA_ATIVO = os.getenv("VALE_A_PENA_ATIVO", "0") == "1"
+RAIO_X_ATIVO = os.getenv("RAIO_X_ATIVO", "0") == "1"

@@ -23,13 +23,11 @@ from . import telegram
 
 BRT = timezone(timedelta(hours=-3))
 VERSAO = os.getenv("IG_API_VERSION", "v23.0")
-API = f"https://graph.instagram.com/{VERSAO}"
+API = f"https://graph.facebook.com/{VERSAO}"
 ARQ_HISTORICO = Path(__file__).resolve().parent.parent / "data" / "metricas.json"
 
-CONTAS = [
-    ("@garimpovip4", "IG_ACCESS_TOKEN"),
-    ("@ananovoachados", "IG_ACCESS_TOKEN_ANA"),
-]
+from . import config
+CONTAS = [(config.ARROBA, "IG_ACCESS_TOKEN")]
 METRICAS_CONTA = ["reach", "profile_views"]
 METRICAS_POST = ["reach", "saved", "shares", "total_interactions"]
 POSTS_MEDIDOS = int(os.getenv("METRICAS_POSTS", "10"))
