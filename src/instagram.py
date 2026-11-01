@@ -55,8 +55,8 @@ def _req(metodo, caminho, params=None, json=None, url=None):
 
 def conta():
     """Retorna {'user_id': id da conta profissional, 'username': ...}."""
-    c = _req("GET", "me", params={"fields": "user_id,username"})
-    c["user_id"] = str(c.get("user_id") or c.get("id"))
+    c = _req("GET", "me", params={"fields": "id,username"})
+    c["user_id"] = str(c.get("id") or c.get("user_id"))
     return c
 
 
