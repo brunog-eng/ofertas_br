@@ -71,7 +71,8 @@ def candidatos_ordenados(fila):
     pode_achado = achados_hoje < config.ACHADOS_POR_DIA
     ouro = [o for o in resto if o.get("nivel", "ouro") == "ouro"
             or (pode_achado and o.get("nivel") == "achado")]
-    base = ouro or [o for o in resto if o.get("nivel") != "achado"] or resto
+    prata = [o for o in resto if o not in ouro]
+    base = ouro + prata
     fams = variedade.familias_recentes(fila, "postado_em")
     # Ouro só de família que saiu há pouco? Prata de outro tipo vence a repetição.
     if not any(variedade.familia(o) not in fams for o in base):
