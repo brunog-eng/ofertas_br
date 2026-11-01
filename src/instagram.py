@@ -55,8 +55,9 @@ def _req(metodo, caminho, params=None, json=None, url=None):
 
 def conta():
     """Retorna {'user_id': id da conta profissional, 'username': ...}."""
-    c = _req("GET", "me", params={"fields": "id,username"})
-    c["user_id"] = str(c.get("id") or c.get("user_id"))
+    ig_id = (os.getenv("IG_USER_ID") or "17841432150685143").strip()
+    c = _req("GET", ig_id, params={"fields": "id,username"})
+    c["user_id"] = str(c.get("id") or ig_id)
     return c
 
 
