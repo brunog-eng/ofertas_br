@@ -1,15 +1,11 @@
 name: Carrossel de Achados
-run-name: Carrossel de Achados (${{ inputs.perfil || 'default' }}${{ inputs.so_previa && ' - prévia' || '' }})
+run-name: Carrossel de Achados${{ inputs.so_previa && ' (prévia)' || '' }}
 
 on:
   workflow_dispatch:
     inputs:
-      perfil:
-        description: 'Perfil da marca'
-        type: string
-        default: default
       so_previa:
-        description: 'Só gerar a prévia (não publica)'
+        description: 'Só gerar a prévia (não publica no Instagram)'
         type: boolean
         default: false
 
@@ -27,7 +23,7 @@ jobs:
     environment:
       name: github-pages
     env:
-      PERFIL: ${{ inputs.perfil || 'default' }}
+      PERFIL: default
       IG_USER_ID: ${{ secrets.IG_USER_ID || '17841432150685143' }}
     steps:
       - uses: actions/checkout@v4
