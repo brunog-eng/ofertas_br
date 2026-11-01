@@ -15,11 +15,10 @@ def _arredondar(img, raio):
     return out
 
 
-def gerar(arte_feed, destino):
+def gerar(arte_feed, destino, t1="ACHADO NOVO ", t2="NO FEED"):
     img = Image.new("RGB", (L, A), ESCURO)
     d = ImageDraw.Draw(img)
     f1 = _fonte(56, "Black")
-    t1, t2 = "ACHADO NOVO ", "NO FEED"
     x = (L - d.textlength(t1 + t2, font=f1)) / 2
     d.text((x, 110), t1, font=f1, fill=BRANCO)
     d.text((x + d.textlength(t1, font=f1), 110), t2, font=f1, fill=DOURADO_CLARO)

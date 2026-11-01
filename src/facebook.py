@@ -98,6 +98,11 @@ def responder_comentario(comment_id, texto):
     return _req("POST", f"{comment_id}/comments", data={"message": texto})
 
 
+def curtir_comentario(comment_id):
+    """Curte um comentário na página do Facebook."""
+    return _req("POST", f"{comment_id}/likes")
+
+
 def apagar(objeto_id):
     """Apaga um post da página OU uma mídia do Instagram vinculado (mesmo endpoint)."""
     return _req("DELETE", objeto_id)

@@ -246,6 +246,15 @@ def responder(api=instagram):
                 reg["dm"] = f"erro: {str(e)[:200]}"
                 print(f"⚠️  DM para @{reg['usuario']} falhou: {e}")
 
+            if reg.get("dm") == "ok" and hasattr(api, "curtir_comentario"):
+                try:
+                    api.curtir_comentario(cid, minha.get("user_id"))
+                    reg["curtida"] = "ok"
+                    print(f"❤️ Comentário de @{reg['usuario']} curtido!")
+                except Exception as e:
+                    reg["curtida"] = f"erro: {str(e)[:200]}"
+                    print(f"::warning::Curtir comentário de @{reg['usuario']} falhou: {e}")
+
             if RESPOSTA_PUBLICA:
                 try:
                     api.responder_comentario(cid, _publica(usuario))
@@ -381,6 +390,15 @@ def responder_top(api, minha, tops, respondidos):
                 reg["dm"] = f"erro: {str(e)[:200]}"
                 print(f"⚠️  DM do Top para @{usuario} falhou: {e}")
 
+            if reg.get("dm") == "ok" and hasattr(api, "curtir_comentario"):
+                try:
+                    api.curtir_comentario(cid, minha.get("user_id"))
+                    reg["curtida"] = "ok"
+                    print(f"❤️ Comentário de @{usuario} curtido!")
+                except Exception as e:
+                    reg["curtida"] = f"erro: {str(e)[:200]}"
+                    print(f"::warning::Curtir comentário de @{usuario} falhou: {e}")
+
             if RESPOSTA_PUBLICA:
                 try:
                     msg_pub = _publica(usuario)
@@ -434,6 +452,12 @@ def responder_facebook(posts, respondidos):
                     reg["formato"] = "texto"
                 reg["dm"] = "ok"
                 enviados += 1
+                if hasattr(facebook, "curtir_comentario"):
+                    try:
+                        facebook.curtir_comentario(c["id"])
+                        reg["curtida"] = "ok"
+                    except Exception as e:
+                        reg["curtida"] = f"erro: {str(e)[:200]}"
                 try:
                     facebook.responder_comentario(c["id"], random.choice(PUBLICAS_FB))
                     reg["publica"] = "ok"
@@ -494,6 +518,12 @@ def responder_facebook_top(tops, respondidos):
                     reg["formato"] = "lista"
                 reg["dm"] = "ok"
                 enviados += 1
+                if hasattr(facebook, "curtir_comentario"):
+                    try:
+                        facebook.curtir_comentario(c["id"])
+                        reg["curtida"] = "ok"
+                    except Exception as e:
+                        reg["curtida"] = f"erro: {str(e)[:200]}"
                 try:
                     facebook.responder_comentario(c["id"], random.choice(PUBLICAS_FB))
                     reg["publica"] = "ok"

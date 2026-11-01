@@ -175,10 +175,20 @@ def gerar(itens, pasta):
     slide_final(len(itens), v, frase).save(pasta / nome_fim, quality=92)
     arqs.append(nome_fim)
 
+    # Story vertical do carrossel (1080x1920)
+    nome_story = f"story-{nome_capa}"
+    try:
+        from . import story
+        story.gerar(pasta / nome_capa, pasta / nome_story, t1="ACHADOS NOVOS ", t2="NO FEED")
+        print(f"📱 Story do carrossel preparado: {nome_story}")
+    except Exception as e:
+        print(f"::warning::Arte do story do carrossel falhou: {e}")
+        nome_story = None
+
     return {
         "arquivos": arqs,
         "clipe": "",
-        "story": None,
+        "story": nome_story,
         "short": None,
         "tiktok": [],
         "legenda_tiktok": "",
@@ -264,6 +274,23 @@ def publicar():
     ARQ_ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=2), encoding="utf-8")
     ARQ_PROXIMO.unlink(missing_ok=True)
     print(f"✅ Carrossel de achados publicado ({config.ARROBA}): {permalink or media_id}")
+
+    if info.get("story"):
+        try:
+            surl = f"{base}/midia/achados/{info['story']}"
+            _esperar_url(surl)
+            cont_s = instagram.criar_story(ig_id, imagem_url=surl)
+            instagram.aguardar_container(cont_s)
+            story_id = instagram.publicar(ig_id, cont_s)
+            print(f"📲 Carrossel também publicado no story: {story_id}")
+            for it in info.get("itens", []):
+                o = fila["ofertas"].get(it["id"])
+                if o:
+                    o["story_id"] = story_id
+                    o["story"] = "ok"
+            salvar_fila(fila)
+        except Exception as e:
+            print(f"::warning::Story do carrossel falhou: {e}")
 
 
 def previa(tipo=None):

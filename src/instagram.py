@@ -222,6 +222,25 @@ def responder_comentario(comment_id, texto):
     return _req("POST", f"{comment_id}/replies", params={"message": texto})
 
 
+def curtir_comentario(comment_id, ig_id=None):
+    """Curte um comentário no Instagram."""
+    ig_id = str(ig_id or (os.getenv("IG_USER_ID") or "17841432150685143")).strip()
+    info = obter_info_pagina(ig_id)
+    tokens = [t for t in [info.get("page_token"), token()] if t]
+    ultimo_erro = None
+    for tok in tokens:
+        try:
+            return _req("POST", f"{ig_id}/likes", params={"comment_id": comment_id}, custom_token=tok)
+        except Exception as e:
+            ultimo_erro = e
+            try:
+                return _req("POST", f"{comment_id}/likes", custom_token=tok)
+            except Exception as e2:
+                ultimo_erro = e2
+    if ultimo_erro:
+        raise ultimo_erro
+
+
 def renovar_token():
     """Renova o token de longa duração quando aplicável."""
     t = token()
