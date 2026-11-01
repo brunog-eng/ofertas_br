@@ -8,6 +8,8 @@ VERSAO = os.getenv("IG_API_VERSION", "v23.0")
 API_HOST = os.getenv("IG_API_HOST", "graph.facebook.com").strip()
 API = f"https://{API_HOST}/{VERSAO}"
 
+_INFO_PAGINA = None
+
 
 class ErroInstagram(RuntimeError):
     pass
@@ -46,9 +48,33 @@ def conferir_conta():
     return c
 
 
-def _req(metodo, caminho, params=None, json=None, url=None):
+def obter_info_pagina(ig_id=None):
+    """Busca a página do Facebook conectada e o Page Access Token necessário para /messages."""
+    global _INFO_PAGINA
+    if _INFO_PAGINA is not None:
+        return _INFO_PAGINA
+    t = token()
+    _INFO_PAGINA = {"page_id": None, "page_token": t}
+    try:
+        r = requests.get(f"{API}/me/accounts", params={"fields": "id,name,access_token,instagram_business_account"},
+                         headers={"Authorization": f"Bearer {t}"}, timeout=15)
+        corpo = r.json()
+        for p in corpo.get("data", []):
+            ig_conta = (p.get("instagram_business_account") or {}).get("id")
+            if (ig_id and str(ig_conta) == str(ig_id)) or p.get("access_token"):
+                _INFO_PAGINA["page_id"] = p.get("id")
+                _INFO_PAGINA["page_token"] = p.get("access_token")
+                print(f"📄 Página vinculada identificada: {p.get('name')} (ID: {p.get('id')})")
+                break
+    except Exception as e:
+        print(f"ℹ️ /me/accounts: {e}")
+    return _INFO_PAGINA
+
+
+def _req(metodo, caminho, params=None, json=None, url=None, custom_token=None):
+    tok = custom_token or token()
     r = requests.request(metodo, url or f"{API}/{caminho}", params=params, json=json, timeout=60,
-                         headers={"Authorization": f"Bearer {token()}"})
+                         headers={"Authorization": f"Bearer {tok}"})
     try:
         corpo = r.json()
     except ValueError:
@@ -135,29 +161,56 @@ def comentarios(media_id):
 
 
 def resposta_privada(ig_id, comment_id, texto):
-    return _req("POST", f"{ig_id}/messages",
-                json={"recipient": {"comment_id": comment_id}, "message": {"text": texto}})
+    info = obter_info_pagina(ig_id)
+    tok = info.get("page_token") or token()
+    try:
+        return _req("POST", f"{ig_id}/messages",
+                    json={"recipient": {"comment_id": comment_id}, "message": {"text": texto}},
+                    custom_token=tok)
+    except Exception as e:
+        if info.get("page_id") and str(info["page_id"]) != str(ig_id):
+            return _req("POST", f"{info['page_id']}/messages",
+                        json={"recipient": {"comment_id": comment_id}, "message": {"text": texto}},
+                        custom_token=tok)
+        raise e
 
 
 def resposta_privada_botao(ig_id, comment_id, texto, url, titulo_botao):
     """Resposta privada com botão clicável (template de botão)."""
-    return _req("POST", f"{ig_id}/messages", json={
+    info = obter_info_pagina(ig_id)
+    tok = info.get("page_token") or token()
+    payload = {
         "recipient": {"comment_id": comment_id},
         "message": {"attachment": {"type": "template", "payload": {
             "template_type": "button", "text": texto[:640],
-            "buttons": [{"type": "web_url", "url": url, "title": titulo_botao}]}}}})
+            "buttons": [{"type": "web_url", "url": url, "title": titulo_botao}]}}}
+    }
+    try:
+        return _req("POST", f"{ig_id}/messages", json=payload, custom_token=tok)
+    except Exception as e:
+        if info.get("page_id") and str(info["page_id"]) != str(ig_id):
+            return _req("POST", f"{info['page_id']}/messages", json=payload, custom_token=tok)
+        raise e
 
 
 def resposta_privada_cartao(ig_id, comment_id, titulo, subtitulo, imagem_url, botoes):
-    """Resposta privada em cartão (template genérico): foto do produto, nome, uma linha e até 3 botões
-    [(titulo, url), ...]."""
-    return _req("POST", f"{ig_id}/messages", json={
+    """Resposta privada em cartão (template genérico): foto do produto, nome, uma linha e até 3 botões."""
+    info = obter_info_pagina(ig_id)
+    tok = info.get("page_token") or token()
+    payload = {
         "recipient": {"comment_id": comment_id},
         "message": {"attachment": {"type": "template", "payload": {
             "template_type": "generic", "elements": [{
                 "title": titulo[:80], "subtitle": subtitulo[:80], "image_url": imagem_url,
                 "default_action": {"type": "web_url", "url": botoes[0][1]},
-                "buttons": [{"type": "web_url", "url": u, "title": t[:20]} for t, u in botoes[:3]]}]}}}})
+                "buttons": [{"type": "web_url", "url": u, "title": t[:20]} for t, u in botoes[:3]]}]}}}
+    }
+    try:
+        return _req("POST", f"{ig_id}/messages", json=payload, custom_token=tok)
+    except Exception as e:
+        if info.get("page_id") and str(info["page_id"]) != str(ig_id):
+            return _req("POST", f"{info['page_id']}/messages", json=payload, custom_token=tok)
+        raise e
 
 
 def comentar(media_id, texto):

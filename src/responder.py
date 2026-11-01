@@ -383,13 +383,16 @@ def responder_top(api, minha, tops, respondidos):
 
             if RESPOSTA_PUBLICA:
                 try:
-                    api.responder_comentario(cid, _publica(usuario))
+                    msg_pub = _publica(usuario)
+                    if reg.get("dm") != "ok":
+                        msg_pub = f"@{usuario} Te enviei o link no direct! Caso não encontre, envie um 'oi' no nosso direct 😉📦"
+                    api.responder_comentario(cid, msg_pub)
                     reg["publica"] = "ok"
                 except Exception as e:
                     reg["publica"] = f"erro: {str(e)[:300]}"
                     print(f"⚠️  Resposta pública falhou: {e}")
 
-            if reg.get("dm") == "ok":
+            if reg.get("dm") == "ok" or reg.get("publica") == "ok":
                 respondidos[cid] = reg
             time.sleep(2)
     return enviados
