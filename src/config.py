@@ -196,16 +196,16 @@ PERFIS = {
                   "destaque_claro": "#E2BE68", "preco": "#24150A", "cinza": "#6E6458",
                   "sombra": "#DCD6CB"},
     },
-    "ana": {
-        "nicho": NICHO_ANA,
-        "marca": "ANA NOVO ACHADOS",
-        "nome": "Ana Novo Achados",
-        "arroba": "@ananovoachados",
-        "hashtag": "#ananovoachados",
-        "pasta_dados": PASTA_DADOS / "ana",
-        "logo": RAIZ / "assets" / "ana" / "logo.png",
+    "Bruna": {
+        "nicho": NICHO_GARIMPO_TOTAL,
+        "marca": "BA Home & Living",
+        "nome": "BA Home & Living",
+        "arroba": "@ba.homeliving",
+        "hashtag": "#BAHome&Living",
+        "pasta_dados": PASTA_DADOS,
+        "logo": RAIZ / "assets" / "logo.png",
         "telegram": False,
-        "proibidas": ["infantil", "criança", "crianca", "bebê", "bebe", "menina", "menino", "kids"],
+        # "proibidas": ["infantil", "criança", "crianca", "bebê", "bebe", "menina", "menino", "kids"],
         "tom": ("Tom acolhedor, divertido e inclusivo, como uma amiga que indica achadinhos. "
                 "Fale com mulheres com carinho, leveza e sem estereótipos, "
                 "tratando por \"você\" (ex.: \"pra quem ama...\")."),
