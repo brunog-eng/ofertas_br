@@ -5,7 +5,7 @@ import time
 import requests
 
 VERSAO = os.getenv("IG_API_VERSION", "v23.0")
-API = f"https://graph.instagram.com/{VERSAO}"
+API = f"https://graph.facebook.com/{VERSAO}"
 
 
 class ErroInstagram(RuntimeError):
