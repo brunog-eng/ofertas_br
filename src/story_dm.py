@@ -74,21 +74,47 @@ def responder_stories(api, minha):
             print("⚠️  Resposta de story sem achado correspondente; deixei sem resposta.")
             continue
         loja = NOME_LOJA.get(o.get("plataforma") or "shopee", "loja")
-        try:
+        link = vendas.do_canal(o, "igstory")
+        titulo = (o.get("titulo") or o.get("nome", ""))[:80]
+        subtitulo = f"R$ {o.get('preco_fmt', '')} no story ({loja}) • link de afiliado: você paga o mesmo"[:80]
+        botoes = [(TITULO_BOTAO, link)]
+        if config.PAGINA_BIO:
+            botoes.append(("🔗 Achados de hoje", f"https://{config.PAGINA_BIO}"))
+
+        enviado = False
+        # 1. Envia cartão com foto do produto (igual ao formato do Reels)
+        if o.get("imagem") and hasattr(api, "enviar_dm_cartao"):
             try:
-                api._req("POST", f"{ig_id}/messages", json={
-                    "recipient": {"id": autor},
-                    "message": {"attachment": {"type": "template", "payload": {
-                        "template_type": "button", "text": DM_BOTAO.format(titulo=o["titulo"], loja=loja)[:640],
-                        "buttons": [{"type": "web_url", "url": vendas.do_canal(o, "igstory"), "title": TITULO_BOTAO}]}}}})
+                api.enviar_dm_cartao(ig_id, autor, titulo, subtitulo, o["imagem"], botoes)
+                enviado = True
+                print(f"📲 Story: cartão com foto enviado para autor {autor} — {o['titulo']}")
             except Exception as e:
-                print(f"   (botão recusado: {e}; enviando como texto)")
-                api._req("POST", f"{ig_id}/messages", json={
-                    "recipient": {"id": autor},
-                    "message": {"text": DM.format(titulo=o["titulo"], link=vendas.do_canal(o, "igstory"))}})
+                print(f"   (cartão de story recusado: {e}; tentando botão)")
+
+        # 2. Fallback para Botão
+        if not enviado and hasattr(api, "enviar_dm_botao"):
+            try:
+                api.enviar_dm_botao(ig_id, autor, DM_BOTAO.format(titulo=o["titulo"], loja=loja), link, TITULO_BOTAO)
+                enviado = True
+                print(f"📲 Story: botão enviado no direct — {o['titulo']}")
+            except Exception as e:
+                print(f"   (botão de story recusado: {e}; tentando texto)")
+
+        # 3. Fallback para Texto
+        if not enviado:
+            try:
+                if hasattr(api, "enviar_dm_texto"):
+                    api.enviar_dm_texto(ig_id, autor, DM.format(titulo=o["titulo"], link=link))
+                else:
+                    api._req("POST", f"{ig_id}/messages", json={
+                        "recipient": {"id": autor},
+                        "message": {"text": DM.format(titulo=o["titulo"], link=link)}})
+                enviado = True
+                print(f"📲 Story: link em texto enviado no direct — {o['titulo']}")
+            except Exception as e:
+                print(f"::warning::Story: não consegui mandar o link: {e}")
+
+        if enviado:
             enviados += 1
-            print(f"📲 Story: link enviado no direct — {o['titulo']}")
-        except Exception as e:
-            print(f"::warning::Story: não consegui mandar o link: {e}")
     _salvar(feitos)
     return enviados

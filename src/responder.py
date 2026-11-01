@@ -229,18 +229,35 @@ def responder(api=instagram):
             reg = {"post": o["id_post"], "oferta": o["id"], "usuario": usuario,
                    "autor": autor, "em": agora().strftime(FMT)}
             try:
-                try:
-                    api.resposta_privada_botao(minha["user_id"], cid, DM_BOTAO.format(titulo=o["titulo"], loja=NOME_LOJA.get(o.get("plataforma") or "shopee", "loja")),
-                                               vendas.do_canal(o, "igdm"), TITULO_BOTAO)
-                    reg["formato"] = "botao"
-                except Exception as e:
-                    print(f"   (botão recusado: {e}; enviando como texto)")
-                    api.resposta_privada(minha["user_id"], cid,
-                                         DM.format(titulo=o["titulo"], link=vendas.do_canal(o, "igdm")))
-                    reg["formato"] = "texto"
+                # 1. Cartão com foto do produto se houver imagem
+                loja = NOME_LOJA.get(o.get("plataforma") or "shopee", "loja")
+                link_canal = vendas.do_canal(o, "igdm")
+                if o.get("imagem"):
+                    try:
+                        botoes = [(TITULO_BOTAO, link_canal)]
+                        if config.PAGINA_BIO:
+                            botoes.append(("🔗 Achados de hoje", f"https://{config.PAGINA_BIO}"))
+                        api.resposta_privada_cartao(
+                            minha["user_id"], cid, (o.get("titulo") or o.get("nome", ""))[:80],
+                            CARTAO_SUB.format(preco=o.get("preco_fmt", ""), loja=loja), o["imagem"], botoes)
+                        reg["formato"] = "cartao"
+                    except Exception as e:
+                        print(f"   (cartão recusado: {e}; tentando botão)")
+
+                # 2. Fallback para botão ou texto
+                if reg.get("formato") != "cartao":
+                    try:
+                        api.resposta_privada_botao(minha["user_id"], cid, DM_BOTAO.format(titulo=o["titulo"], loja=loja),
+                                                   link_canal, TITULO_BOTAO)
+                        reg["formato"] = "botao"
+                    except Exception as e:
+                        print(f"   (botão recusado: {e}; enviando como texto)")
+                        api.resposta_privada(minha["user_id"], cid,
+                                             DM.format(titulo=o["titulo"], link=link_canal))
+                        reg["formato"] = "texto"
                 reg["dm"] = "ok"
                 enviados += 1
-                print(f"📩 Link enviado para @{reg['usuario']} — {o['titulo']}")
+                print(f"📩 Link ({reg['formato']}) enviado para @{reg['usuario']} — {o['titulo']}")
             except Exception as e:
                 falhas += 1
                 reg["dm"] = f"erro: {str(e)[:200]}"

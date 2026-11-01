@@ -222,6 +222,59 @@ def responder_comentario(comment_id, texto):
     return _req("POST", f"{comment_id}/replies", params={"message": texto})
 
 
+
+
+def enviar_dm_cartao(ig_id, destinatario_id, titulo, subtitulo, imagem_url, botoes):
+    """Envia um cartão com foto, título, subtítulo e botões para um usuário no Direct."""
+    info = obter_info_pagina(ig_id)
+    tok = info.get("page_token") or token()
+    payload = {
+        "recipient": {"id": destinatario_id},
+        "message": {"attachment": {"type": "template", "payload": {
+            "template_type": "generic", "elements": [{
+                "title": titulo[:80], "subtitle": subtitulo[:80], "image_url": imagem_url,
+                "default_action": {"type": "web_url", "url": botoes[0][1]},
+                "buttons": [{"type": "web_url", "url": u, "title": t[:20]} for t, u in botoes[:3]]}]}}}
+    }
+    try:
+        return _req("POST", f"{ig_id}/messages", json=payload, custom_token=tok)
+    except Exception as e:
+        if info.get("page_id") and str(info["page_id"]) != str(ig_id):
+            return _req("POST", f"{info['page_id']}/messages", json=payload, custom_token=tok)
+        raise e
+
+
+def enviar_dm_botao(ig_id, destinatario_id, texto, url, titulo_botao):
+    """Envia uma mensagem com botão clicável para um usuário no Direct."""
+    info = obter_info_pagina(ig_id)
+    tok = info.get("page_token") or token()
+    payload = {
+        "recipient": {"id": destinatario_id},
+        "message": {"attachment": {"type": "template", "payload": {
+            "template_type": "button", "text": texto[:640],
+            "buttons": [{"type": "web_url", "url": url, "title": titulo_botao}]}}}
+    }
+    try:
+        return _req("POST", f"{ig_id}/messages", json=payload, custom_token=tok)
+    except Exception as e:
+        if info.get("page_id") and str(info["page_id"]) != str(ig_id):
+            return _req("POST", f"{info['page_id']}/messages", json=payload, custom_token=tok)
+        raise e
+
+
+def enviar_dm_texto(ig_id, destinatario_id, texto):
+    """Envia uma mensagem de texto simples para um usuário no Direct."""
+    info = obter_info_pagina(ig_id)
+    tok = info.get("page_token") or token()
+    payload = {"recipient": {"id": destinatario_id}, "message": {"text": texto}}
+    try:
+        return _req("POST", f"{ig_id}/messages", json=payload, custom_token=tok)
+    except Exception as e:
+        if info.get("page_id") and str(info["page_id"]) != str(ig_id):
+            return _req("POST", f"{info['page_id']}/messages", json=payload, custom_token=tok)
+        raise e
+
+
 def curtir_comentario(comment_id, ig_id=None):
     """Curte um comentário no Instagram."""
     ig_id = str(ig_id or (os.getenv("IG_USER_ID") or "17841432150685143")).strip()
