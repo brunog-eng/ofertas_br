@@ -196,7 +196,7 @@ PERFIS = {
                   "destaque_claro": "#E2BE68", "preco": "#24150A", "cinza": "#6E6458",
                   "sombra": "#DCD6CB"},
     },
-    "Bruna": {
+    "Ana": {
         "nicho": NICHO_GARIMPO_TOTAL,
         "marca": "BA Home & Living",
         "nome": "BA Home & Living",
