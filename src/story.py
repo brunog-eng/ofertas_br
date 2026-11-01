@@ -41,3 +41,98 @@ def gerar(arte_feed, destino, t1="ACHADO NOVO ", t2="NO FEED"):
     d.text(((L - d.textlength(config.ARROBA, font=f4)) / 2, A - 110), config.ARROBA, font=f4, fill=DOURADO_CLARO)
     img.save(destino, "JPEG", quality=90)
     return destino
+
+
+def _quebrar(draw, texto, fonte, largura, max_linhas=2):
+    linhas, atual = [], ""
+    for p in texto.split():
+        teste = f"{atual} {p}".strip()
+        if draw.textlength(teste, font=fonte) <= largura:
+            atual = teste
+        else:
+            if atual:
+                linhas.append(atual)
+            atual = p
+    if atual:
+        linhas.append(atual)
+    return linhas[:max_linhas]
+
+
+def gerar_story_produto(oferta, foto, destino, pos=1):
+    """Gera um story vertical (1080x1920) focado exclusivamente no produto."""
+    im = Image.new("RGB", (L, A), (250, 247, 242))
+    d = ImageDraw.Draw(im)
+
+    # Borda sutil elegante
+    d.rounded_rectangle((35, 35, L - 35, A - 35), radius=36, outline=(220, 195, 155), width=2)
+
+    # Logo no topo
+    if config.LOGO.exists():
+        try:
+            logo = Image.open(config.LOGO).convert("RGBA")
+            logo = logo.resize((220, 220), Image.Resampling.LANCZOS)
+            im.paste(logo, ((L - 220) // 2, 60), logo)
+        except Exception:
+            pass
+
+    # Selo / Badge do Produto
+    plataforma = (oferta.get("plataforma") or "shopee").upper()
+    badge = f"ACHADINHO #{pos} • {plataforma}"
+    f_badge = _fonte(28, "Bold")
+    bw = d.textlength(badge, font=f_badge) + 44
+    bx0 = (L - bw) // 2
+    d.rounded_rectangle((bx0, 310, bx0 + bw, 362), radius=22, fill=(197, 168, 128))
+    d.text(((L - d.textlength(badge, font=f_badge)) // 2, 324), badge, font=f_badge, fill=(255, 255, 255))
+
+    # Card da foto do produto
+    card_x0, card_y0 = 80, 395
+    card_w, card_h = L - 160, 840
+    d.rounded_rectangle((card_x0, card_y0, card_x0 + card_w, card_y0 + card_h), radius=32, fill=(255, 255, 255), outline=(230, 218, 202), width=2)
+
+    if foto:
+        foto_fit = ImageOps.contain(foto.convert("RGB"), (card_w - 30, card_h - 30), Image.Resampling.LANCZOS)
+        foto_fit = _arredondar(foto_fit, 24)
+        fx = card_x0 + (card_w - foto_fit.width) // 2
+        fy = card_y0 + (card_h - foto_fit.height) // 2
+        im.paste(foto_fit, (fx, fy), foto_fit)
+
+    # Titulo do produto
+    titulo = oferta.get("titulo") or oferta.get("nome", "Achadinho Especial")
+    f_tit = _fonte(38, "Bold")
+    linhas = _quebrar(d, titulo, f_tit, L - 180, 2)
+    y_tit = card_y0 + card_h + 35
+    for ln in linhas:
+        d.text(((L - d.textlength(ln, font=f_tit)) // 2, y_tit), ln, font=f_tit, fill=(44, 34, 30))
+        y_tit += 48
+
+    # Preco
+    preco_val = oferta.get("preco_fmt")
+    preco = f"R$ {preco_val}" if preco_val else ""
+    y_preco = y_tit + 15
+    if preco:
+        f_preco = _fonte(64, "ExtraBold")
+        d.text(((L - d.textlength(preco, font=f_preco)) // 2, y_preco), preco, font=f_preco, fill=(180, 130, 60))
+
+    # Balao de Acao
+    y_cta = y_preco + 95
+    d.rounded_rectangle((80, y_cta, L - 80, y_cta + 195), radius=28, fill=(44, 34, 30))
+
+    f_cta1 = _fonte(30, "Medium")
+    t1 = "Quer o link com desconto?"
+    d.text(((L - d.textlength(t1, font=f_cta1)) // 2, y_cta + 30), t1, font=f_cta1, fill=(220, 200, 175))
+
+    f_cta2 = _fonte(46, "ExtraBold")
+    t2 = "Responda  QUERO"
+    d.text(((L - d.textlength(t2, font=f_cta2)) // 2, y_cta + 75), t2, font=f_cta2, fill=(255, 255, 255))
+
+    f_cta3 = _fonte(28, "Medium")
+    t3 = "Enviamos o link na hora no seu direct!"
+    d.text(((L - d.textlength(t3, font=f_cta3)) // 2, y_cta + 140), t3, font=f_cta3, fill=(200, 190, 185))
+
+    # Rodapé
+    f_arr = _fonte(28, "SemiBold")
+    arroba = config.ARROBA or "@ba.homeliving"
+    d.text(((L - d.textlength(arroba, font=f_arr)) // 2, A - 85), arroba, font=f_arr, fill=(160, 145, 135))
+
+    im.save(destino, "JPEG", quality=92, optimize=True)
+    return destino

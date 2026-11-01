@@ -175,20 +175,23 @@ def gerar(itens, pasta):
     slide_final(len(itens), v, frase).save(pasta / nome_fim, quality=92)
     arqs.append(nome_fim)
 
-    # Story vertical do carrossel (1080x1920)
-    nome_story = f"story-{nome_capa}"
-    try:
-        from . import story
-        story.gerar(pasta / nome_capa, pasta / nome_story, t1="ACHADOS NOVOS ", t2="NO FEED")
-        print(f"📱 Story do carrossel preparado: {nome_story}")
-    except Exception as e:
-        print(f"::warning::Arte do story do carrossel falhou: {e}")
-        nome_story = None
+    # Stories verticais para cada produto do carrossel (1080x1920)
+    stories = []
+    for i, it in enumerate(itens, 1):
+        nome_st = f"story-achados-{marca}-{i}.jpg"
+        try:
+            from . import story
+            story.gerar_story_produto(it["oferta"], it["foto"], pasta / nome_st, pos=i)
+            stories.append({"arquivo": nome_st, "id": it["oferta"]["id"]})
+            print(f"📱 Story do produto #{i} preparado: {nome_st}")
+        except Exception as e:
+            print(f"::warning::Story do produto #{i} falhou: {e}")
 
     return {
         "arquivos": arqs,
         "clipe": "",
-        "story": nome_story,
+        "story": stories[0]["arquivo"] if stories else None,
+        "stories": stories,
         "short": None,
         "tiktok": [],
         "legenda_tiktok": "",
@@ -275,22 +278,24 @@ def publicar():
     ARQ_PROXIMO.unlink(missing_ok=True)
     print(f"✅ Carrossel de achados publicado ({config.ARROBA}): {permalink or media_id}")
 
-    if info.get("story"):
+    stories = info.get("stories") or ([{"arquivo": info["story"]}] if info.get("story") else [])
+    for st in stories:
         try:
-            surl = f"{base}/midia/achados/{info['story']}"
+            surl = f"{base}/midia/achados/{st['arquivo']}"
             _esperar_url(surl)
             cont_s = instagram.criar_story(ig_id, imagem_url=surl)
             instagram.aguardar_container(cont_s)
             story_id = instagram.publicar(ig_id, cont_s)
-            print(f"📲 Carrossel também publicado no story: {story_id}")
-            for it in info.get("itens", []):
-                o = fila["ofertas"].get(it["id"])
+            print(f"📲 Story do produto publicado ({st.get('id', '')}): {story_id}")
+            if st.get("id"):
+                o = fila["ofertas"].get(st["id"])
                 if o:
                     o["story_id"] = story_id
                     o["story"] = "ok"
-            salvar_fila(fila)
+            time.sleep(3)
         except Exception as e:
-            print(f"::warning::Story do carrossel falhou: {e}")
+            print(f"::warning::Story {st['arquivo']} falhou: {e}")
+    salvar_fila(fila)
 
 
 def previa(tipo=None):
