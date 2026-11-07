@@ -28,11 +28,8 @@ jobs:
 
           WFS="responder.yml"
 
-          # Garimpar ofertas
-          case "$HQ" in 06:45|11:45|17:45) WFS="$WFS garimpo.yml" ;; esac
-
-          # Publicar carrossel de achados
-          case "$HQ" in 09:30|18:45) WFS="$WFS achados.yml" ;; esac
+          # Nota: garimpo.yml e achados.yml agora possuem agendamento nativo (schedule/cron)
+          # em seus proprios arquivos para garantir a execucao mesmo com atrasos da fila do GitHub Actions.
 
           # Renovar token toda segunda-feira às 08:30
           if [ "$HQ" = "08:30" ] && [ "$DOW" = "1" ]; then WFS="$WFS token.yml"; fi

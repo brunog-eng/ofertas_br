@@ -2,6 +2,9 @@ name: Carrossel de Achados
 run-name: Carrossel de Achados${{ inputs.so_previa && ' (prévia)' || '' }}
 
 on:
+  schedule:
+    - cron: '30 12 * * *'  # 09:30 Horário de Brasília (12:30 UTC)
+    - cron: '45 21 * * *'  # 18:45 Horário de Brasília (21:45 UTC)
   workflow_dispatch:
     inputs:
       so_previa:

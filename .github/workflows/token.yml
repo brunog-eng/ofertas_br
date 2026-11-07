@@ -2,6 +2,8 @@ name: 4 - Renovar token do Instagram
 run-name: 4 - Renovar token do Instagram
 
 on:
+  schedule:
+    - cron: '30 11 * * 1'  # Toda segunda-feira às 08:30 (Brasília) / 11:30 UTC
   workflow_dispatch:
 
 jobs:
