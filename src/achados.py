@@ -297,6 +297,19 @@ def publicar():
             print(f"::warning::Story {st['arquivo']} falhou: {e}")
     salvar_fila(fila)
 
+    # Grupo do WhatsApp (se Evolution API estiver configurada)
+    try:
+        from . import whatsapp_grupo
+        if whatsapp_grupo.configurado():
+            print("📲 Enviando ofertas do carrossel para o grupo do WhatsApp...")
+            for it in info.get("itens", []):
+                o = fila["ofertas"].get(it["id"])
+                if o:
+                    whatsapp_grupo.enviar_oferta(o)
+                    time.sleep(2)
+    except Exception as e:
+        print(f"::warning::Envio para o grupo do WhatsApp falhou: {e}")
+
 
 def previa(tipo=None):
     """Gera os slides na pasta temporária para conferência visual."""
