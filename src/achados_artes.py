@@ -1,11 +1,26 @@
-"""Artes do carrossel de achados (src/achados.py): várias versões de cada slide, para os posts não ficarem todos
-iguais no feed. A cada carrossel o robô usa uma versão diferente (o contador fica em data/<perfil>/achados.json).
+"""Artes do carrossel de achados (src/achados.py): visual elegante, moderno e padronizado
+alinhado com a identidade da marca BA Home & Living (paleta em linho, dourado suave e café/carvão do logo).
 """
 from PIL import Image, ImageDraw, ImageFilter, ImageOps
 
 from . import config, imagem, lojas_arte, marcas
 
 L, A = 1080, 1350
+
+# Paleta oficial alinhada ao logo e ao último slide
+FUNDO = (250, 247, 242)          # Linho / off-white suave (#FAF7F2)
+BORDA1 = (220, 195, 155)         # Champagne / dourado areia (#DCC39B)
+BORDA2 = (240, 228, 210)         # Bege bem clarinho (#F0E4D2)
+CARD_FUNDO = (255, 255, 255)     # Branco puro para valorizar o produto
+CARD_BORDA = (230, 218, 202)     # Contorno sutil do card
+CARD_SOMBRA = (235, 226, 215)    # Sombra suave sob o card
+ESCURO = (44, 34, 30)            # Café / carvão quente do logo (#2C221E)
+DOURADO = (197, 168, 128)        # Dourado suave (#C5A880)
+DOURADO_TEXTO = (180, 130, 60)   # Dourado caramelo para destaques (#B4823C)
+CINZA_TEXTO = (100, 90, 85)      # Texto secundário (#645A55)
+BRANCO = (255, 255, 255)
+VERMELHO_DESC = (195, 60, 45)    # Vermelho refinado para selo de desconto
+
 NOMES_LOJA = {"shopee": "SHOPEE", "aliexpress": "ALIEXPRESS", **{p: m["nome"].upper() for p, m in marcas.MARCAS.items()}}
 
 TITULOS = [
@@ -21,203 +36,214 @@ FINAIS_ANA = FINAIS
 N_PRODUTO, N_FINAL_GARIMPO, N_FINAL_ANA, N_TITULO = 3, 2, 3, 3
 
 
+def _fonte(tam, peso="Bold"):
+    return imagem._fonte(tam, peso)
+
+
 def _brl_linha(o):
     return f"R$ {o['preco_fmt']}"
 
 
-def _info(o):
-    if marcas.eh_marca(o):
-        return marcas.texto_oficial(o)
+def _limpar_titulo(t):
+    t = " ".join(str(t or "").split())
+    for c in ["\u2010", "\u2011", "\u2012", "\u2013", "\u2014", "\u2015", "\u2212"]:
+        t = t.replace(c, "-")
+    return t
+
+
+def _logo_topo(im, y=48, max_h=120, max_w=320):
+    """Insere o logo da loja centralizado no topo com corte de margens transparentes."""
+    if config.LOGO.exists():
+        try:
+            logo = Image.open(config.LOGO).convert("RGBA")
+            bbox = logo.getbbox()
+            if bbox:
+                logo = logo.crop(bbox)
+            ratio = min(max_w / logo.width, max_h / logo.height)
+            nw, nh = int(logo.width * ratio), int(logo.height * ratio)
+            logo = logo.resize((nw, nh), Image.Resampling.LANCZOS)
+            im.paste(logo, ((L - nw) // 2, y + (max_h - nh) // 2), logo)
+            return True
+        except Exception:
+            pass
+    return False
+
+
+def _selo_numero(d, cx, cy, r, pos):
+    """Selo elegante com o número do produto (1, 2, 3...)."""
+    d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=ESCURO, outline=BORDA1, width=4)
+    f = _fonte(int(r * 1.15), "Black")
+    d.text((cx, cy + 2), str(pos), font=f, fill=DOURADO, anchor="mm")
+
+
+def _avaliacao(d, o, y):
+    """Estrela vetorial e texto com nota e quantidade de vendas."""
     vendas = f"{o.get('vendas', 0):,}".replace(",", ".")
-    if o.get("avaliacao_pct"):
-        return f"{o['avaliacao_pct']:.0f}% aprovação  •  {vendas}+ vendidos"
-    return f"nota {str(o.get('nota', '')).replace('.', ',')}  •  {vendas}+ vendidos"
+    nota = str(o.get('nota', '5.0')).replace('.', ',')
+    texto = f"{nota}  •  {vendas}+ vendidos"
+    if marcas.eh_marca(o):
+        texto = marcas.texto_oficial(o)
+    f_inf = _fonte(30, "SemiBold")
+    w_txt = d.textlength(texto, font=f_inf)
+    r_star = 16
+    gap = 12
+    w_tot = (2 * r_star) + gap + w_txt
+    x0 = (L - w_tot) / 2
+    cx_star = x0 + r_star
+    cy_star = y + 16
+    imagem._estrela(d, cx_star, cy_star, r_star, DOURADO_TEXTO)
+    d.text((x0 + 2 * r_star + gap, y), texto, font=f_inf, fill=CINZA_TEXTO)
 
 
-def _loja(o):
-    return NOMES_LOJA.get(o.get("plataforma") or "shopee", "SHOPEE")
-
-
-def _loja_nome(o):
-    """Nome da loja como se escreve: Shopee, AliExpress, Shark Ninja..."""
-    return marcas.nome(o) if marcas.eh_marca(o) else {"ALIEXPRESS": "AliExpress"}.get(_loja(o), _loja(o).title())
-
-
-def _degrade(topo, base):
-    img = Image.new("RGB", (L, A))
-    d = ImageDraw.Draw(img)
-    for y in range(A):
-        k = y / (A - 1)
-        d.line([(0, y), (L, y)], fill=tuple(int(c1 + (c2 - c1) * k) for c1, c2 in zip(topo, base)))
-    return img
-
-
-def _centro(d, y, texto, fonte, cor, stroke=0, cor_stroke=(0, 0, 0)):
-    d.text(((L - d.textlength(texto, font=fonte)) / 2, y), texto, font=fonte, fill=cor,
-           stroke_width=stroke, stroke_fill=cor_stroke)
-
-
-def _ajustar(d, texto, fabrica, tam, largura, minimo=44):
-    """Fonte do maior tamanho (até `tam`) em que o texto cabe na largura."""
-    while tam > minimo:
-        f = fabrica(tam)
-        if d.textlength(texto, font=f) <= largura:
-            return f
-        tam -= 4
-    return fabrica(minimo)
-
-
-def _barra_quero(d, pos, y, num=None):
-    """Faixa do QUERO N."""
-    fc = imagem._fonte(46, "ExtraBold")
-    partes = [("COMENTE ", imagem.BRANCO), (f"QUERO {pos}", imagem.DOURADO_CLARO), (" E RECEBA O LINK", imagem.BRANCO)]
-    if num:
-        partes = [("DIGITE ", imagem.BRANCO), (f"#{num}", imagem.DOURADO_CLARO), (" NO LINK DA BIO", imagem.BRANCO)]
-    x = (L - sum(d.textlength(t, font=fc) for t, _ in partes)) / 2
-    for t, cor in partes:
-        d.text((x, y), t, font=fc, fill=cor)
-        x += d.textlength(t, font=fc)
-
-
-# ================================================================== PRODUTO
-def produto_garimpo(v, oferta, foto, pos, destino, tiktok=False):
-    num = oferta.get("num") if tiktok else None
-    if v == 1:
-        img = _mina(oferta, foto, pos, num)
-    elif v == 2:
-        img = _ouro(oferta, foto, pos, num)
-    else:   # 0: o cartão do feed com o selo do número
-        imagem.gerar(oferta, destino, foto=foto, moldura=False)
-        img = Image.open(destino).convert("RGB")
-        d = ImageDraw.Draw(img)
-        _selo_numero(d, 74, 74, 56, imagem.DOURADO, imagem.ESCURO, imagem._fonte(76, "Black"), pos, imagem.ESCURO)
-        d.rectangle([0, A - 118, L, A], fill=imagem.ESCURO)
-        _barra_quero(d, pos, A - 84, num)
-    img = lojas_arte.moldura_oficial(img, oferta)
-    img.save(destino, "JPEG", quality=90, optimize=True)
-
-
-# ================================================================== CAPA COM PRODUTO
+# ================================================================== CAPA DO CARROSSEL (SLIDE 1)
 def capa_produto(oferta, foto, n_mais, pose, destino):
-    """Capa do carrossel: o 1º produto em destaque num cartão limpo e elegante,
-    selo da loja e "+X ACHADOS" no topo, faixa com nome/nota/preço e chamada para arrastar.
-    Vale como o slide do produto 1 ("QUERO 1")."""
-    img = Image.new("RGB", (L, A), imagem.FUNDO)
-    d = ImageDraw.Draw(img)
-    cx0, cy0, cx1, cy1 = 44, 44, L - 44, 1000
-    d.rounded_rectangle([cx0 + 6, cy0 + 10, cx1 + 6, cy1 + 10], 44, fill=imagem.SOMBRA)
-    d.rounded_rectangle([cx0, cy0, cx1, cy1], 44, fill=imagem.BRANCO)
+    """Capa do carrossel: o 1º produto em destaque com logo centralizado,
+    selo #1 no topo esquerdo, badge '+X ACHADOS ›', foto no card branco e chamada 'ARRASTE PARA O LADO ››'.
+    """
+    im = Image.new("RGB", (L, A), FUNDO)
+    d = ImageDraw.Draw(im)
+
+    # Bordas duplas refinadas
+    d.rounded_rectangle((35, 35, L - 35, A - 35), radius=32, outline=BORDA1, width=2)
+    d.rounded_rectangle((42, 42, L - 42, A - 42), radius=28, outline=BORDA2, width=1)
+
+    # Topo: Logo da marca centralizado
+    _logo_topo(im, y=48, max_h=120, max_w=320)
+
+    # Topo Esquerda: Selo #1
+    _selo_numero(d, 105, 105, 42, 1)
+
+    # Topo Direita: +X ACHADOS ›
+    t_mais = f"+{n_mais} ACHADOS  ›"
+    f_mais = _fonte(26, "ExtraBold")
+    w_mais = d.textlength(t_mais, font=f_mais)
+    d.rounded_rectangle([L - w_mais - 110, 80, L - 65, 132], 26, fill=ESCURO, outline=BORDA1, width=2)
+    d.text((L - w_mais - 88, 92), t_mais, font=f_mais, fill=DOURADO)
+
+    # Card da Foto do Produto
+    cx0, cy0, cx1, cy1 = 65, 180, L - 65, 930
+    d.rounded_rectangle((cx0 + 4, cy0 + 6, cx1 + 4, cy1 + 6), radius=32, fill=CARD_SOMBRA)
+    d.rounded_rectangle((cx0, cy0, cx1, cy1), radius=32, fill=CARD_FUNDO, outline=CARD_BORDA, width=2)
+
+    # Foto
     if foto is not None:
-        f = ImageOps.contain(foto.convert("RGB"), (cx1 - cx0 - 60, cy1 - cy0 - 140), Image.LANCZOS)
-        img.paste(f, (cx0 + (cx1 - cx0 - f.width) // 2, cy0 + 120 + (cy1 - cy0 - 150 - f.height) // 2))
-    _selo_numero(d, cx0 + 66, cy0 + 62, 44, imagem.DOURADO, imagem.ESCURO, imagem._fonte(60, "Black"), 1,
-                 imagem.ESCURO)
-    fim_selo = cx0 + 126 + imagem.selo_loja(d, oferta, cx0 + 126, cy0 + 30)
-    t = f"+{n_mais} ACHADOS  ›"
-    f_a = imagem._fonte(30, "ExtraBold")
-    w = d.textlength(t, font=f_a)
-    if fim_selo + 20 < cx1 - w - 70:
-        d.rounded_rectangle([cx1 - w - 70, cy0 + 30, cx1 - 30, cy0 + 94], 32, fill=imagem.DOURADO)
-        d.text((cx1 - w - 50, cy0 + 45), t, font=f_a, fill=imagem.BRANCO)
+        fo = ImageOps.contain(foto.convert("RGB"), (cx1 - cx0 - 60, cy1 - cy0 - 60), Image.Resampling.LANCZOS)
+        im.paste(fo, (cx0 + (cx1 - cx0 - fo.width) // 2, cy0 + (cy1 - cy0 - fo.height) // 2))
 
-    # Faixa inferior com título, avaliação e preço
-    d.rectangle([0, 1040, L, A], fill=imagem.ESCURO)
-    x0, y = 60, 1062
-    f_tit = imagem._fonte(48, "ExtraBold")
-    for ln in imagem._quebrar(d, oferta["titulo"], f_tit, L - 140, max_linhas=2):
-        d.text((x0, y), ln, font=f_tit, fill=imagem.BRANCO)
-        y += 56
-    y += 6
-    f_info = imagem._fonte(32, "SemiBold")
-    if marcas.eh_marca(oferta):
-        d.text((x0, y), marcas.texto_oficial(oferta), font=f_info, fill=imagem.DOURADO_CLARO)
-    else:
-        imagem._estrela(d, x0 + 18, y + 21, 20, imagem.DOURADO_CLARO)
-        d.text((x0 + 46, y), _info(oferta).removeprefix("nota "), font=f_info, fill=imagem.DOURADO_CLARO)
-    d.text((x0, y + 50), _brl_linha(oferta), font=imagem._fonte(64, "Black"), fill=imagem.BRANCO)
-
-    # Selo elegante no canto inferior direito ("ARRASTE ››")
-    cta_txt = "ARRASTE ››"
-    f_cta = imagem._fonte(34, "ExtraBold")
-    w_cta = d.textlength(cta_txt, font=f_cta)
-    d.rounded_rectangle([L - w_cta - 80, A - 95, L - 40, A - 35], 30, fill=imagem.DOURADO)
-    d.text((L - w_cta - 60, A - 85), cta_txt, font=f_cta, fill=imagem.ESCURO)
-
-    img = lojas_arte.moldura_oficial(img, oferta)
-    img.save(destino, "JPEG", quality=90, optimize=True)
-
-
-def _selo_numero(d, cx, cy, r, fundo, contorno, fonte, pos, cor):
-    d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=fundo, outline=contorno, width=6)
-    d.text((cx, cy + 2), str(pos), font=fonte, fill=cor, anchor="mm")
-
-
-def _mina(o, foto, pos, num=None):
-    from . import top
-    f = top._f
-    im = Image.new("RGB", (L, A))
-    d = ImageDraw.Draw(im)
-    for y in range(A):
-        k = y / A
-        d.line([(0, y), (L, y)], fill=(int(80 - 36 * k), int(38 - 18 * k), int(10 - 5 * k)))
-    borda = (45, 20, 5)
-    d.ellipse((50, 40, 190, 180), fill=top.AM)
-    d.text((120, 112), str(pos), font=f(96), fill=borda, anchor="mm")
-    d.text((220, 58), f"ACHADO {config.NOME_MARCA.upper()[:16]}", font=f(32), fill=top.AM)
-    d.text((220, 98), f"oferta {_loja_nome(o)}", font=f(52), fill=top.BR)
-    d.rounded_rectangle((60, 220, L - 60, 900), 36, fill=top.CARD)
-    fo = foto.copy()
-    fo.thumbnail((L - 180, 620), Image.LANCZOS)
-    im.paste(fo, ((L - fo.width) // 2, 250 + (620 - fo.height) // 2))
-    imagem.selo_loja(d, o, 90, 900 - 30 - 58, escala=0.9)
-    if o.get("desconto"):
-        t = f"-{o['desconto']}%"
-        ft = f(36)
-        w = d.textlength(t, font=ft)
-        d.rounded_rectangle((L - 90 - w - 40, 250, L - 90, 312), 30, fill=top.VERMELHO)
-        d.text((L - 90 - w - 20, 258), t, font=ft, fill=top.BR)
-    y = 930
-    for ln in top._quebrar(d, o["titulo"], f(40), L - 140):
-        top._ctext(d, y, ln, f(40), top.BR)
-        y += 52
-    variacoes = o.get("preco_max") and o["preco_max"] > o["preco"] * 1.02
-    top._ctext(d, y + 12, "a partir de" if variacoes else "por", f(30), top.BEGE)
-    top._ctext(d, y + 44, _brl_linha(o), f(80), top.AM, 4, borda)
-    top._ctext(d, y + 150, _info(o), f(32), top.BR)
-    t = f"Digite #{num} no link da bio" if num else f"Comente QUERO {pos} que enviamos o link no direct"
-    ft = f(34)
-    w = d.textlength(t, font=ft)
-    d.rounded_rectangle(((L - w) / 2 - 30, A - 112, (L + w) / 2 + 30, A - 44), 34, fill=top.VERDE)
-    top._ctext(d, A - 104, t, ft, top.BR)
-    return im
-
-
-def _ouro(o, foto, pos, num=None):
-    im = Image.new("RGB", (L, A), (226, 178, 54))
-    d = ImageDraw.Draw(im)
-    d.ellipse((-260, -260, 640, 640), fill=(238, 200, 98))
-    d.ellipse((520, 760, 1380, 1620), fill=(212, 162, 38))
-    d.ellipse((120, 150, 960, 990), fill=imagem.BRANCO)
-    fo = ImageOps.contain(foto, (620, 620), Image.LANCZOS)
-    im.paste(fo, (540 - fo.width // 2, 570 - fo.height // 2))
-    _selo_numero(d, 100, 100, 62, imagem.ESCURO, imagem.BRANCO, imagem._fonte(78, "Black"), pos, (238, 200, 98))
+    # Selo da Loja dentro do card (canto superior direito)
     rascunho = ImageDraw.Draw(Image.new("RGB", (8, 8)))
-    imagem.selo_loja(d, o, L - 70 - imagem.selo_loja(rascunho, o, 0, 0), 62)
-    if o.get("desconto"):
-        cx, cy, r = 880, 920, 92
-        d.ellipse((cx - r, cy - r, cx + r, cy + r), fill=(205, 48, 36), outline=imagem.BRANCO, width=6)
-        d.text((cx, cy - 12), f"-{o['desconto']}%", font=imagem._fonte(50, "Black"), fill=imagem.BRANCO, anchor="mm")
-        d.text((cx, cy + 34), "OFF", font=imagem._fonte(32, "ExtraBold"), fill=imagem.BRANCO, anchor="mm")
-    y = 965
-    ft = imagem._fonte(44, "ExtraBold")
-    for ln in imagem._quebrar(d, o["titulo"], ft, L - 150, max_linhas=2):
-        _centro(d, y, ln, ft, imagem.ESCURO)
-        y += 54
-    _centro(d, y + 6, _brl_linha(o), imagem._fonte(104, "Black"), imagem.ESCURO)
-    _centro(d, y + 128, _info(o), imagem._fonte(32, "SemiBold"), (92, 58, 12))
-    d.rectangle([0, A - 118, L, A], fill=imagem.ESCURO)
-    _barra_quero(d, pos, A - 84, num)
-    return im
+    w_selo = imagem.selo_loja(rascunho, oferta, 0, 0, escala=0.85)
+    imagem.selo_loja(d, oferta, cx1 - w_selo - 20, cy0 + 20, escala=0.85)
+
+    # Selo de Desconto
+    if oferta.get("desconto"):
+        desc = oferta["desconto"]
+        r = 65
+        sx, sy = cx1 - 50, cy1 - 50
+        d.ellipse([sx - r, sy - r, sx + r, sy + r], fill=VERMELHO_DESC, outline=BRANCO, width=5)
+        d.text((sx, sy - 12), f"-{desc}%", font=_fonte(38, "Black"), fill=BRANCO, anchor="mm")
+        d.text((sx, sy + 22), "OFF", font=_fonte(22, "Bold"), fill=BRANCO, anchor="mm")
+
+    # Informações abaixo da foto
+    y = 960
+    f_tit = _fonte(44, "ExtraBold")
+    titulo = _limpar_titulo(oferta.get("titulo", ""))
+    for ln in imagem._quebrar(d, titulo, f_tit, L - 140, max_linhas=2):
+        d.text(((L - d.textlength(ln, font=f_tit)) / 2, y), ln, font=f_tit, fill=ESCURO)
+        y += 52
+
+    preco_str = _brl_linha(oferta)
+    f_pr = _fonte(92, "Black")
+    d.text(((L - d.textlength(preco_str, font=f_pr)) / 2, y + 8), preco_str, font=f_pr, fill=ESCURO)
+
+    _avaliacao(d, oferta, y + 115)
+
+    # Barra Inferior
+    d.rectangle([0, A - 95, L, A], fill=ESCURO)
+    f_cta = _fonte(36, "Bold")
+    f_cta_b = _fonte(36, "Black")
+    p1 = "ARRASTE PARA O LADO "
+    p2 = "››"
+    w_tot = d.textlength(p1, font=f_cta) + d.textlength(p2, font=f_cta_b)
+    x_cta = (L - w_tot) / 2
+    d.text((x_cta, A - 68), p1, font=f_cta, fill=BRANCO)
+    d.text((x_cta + d.textlength(p1, font=f_cta), A - 68), p2, font=f_cta_b, fill=DOURADO)
+
+    im = lojas_arte.moldura_oficial(im, oferta)
+    im.save(destino, "JPEG", quality=92, optimize=True)
+
+
+# ================================================================== PRODUTOS (SLIDES 2 A N)
+def produto_garimpo(v, oferta, foto, pos, destino, tiktok=False):
+    """Arte do produto com o número para 'QUERO N', logo da loja e estética alinhada."""
+    num = oferta.get("num") if tiktok else None
+    im = Image.new("RGB", (L, A), FUNDO)
+    d = ImageDraw.Draw(im)
+
+    # Bordas duplas refinadas
+    d.rounded_rectangle((35, 35, L - 35, A - 35), radius=32, outline=BORDA1, width=2)
+    d.rounded_rectangle((42, 42, L - 42, A - 42), radius=28, outline=BORDA2, width=1)
+
+    # Topo: Logo da marca centralizado
+    _logo_topo(im, y=48, max_h=120, max_w=320)
+
+    # Topo Esquerda: Selo do Número (2, 3, 4...)
+    _selo_numero(d, 105, 105, 42, pos)
+
+    # Topo Direita: Selo da Loja
+    rascunho = ImageDraw.Draw(Image.new("RGB", (8, 8)))
+    w_selo = imagem.selo_loja(rascunho, oferta, 0, 0, escala=0.85)
+    imagem.selo_loja(d, oferta, L - 65 - w_selo, 82, escala=0.85)
+
+    # Card da Foto do Produto
+    cx0, cy0, cx1, cy1 = 65, 180, L - 65, 930
+    d.rounded_rectangle((cx0 + 4, cy0 + 6, cx1 + 4, cy1 + 6), radius=32, fill=CARD_SOMBRA)
+    d.rounded_rectangle((cx0, cy0, cx1, cy1), radius=32, fill=CARD_FUNDO, outline=CARD_BORDA, width=2)
+
+    # Foto
+    if foto is not None:
+        fo = ImageOps.contain(foto.convert("RGB"), (cx1 - cx0 - 60, cy1 - cy0 - 60), Image.Resampling.LANCZOS)
+        im.paste(fo, (cx0 + (cx1 - cx0 - fo.width) // 2, cy0 + (cy1 - cy0 - fo.height) // 2))
+
+    # Selo de Desconto se houver
+    if oferta.get("desconto"):
+        desc = oferta["desconto"]
+        r = 65
+        sx, sy = cx1 - 50, cy1 - 50
+        d.ellipse([sx - r, sy - r, sx + r, sy + r], fill=VERMELHO_DESC, outline=BRANCO, width=5)
+        d.text((sx, sy - 12), f"-{desc}%", font=_fonte(38, "Black"), fill=BRANCO, anchor="mm")
+        d.text((sx, sy + 22), "OFF", font=_fonte(22, "Bold"), fill=BRANCO, anchor="mm")
+
+    # Informações abaixo da foto
+    y = 960
+    f_tit = _fonte(44, "ExtraBold")
+    titulo = _limpar_titulo(oferta.get("titulo", ""))
+    for ln in imagem._quebrar(d, titulo, f_tit, L - 140, max_linhas=2):
+        d.text(((L - d.textlength(ln, font=f_tit)) / 2, y), ln, font=f_tit, fill=ESCURO)
+        y += 52
+
+    preco_str = _brl_linha(oferta)
+    f_pr = _fonte(92, "Black")
+    d.text(((L - d.textlength(preco_str, font=f_pr)) / 2, y + 8), preco_str, font=f_pr, fill=ESCURO)
+
+    _avaliacao(d, oferta, y + 115)
+
+    # Barra Inferior com chamada QUERO {pos}
+    d.rectangle([0, A - 95, L, A], fill=ESCURO)
+    fc = _fonte(36, "Bold")
+    fc_d = _fonte(38, "Black")
+    if num:
+        partes = [("DIGITE ", BRANCO, fc), (f"#{num}", DOURADO, fc_d), (" NO LINK DA BIO", BRANCO, fc)]
+    else:
+        partes = [("COMENTE ", BRANCO, fc), (f"QUERO {pos}", DOURADO, fc_d), (" E RECEBA O LINK", BRANCO, fc)]
+    w_tot = sum(d.textlength(t, font=f) for t, _, f in partes)
+    x = (L - w_tot) / 2
+    for t, cor, f in partes:
+        d.text((x, A - 68), t, font=f, fill=cor)
+        x += d.textlength(t, font=f)
+
+    im = lojas_arte.moldura_oficial(im, oferta)
+    im.save(destino, "JPEG", quality=92, optimize=True)
 
 
 def produto_ana(v, oferta, foto, pos, destino):
@@ -249,13 +275,14 @@ def fim_de_mes(hoje=None):
     return dia >= 25 or dia <= 5
 
 
+# ================================================================== SLIDE FINAL
 def final_garimpo(v, n, n_variante, youtube=False, frase=None, tiktok=False):
-    im = Image.new("RGB", (L, A), (250, 247, 242))
+    im = Image.new("RGB", (L, A), FUNDO)
     d = ImageDraw.Draw(im)
 
     # Borda elegante sutil
-    d.rounded_rectangle((35, 35, L - 35, A - 35), radius=32, outline=(220, 195, 155), width=2)
-    d.rounded_rectangle((42, 42, L - 42, A - 42), radius=28, outline=(240, 228, 210), width=1)
+    d.rounded_rectangle((35, 35, L - 35, A - 35), radius=32, outline=BORDA1, width=2)
+    d.rounded_rectangle((42, 42, L - 42, A - 42), radius=28, outline=BORDA2, width=1)
 
     # Logo grande e em destaque na parte superior
     if config.LOGO.exists():
@@ -268,83 +295,64 @@ def final_garimpo(v, n, n_variante, youtube=False, frase=None, tiktok=False):
             pass
 
     # Titulo / Pergunta
-    f_tit = imagem._fonte(52, "Bold")
+    f_tit = _fonte(52, "Bold")
     tit = FINAIS[n_variante % len(FINAIS)]
-    d.text(((L - d.textlength(tit, font=f_tit)) / 2, 650), tit, font=f_tit, fill=(44, 34, 30))
+    d.text(((L - d.textlength(tit, font=f_tit)) / 2, 650), tit, font=f_tit, fill=ESCURO)
 
     # Card com as instrucoes de como receber o link
-    d.rounded_rectangle((80, 730, L - 80, 1030), radius=28, fill=(255, 255, 255), outline=(230, 218, 202), width=2)
+    d.rounded_rectangle((80, 730, L - 80, 1030), radius=28, fill=CARD_FUNDO, outline=CARD_BORDA, width=2)
 
     if tiktok:
-        f1 = imagem._fonte(36, "Medium")
+        f1 = _fonte(36, "Medium")
         t1 = "Para receber o link com desconto:"
         d.text(((L - d.textlength(t1, font=f1)) / 2, 770), t1, font=f1, fill=(90, 80, 75))
 
-        f_dest = imagem._fonte(46, "ExtraBold")
+        f_dest = _fonte(46, "ExtraBold")
         t2 = f"Digite o número (1 a {n})"
-        d.text(((L - d.textlength(t2, font=f_dest)) / 2, 830), t2, font=f_dest, fill=(180, 130, 60))
+        d.text(((L - d.textlength(t2, font=f_dest)) / 2, 830), t2, font=f_dest, fill=DOURADO_TEXTO)
 
-        f_ex = imagem._fonte(32, "SemiBold")
+        f_ex = _fonte(32, "SemiBold")
         t_ex = "no link da bio para abrir direto na loja!"
         d.text(((L - d.textlength(t_ex, font=f_ex)) / 2, 895), t_ex, font=f_ex, fill=(120, 110, 105))
 
-        f3 = imagem._fonte(34, "Bold")
+        f3 = _fonte(34, "Bold")
         t3 = "Link direto com desconto exclusivo!"
-        d.text(((L - d.textlength(t3, font=f3)) / 2, 955), t3, font=f3, fill=(44, 34, 30))
+        d.text(((L - d.textlength(t3, font=f3)) / 2, 955), t3, font=f3, fill=ESCURO)
     else:
-        f1 = imagem._fonte(36, "Medium")
+        f1 = _fonte(36, "Medium")
         t1 = "Para receber o link com desconto:"
         d.text(((L - d.textlength(t1, font=f1)) / 2, 770), t1, font=f1, fill=(90, 80, 75))
 
-        f_dest = imagem._fonte(46, "ExtraBold")
+        f_dest = _fonte(46, "ExtraBold")
         t2 = "Comente  QUERO + NÚMERO"
-        d.text(((L - d.textlength(t2, font=f_dest)) / 2, 830), t2, font=f_dest, fill=(180, 130, 60))
+        d.text(((L - d.textlength(t2, font=f_dest)) / 2, 830), t2, font=f_dest, fill=DOURADO_TEXTO)
 
-        f_ex = imagem._fonte(32, "SemiBold")
+        f_ex = _fonte(32, "SemiBold")
         t_ex = f"(exemplo: QUERO 1 a QUERO {n})" if n > 2 else "(exemplo: QUERO 1 ou QUERO 2)"
         d.text(((L - d.textlength(t_ex, font=f_ex)) / 2, 895), t_ex, font=f_ex, fill=(120, 110, 105))
 
-        f3 = imagem._fonte(34, "Bold")
+        f3 = _fonte(34, "Bold")
         t3 = "Enviamos o link aqui nos comentários!" if youtube else "Enviamos o link na hora no seu Direct!"
-        d.text(((L - d.textlength(t3, font=f3)) / 2, 955), t3, font=f3, fill=(44, 34, 30))
+        d.text(((L - d.textlength(t3, font=f3)) / 2, 955), t3, font=f3, fill=ESCURO)
 
     # Dica / Salvar / Compartilhar
-    f_dica = imagem._fonte(30, "Medium")
+    f_dica = _fonte(30, "Medium")
     t_dica = frase if frase else "Salve esse post para não perder as ofertas!"
     if d.textlength(t_dica, font=f_dica) > L - 160:
-        f_dica = _ajustar(d, t_dica, lambda t: imagem._fonte(t, "Medium"), 30, L - 160, minimo=22)
-    d.text(((L - d.textlength(t_dica, font=f_dica)) / 2, 1075), t_dica, font=f_dica, fill=(100, 90, 85))
+        f_dica = imagem._quebrar(d, t_dica, f_dica, L - 160, max_linhas=1)[0]
+    d.text(((L - d.textlength(t_dica, font=f_dica)) / 2, 1075), t_dica, font=f_dica, fill=CINZA_TEXTO)
 
     # Botao de chamada para seguir
-    f_btn = imagem._fonte(32, "Bold")
+    f_btn = _fonte(32, "Bold")
     arroba = config.ARROBA or "@ba.homeliving"
     t_btn = f"Siga {arroba} para mais achados"
     bw = d.textlength(t_btn, font=f_btn) + 80
     bx0 = (L - bw) / 2
-    d.rounded_rectangle((bx0, 1150, bx0 + bw, 1230), radius=40, fill=(197, 168, 128))
-    d.text(((L - d.textlength(t_btn, font=f_btn)) / 2, 1172), t_btn, font=f_btn, fill=(255, 255, 255))
+    d.rounded_rectangle((bx0, 1150, bx0 + bw, 1230), radius=40, fill=DOURADO)
+    d.text(((L - d.textlength(t_btn, font=f_btn)) / 2, 1172), t_btn, font=f_btn, fill=BRANCO)
 
     return im
 
 
 def final_ana(v, n):
     return final_garimpo(v, n, v)
-
-
-def faixa_titulo(destino_png, v, dias_bf=None):
-    img = Image.new("RGBA", (L, A), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
-    titulo, sub = TITULOS[v % N_TITULO]
-    f = _ajustar(d, titulo, lambda t: imagem._fonte(t, "Black"), 86, L - 200)
-    fs = imagem._fonte(38, "SemiBold")
-    fundo, cor, cor_sub = (45, 28, 12, 215), imagem.DOURADO_CLARO, imagem.BRANCO
-    tw = d.textlength(sub, font=fs) + 70
-    w = max(d.textlength(titulo, font=f), tw) + 90
-    x0 = (L - w) / 2
-    em_cima = v % 2 == 0
-    y0 = 56 if em_cima else A - 290
-    d.rounded_rectangle((x0, y0, x0 + w, y0 + 194), 44, fill=fundo)
-    d.text(((L - d.textlength(titulo, font=f)) / 2, y0 + 22), titulo, font=f, fill=cor)
-    xs = (L - tw) / 2
-    d.text((xs, y0 + 122), sub, font=fs, fill=cor_sub)
-    img.save(destino_png)

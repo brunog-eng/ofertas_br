@@ -128,13 +128,13 @@ PERFIS = {
         "tom": BRAND_TONE,
         "publico": BRAND_AUDIENCE,
         "cores": {
-            "fundo": os.getenv("COR_FUNDO", "#FFF8F4"),
+            "fundo": os.getenv("COR_FUNDO", "#FAF7F2"),
             "escuro": os.getenv("COR_ESCURO", "#2C221E"),
             "destaque": os.getenv("COR_DESTAQUE", "#C5A880"),
             "destaque_claro": os.getenv("COR_DESTAQUE_CLARO", "#E8D8C3"),
             "preco": os.getenv("COR_PRECO", "#2C221E"),
             "cinza": os.getenv("COR_CINZA", "#7A706A"),
-            "sombra": os.getenv("COR_SOMBRA", "#EFE7DF")
+            "sombra": os.getenv("COR_SOMBRA", "#EBE2D7")
         },
     }
 }
