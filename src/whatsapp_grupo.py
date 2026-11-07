@@ -93,11 +93,11 @@ def enviar_oferta(oferta: dict, foto_path_ou_url=None, grupo_jid: str = None) ->
     url = f"{EVOLUTION_API_URL}/message/sendMedia/{EVOLUTION_INSTANCE}"
     payload = {
         "number": jid,
-        "mediaMessage": {
-            "mediatype": "image",
-            "caption": legenda,
-            "media": media_base64 if media_base64 else media_url
-        }
+        "mediatype": "image",
+        "mimetype": "image/jpeg",
+        "caption": legenda,
+        "media": media_base64 if media_base64 else media_url,
+        "fileName": "oferta.jpg"
     }
 
     try:
