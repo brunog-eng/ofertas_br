@@ -77,7 +77,7 @@ def texto_grupo(oferta: dict) -> str:
         "🛒 *CLIQUE NO LINK PARA GARANTIR:*",
         f"👉 {link}",
         "",
-        "━━━━━━",
+        "━━━━━━━━━━━━",
         f"✨ _{config.NOME_MARCA}_"
     ]
     return "\n".join(linhas)
