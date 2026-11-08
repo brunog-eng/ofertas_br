@@ -127,6 +127,7 @@ def rodar(qtd: int = 4, min_esp: int = None, max_esp: int = None):
 
     if not whatsapp_grupo.configurado():
         print("::warning::Evolution API / WhatsApp Grupo não configurado no ambiente.")
+        notificar_erro_telegram("Evolution API / WhatsApp Grupo não configurado no ambiente.")
         return
 
     min_esp = min_esp if min_esp is not None else int(os.getenv("WHATSAPP_ESPERA_MIN", "60"))
@@ -159,6 +160,7 @@ def rodar(qtd: int = 4, min_esp: int = None, max_esp: int = None):
             enviados += 1
         else:
             print(f"::warning::Falha no envio do item #{idx}.")
+            notificar_erro_telegram(f"Falha ao enviar o item #{idx} ({it.get('titulo')}) para o grupo.")
 
         # Intervalo randômico entre 1 e 5 minutos entre as postagens (exceto no último item)
         if idx < len(itens):

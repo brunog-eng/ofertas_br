@@ -10,7 +10,7 @@ import subprocess
 
 from PIL import Image, ImageDraw, ImageOps
 
-from . import config, imagem, marcas
+# # from . import config, imagem, marcas
 
 L, A = 1080, 1350
 ZE_NO_CARROSSEL = os.getenv("ZE_NO_CARROSSEL", "1") != "0"

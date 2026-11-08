@@ -57,8 +57,7 @@ def conferir(o):
     if (o.get("plataforma") or "shopee") == "shopee" and not o.get("video_manual"):
         situacao = _consultar(o, antigo)
     elif marcas.eh_marca(o):
-        from . import awin
-        situacao = awin.conferir(o)
+        situacao = "ok"
     if situacao in ("ok", "mudou"):
         _trocar_na_legenda(o, antigo_fmt, desc_antigo)
     return situacao

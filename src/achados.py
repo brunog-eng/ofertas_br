@@ -23,7 +23,7 @@ from datetime import timedelta
 
 from PIL import Image, ImageDraw
 
-from . import achados_artes as artes, aliexpress, config, imagem, instagram, marcas, numeros, vitrine
+from . import achados_artes as artes, config, imagem, instagram, marcas, numeros, vitrine
 from .garimpar import FMT, agora, carregar_fila, salvar_fila
 
 QTD = max(3, min(5, int(os.getenv("ACHADOS_QTD", "4") or 4)))

@@ -12,7 +12,7 @@ import unicodedata
 import zlib
 from datetime import datetime, timedelta, timezone
 
-from . import config, facebook, instagram, marcas, vendas, youtube
+from . import config, instagram, marcas, vendas
 from .garimpar import BRT, FMT, agora, carregar_fila
 
 ARQ_RESPONDIDOS = config.PASTA_PERFIL / "respondidos.json"
@@ -149,40 +149,6 @@ def responder(api=instagram):
                 print(f"📲 {n} links enviados por resposta de story.")
         except Exception as e:
             print(f"::warning::Respostas de story falharam: {e}")
-    if config.PERFIL == "garimpo" and api is instagram:   # quadro "Você pediu, o Zé achou"
-        try:
-            from . import pedidos
-            minha = minha or api.conferir_conta()
-            n = pedidos.coletar(api, minha)
-            if n:
-                print(f"🙋 {n} pedidos novos nos posts do Zé.")
-            n = pedidos.entregar_privados(minha["user_id"])
-            if n:
-                print(f"📩 {n} pedidos sensíveis entregues no direct.")
-        except Exception as e:
-            print(f"::warning::Pedidos do Zé falharam: {e}")
-        try:   # 🔎 Busca do Zé (post fixo com #BuscaDoZe)
-            from . import busca_ze
-            n = busca_ze.rodar(api, minha)
-            if n:
-                print(f"🔎 {n} buscas do Zé entregues no direct.")
-            n = busca_ze.rodar_dms(api, minha)
-            if n:
-                print(f"📩 {n} buscas do Zé pedidas no direct.")
-        except Exception as e:
-            print(f"::warning::Busca do Zé falhou: {e}")
-    if config.PERFIL == "ana" and api is instagram:   # 💚 Busca da Ana (#BuscaDaAna, Reels de oferta e direct)
-        try:
-            from . import busca_ze
-            minha = minha or api.conferir_conta()
-            n = busca_ze.rodar(api, minha)
-            if n:
-                print(f"💚 {n} buscas da Ana entregues no direct.")
-            n = busca_ze.rodar_dms(api, minha)
-            if n:
-                print(f"📩 {n} buscas da Ana pedidas no direct.")
-        except Exception as e:
-            print(f"::warning::Busca da Ana falhou: {e}")
     tops = posts_top() if api is instagram else {}   # Top 5 e carrosséis de achados (os dois perfis)
     if not posts and not tops:
         print("Nenhum post nos últimos 7 dias.")
@@ -284,22 +250,7 @@ def responder(api=instagram):
             if reg.get("dm") == "ok":
                 respondidos[cid] = reg
             time.sleep(2)
-    if config.PERFIL == "garimpo" and facebook.configurado():
-        try:
-            enviados += responder_facebook_top(tops, respondidos)
-        except Exception as e:
-            print(f"::warning::Respostas do carrossel no Facebook falharam: {e}")
-        try:
-            enviados += responder_facebook(posts, respondidos)
-        except Exception as e:
-            print(f"::warning::Respostas no Facebook falharam: {e}")
-    if config.PERFIL == "garimpo" and youtube.configurado():
-        try:
-            enviados += responder_youtube(respondidos)
-        except Exception as e:
-            aviso = (" → falta o escopo youtube.force-ssl no YT_REFRESH_TOKEN"
-                     if "insufficient" in str(e).lower() else "")
-            print(f"::warning::Respostas no YouTube falharam{aviso}: {e}")
+    
     salvar_respondidos(respondidos)
     print(f"🏁 {enviados} links enviados, {falhas} falhas, {len(posts)} posts verificados.")
     return enviados

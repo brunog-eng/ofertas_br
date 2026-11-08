@@ -6,6 +6,7 @@ import json
 import os
 import sys
 import time
+import random
 import requests
 from pathlib import Path
 from . import config, marcas
@@ -70,9 +71,19 @@ def texto_grupo(oferta: dict) -> str:
             f"📦 Vendidos: *+{vendas} unidades vendidas*",
         ]
 
+    DICAS_ECONOMIA = [
+        "🔥 *Dica de Ouro:* Resgate o cupom de *Frete Grátis* na página inicial do app da Shopee antes de finalizar!",
+        "💡 *Dica:* Verifique se você tem Moedas Shopee para abater ainda mais no valor final!",
+        "🏷️ *Dica:* Aplicando os cupons do app o desconto pode ficar ainda maior!",
+        "✨ *Dica:* Adicione ao carrinho agora para garantir o preço promocional antes que esgote!"
+    ]
+    dica = random.choice(DICAS_ECONOMIA)
+
     linhas += [
         "",
         "⚡ _Preço e estoque sujeitos a alteração a qualquer momento._",
+        "",
+        f"{dica}",
         "",
         "🛒 *CLIQUE NO LINK PARA GARANTIR:*",
         f"👉 {link}",

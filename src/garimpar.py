@@ -7,7 +7,7 @@ import random
 import sys
 from datetime import datetime, timedelta, timezone
 
-from . import aliexpress, awin, busca_profunda, config, curadoria, legenda, shopee, variedade
+from . import busca_profunda, config, curadoria, legenda, shopee, variedade
 
 BRT = timezone(timedelta(hours=-3))
 FMT = "%Y-%m-%d %H:%M:%S"
@@ -209,7 +209,7 @@ def _filtrar(fila, ofertas, origem, candidatos, recusas):
         if o["id"] in ids_da_ana():
             recusas["já está na Ana"] = recusas.get("já está na Ana", 0) + 1
             continue
-        m = motivo_recusa(o) or (aliexpress.recusa_extra(o) if o["plataforma"] == "aliexpress" else None)
+        m = motivo_recusa(o)
         if m:
             recusas[m] = recusas.get(m, 0) + 1
             continue
@@ -466,11 +466,7 @@ def garimpar(buscar=shopee.buscar_ofertas):
     candidatos = curar(fila, coletar_candidatos(fila, buscar, escolhidas, memoria))
     busca_profunda.registrar(memoria, escolhidas, candidatos)
     busca_profunda.salvar(memoria)
-    # Marcas oficiais (Awin: Shark Ninja, Arno): catálogo da marca, regras próprias — entra depois da curadoria da Shopee/AliExpress
-    shark = awin.candidatos(fila, ja_usado)
-    for o in shark:
-        o["so_telegram"] = so_telegram(fila, o["id"])
-    candidatos = candidatos + shark
+    
     lojas_na_fila = {}
     for r in fila["ofertas"].values():
         if r["status"] == "pendente" and r.get("loja"):
@@ -488,11 +484,7 @@ def garimpar(buscar=shopee.buscar_ofertas):
         selo = SELO[o["nivel"]]
         print(f"{selo} {o['categoria']:<11} R$ {o['preco_fmt']:>8}  comissão R$ {o['comissao']:.2f} "
               f"({o['comissao_pct']:.0f}%)  {o['vendas']} vendas  uau {o['uau']:.0f}  {o['titulo']}")
-    try:
-        from . import pedidos
-        pedidos.atender(fila)
-    except Exception as e:
-        print(f"::warning::Pedidos do Zé não foram atendidos: {e}")
+    
     fila["ultimo_garimpo"] = agora().strftime(FMT)
     salvar_fila(fila)
     pend = sum(1 for r in fila["ofertas"].values() if r["status"] == "pendente")

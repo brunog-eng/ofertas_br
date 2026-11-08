@@ -205,6 +205,11 @@ def montar_mensagem():
         "👥 <b>Interações & Pedidos de Link:</b>",
         f"• 💌 <b>{m['pedidos_link']}</b> links enviados no Direct",
         f"• 🙋‍♂️ <b>{m['usuarios_unicos']}</b> pessoas únicas atendidas",
+        "",
+        "📈 <b>Distribuição de Links por Canal (SubIDs):</b>",
+        f"• 💬 <b>WhatsApp (Grupo VIP):</b> {m['whatsapp']} ofertas divulgadas [<code>wpp</code>]",
+        f"• 💌 <b>Instagram Direct:</b> {m['pedidos_link']} DMs entregues [<code>igdm</code>]",
+        f"• 🖼️ <b>Instagram Feed:</b> {m['carrosseis']} carrosséis ativos [<code>igtop</code>]",
     ]
 
     if m["top_pedidos"]:

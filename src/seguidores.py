@@ -20,7 +20,7 @@ from pathlib import Path
 
 import requests
 
-from . import facebook, metricas, youtube
+from . import metricas
 
 BRT = timezone(timedelta(hours=-3))
 ARQ = Path(__file__).resolve().parent.parent / "data" / "seguidores.json"
@@ -34,11 +34,8 @@ def _instagram(segredo):
     return metricas._get(token, "me", {"fields": "followers_count"}).get("followers_count")
 
 
-def _facebook():
-    if not facebook.configurado():
-        return None
-    p = facebook._req("GET", facebook._env("FB_PAGE_ID"), params={"fields": "followers_count,fan_count"})
-    return p.get("followers_count", p.get("fan_count"))
+def _facebook(*a, **kw):
+    return None
 
 
 def _telegram():
@@ -52,20 +49,8 @@ def _telegram():
     return r["result"]
 
 
-def _youtube():
-    """Lê o canal Garimpo VIP pelo id (dado público): funciona mesmo se o token for de outra conta."""
-    if not youtube.configurado():
-        return None
-    r = requests.get("https://www.googleapis.com/youtube/v3/channels",
-                     params={"part": "statistics", "id": youtube.CANAL_ID},
-                     headers={"Authorization": f"Bearer {youtube._token()}"}, timeout=30)
-    itens = r.json().get("items", []) if r.status_code == 200 else []
-    if not itens:
-        raise RuntimeError(f"HTTP {r.status_code}: {r.text[:150]}")
-    est = itens[0]["statistics"]
-    if est.get("hiddenSubscriberCount"):
-        raise RuntimeError("o canal esconde o número de inscritos")
-    return int(est["subscriberCount"])
+def _youtube(*a, **kw):
+    return None
 
 
 # chave → (nome na mensagem, função)

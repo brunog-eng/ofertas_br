@@ -46,6 +46,8 @@ jobs:
           WHATSAPP_GRUPO_JID: ${{ secrets.WHATSAPP_GRUPO_JID }}
           WHATSAPP_ESPERA_MIN: "60"
           WHATSAPP_ESPERA_MAX: "300"
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_PRIVADO: ${{ secrets.TELEGRAM_CHAT_PRIVADO }}
         run: python -m src.whatsapp_fila 4
 
       - name: Salvar fila do WhatsApp

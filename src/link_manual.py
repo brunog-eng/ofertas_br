@@ -13,7 +13,7 @@ import os
 import sys
 import tempfile
 
-from . import config, garimpar, imagem, shopee, telegram, vendas, video_manual, whatsapp_kit
+from . import config, garimpar, imagem, shopee, telegram, vendas, video_manual, whatsapp_grupo
 from .garimpar import agora, carregar_fila, salvar_fila
 
 
@@ -23,7 +23,7 @@ def _responder(chat, texto):
 
 def _mandar_oferta(chat, o):
     """Arte completa do produto com o texto padrão (copiável) e o botão de aprovação, numa mensagem."""
-    texto = whatsapp_kit.texto_whatsapp(o)[:1000]   # legenda do Telegram aceita até 1024 caracteres
+    texto = whatsapp_grupo.texto_grupo(o)[:1000]   # legenda do Telegram aceita até 1024 caracteres
     teclado = '{"inline_keyboard":[[{"text":"✅ Aprovar","callback_data":"ok:%s"}]]}' % o["id"]
     try:
         pasta = tempfile.mkdtemp()

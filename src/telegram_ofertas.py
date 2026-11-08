@@ -10,7 +10,7 @@ import time
 from datetime import datetime, timedelta
 from pathlib import Path
 
-from . import aliexpress, config, imagem, marcas, precos, telegram, variedade
+from . import config, imagem, marcas, precos, telegram, variedade
 from .garimpar import BRT, FMT, agora, carregar_fila, salvar_fila
 
 POR_EXECUCAO = int(os.getenv("TELEGRAM_POR_EXECUCAO", "2"))

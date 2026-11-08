@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 
 import requests
 
-from . import aliexpress, carrossel, config, facebook, marcas, precos, imagem, instagram, legenda, reels, story, telegram, video_manual, youtube, ze, variedade, vitrine
+from . import carrossel, config, marcas, precos, imagem, instagram, legenda, reels, story, telegram, video_manual, variedade, vitrine
 from .garimpar import BRT, FMT, agora, carregar_fila, salvar_fila
 
 PASTA_SITE = config.RAIZ / "site"
