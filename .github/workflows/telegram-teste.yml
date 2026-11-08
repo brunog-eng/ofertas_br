@@ -10,9 +10,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install -r requirements.txt
-      - name: Mandar mensagem de boas-vindas ao canal
+      - name: Verificar Bot e Mensagens Recebidas
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python -m src.telegram
+        run: |
+          python -c "
+          import os, requests
+          token = os.getenv('TELEGRAM_BOT_TOKEN', '').strip()
+          if not token:
+              print('TOKEN_VAZIO')
+              exit(1)
+          me = requests.get(f'https://api.telegram.org/bot{token}/getMe').json()
+          print('BOT_INFO:', me)
+          updates = requests.get(f'https://api.telegram.org/bot{token}/getUpdates').json()
+          print('UPDATES:', updates)
+          "
