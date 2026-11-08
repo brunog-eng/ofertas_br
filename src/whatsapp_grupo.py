@@ -66,7 +66,7 @@ def texto_grupo(oferta: dict) -> str:
         nota = str(oferta.get("nota", "4.9")).replace(".", ",")
         vendas = f"{oferta.get('vendas', 0):,}".replace(",", ".")
         linhas += [
-            f"⭐ Avaliação: *{nota} / 5.0*",
+            f"⭐ Avaliação: *{nota}*",
             f"📦 Vendidos: *+{vendas} unidades vendidas*",
         ]
 
@@ -77,8 +77,8 @@ def texto_grupo(oferta: dict) -> str:
         "🛒 *CLIQUE NO LINK PARA GARANTIR:*",
         f"👉 {link}",
         "",
-        "━━━━━━━━━━━━━━━━━━━━",
-        f"✨ _{config.NOME_MARCA} · Detalhes para o seu lar_"
+        "━━━━━━",
+        f"✨ _{config.NOME_MARCA}_"
     ]
     return "\n".join(linhas)
 
