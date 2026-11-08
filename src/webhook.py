@@ -124,9 +124,9 @@ def inscrever_pagina():
         if not page_id:
             return "Página do Facebook não encontrada na conta."
 
-        # Inscreve no campo feed e comments
+        # Inscreve nos campos permitidos pela Meta (feed = comentários/posts, messages = DMs)
         r_sub = requests.post(f"{instagram.API}/{page_id}/subscribed_apps",
-                              params={"subscribed_fields": "feed,comments,messages"},
+                              params={"subscribed_fields": "feed,messages"},
                               headers={"Authorization": f"Bearer {page_token}"},
                               timeout=15)
         res = r_sub.json()
