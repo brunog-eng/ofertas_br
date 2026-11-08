@@ -300,13 +300,24 @@ def publicar():
     # Grupo do WhatsApp (se Evolution API estiver configurada)
     try:
         from . import whatsapp_grupo
+        import random
         if whatsapp_grupo.configurado():
-            print("📲 Enviando ofertas do carrossel para o grupo do WhatsApp...")
-            for it in info.get("itens", []):
+            itens_zap = [it for it in info.get("itens", []) if fila["ofertas"].get(it["id"])]
+            print(f"📲 Enviando {len(itens_zap)} ofertas para o grupo do WhatsApp com intervalo espaçado (1 a 5 min)...")
+            min_esp = int(os.getenv("WHATSAPP_ESPERA_MIN", "60"))
+            max_esp = int(os.getenv("WHATSAPP_ESPERA_MAX", "300"))
+            for idx, it in enumerate(itens_zap, 1):
                 o = fila["ofertas"].get(it["id"])
                 if o:
-                    whatsapp_grupo.enviar_oferta(o)
-                    time.sleep(2)
+                    sucesso = whatsapp_grupo.enviar_oferta(o)
+                    if sucesso:
+                        o["whatsapp"] = "ok"
+                        o["whatsapp_em"] = agora().strftime(FMT)
+                        salvar_fila(fila)
+                    if idx < len(itens_zap):
+                        espera = random.randint(min_esp, max_esp)
+                        print(f"⏳ Espaçando envio: aguardando {espera // 60}m {espera % 60}s antes da oferta #{idx + 1}...")
+                        time.sleep(espera)
     except Exception as e:
         print(f"::warning::Envio para o grupo do WhatsApp falhou: {e}")
 
