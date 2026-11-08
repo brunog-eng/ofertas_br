@@ -286,7 +286,24 @@ def responder_comentario_tempo_real(val: dict):
 
 
 @app.get("/")
-def raiz():
+@app.get("/webhook")
+def verificar_webhook(request: Request):
+    """Handshake de verificação da Meta ao cadastrar a URL do Webhook (aceita na raiz e em /webhook)."""
+    params = request.query_params
+    mode = params.get("hub.mode") or params.get("hub_mode")
+    token = params.get("hub.verify_token") or params.get("hub_verify_token")
+    challenge = params.get("hub.challenge") or params.get("hub_challenge")
+
+    # Se a Meta estiver validando a assinatura do webhook:
+    if challenge:
+        token_esperado = os.getenv("WEBHOOK_VERIFY_TOKEN", VERIFY_TOKEN_PADRAO)
+        if mode == "subscribe" and token == token_esperado:
+            log_debug(f"✅ Webhook verificado com sucesso pela Meta! Challenge: {challenge}")
+            return Response(content=str(challenge), media_type="text/plain")
+        log_debug(f"::warning::Falha na verificação do webhook: token='{token}' esperado='{token_esperado}'")
+        return Response(content="Forbidden", status_code=403)
+
+    # Se for acesso normal de conferência no navegador:
     return {
         "status": "online",
         "marca": config.NOME_MARCA,
@@ -320,27 +337,10 @@ def rota_inscrever():
     return {"resultado": res}
 
 
-@app.get("/webhook")
-def verificar_webhook(request: Request):
-    """Handshake de verificação da Meta ao cadastrar a URL do Webhook."""
-    params = request.query_params
-    mode = params.get("hub.mode")
-    token = params.get("hub.verify_token")
-    challenge = params.get("hub.challenge")
-
-    token_esperado = os.getenv("WEBHOOK_VERIFY_TOKEN", VERIFY_TOKEN_PADRAO)
-
-    if mode == "subscribe" and token == token_esperado:
-        log_debug(f"✅ Webhook verificado com sucesso pela Meta! Challenge: {challenge}")
-        return Response(content=str(challenge), media_type="text/plain")
-
-    log_debug(f"::warning::Falha na verificação do webhook: token='{token}' esperado='{token_esperado}'")
-    return Response(content="Forbidden", status_code=403)
-
-
+@app.post("/")
 @app.post("/webhook")
 async def receber_evento_webhook(request: Request, background_tasks: BackgroundTasks):
-    """Recebe as notificações de comentários e mensagens em tempo real da Meta."""
+    """Recebe as notificações de comentários e mensagens em tempo real da Meta (aceita na raiz e em /webhook)."""
     try:
         dados = await request.json()
     except Exception as e:
@@ -348,7 +348,7 @@ async def receber_evento_webhook(request: Request, background_tasks: BackgroundT
         return JSONResponse(status_code=400, content={"error": f"JSON inválido: {e}"})
 
     obj = dados.get("object")
-    log_debug(f"📩 Webhook POST recebido! Objeto: {obj} - Chaves: {list(dados.keys())}")
+    log_debug(f"📩 Webhook POST recebido! Objeto: {obj} - Payload: {json.dumps(dados, ensure_ascii=False)[:300]}")
 
     if obj not in ("instagram", "page"):
         return Response(content="EVENT_RECEIVED", status_code=200)
