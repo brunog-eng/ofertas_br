@@ -15,13 +15,18 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: |
           python -c "
-          import os, requests
+          import os, urllib.request, json
           token = os.getenv('TELEGRAM_BOT_TOKEN', '').strip()
           if not token:
               print('TOKEN_VAZIO')
               exit(1)
-          me = requests.get(f'https://api.telegram.org/bot{token}/getMe').json()
-          print('BOT_INFO:', me)
-          updates = requests.get(f'https://api.telegram.org/bot{token}/getUpdates').json()
-          print('UPDATES:', updates)
+          def req(endpoint):
+              url = f'https://api.telegram.org/bot{token}/{endpoint}'
+              with urllib.request.urlopen(url, timeout=30) as r:
+                  return json.loads(r.read().decode())
+
+          me = req('getMe')
+          print('BOT_INFO:', json.dumps(me, ensure_ascii=False))
+          updates = req('getUpdates')
+          print('UPDATES:', json.dumps(updates, ensure_ascii=False))
           "
