@@ -15,7 +15,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from fastapi import BackgroundTasks, FastAPI, Request, Response
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 
 from . import config, instagram, marcas, responder, vendas
 
@@ -361,6 +361,95 @@ async def receber_evento_webhook(request: Request, background_tasks: BackgroundT
                 background_tasks.add_task(responder_comentario_tempo_real, value)
 
     return Response(content="EVENT_RECEIVED", status_code=200)
+
+
+@app.get("/privacidade", response_class=HTMLResponse)
+@app.get("/privacy", response_class=HTMLResponse)
+def pagina_privacidade():
+    return """<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade - BA Home & Living</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; color: #2C221E; background: #FAF7F2; }
+        h1, h2 { color: #2C221E; }
+        .card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .footer { margin-top: 30px; font-size: 0.9em; color: #888; border-top: 1px solid #eee; padding-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Política de Privacidade — BA Home & Living</h1>
+        <p><strong>Última atualização:</strong> Novembro de 2026</p>
+        <p>A <strong>BA Home & Living</strong> (@ba.homeliving) valoriza e respeita a privacidade de todos os seus seguidores e clientes. Esta política descreve como utilizamos as informações nas interações automatizadas do Instagram.</p>
+        
+        <h2>1. Finalidade do Aplicativo</h2>
+        <p>Nosso aplicativo integrado à Meta Graph API realiza a leitura exclusiva de interações públicas (comentários em publicações e mensagens diretas) para o envio imediato e automatizado de links diretos de ofertas de produtos solicitados voluntariamente pelo usuário (ex.: comentários contendo termos como "QUERO" ou pedidos de links).</p>
+        
+        <h2>2. Não Armazenamento de Dados Pessoais Sensíveis</h2>
+        <p>Não coletamos, não vendemos e não repassamos informações pessoais identificáveis a terceiros. Os identificadores de comentários são utilizados unicamente para confirmar a entrega do link solicitado.</p>
+        
+        <h2>3. Exclusão de Dados</h2>
+        <p>A qualquer momento, o usuário pode solicitar a remoção ou revogação de dados de interação entrando em contato direto através da nossa conta oficial no Instagram <strong>@ba.homeliving</strong>.</p>
+        
+        <h2>4. Contato</h2>
+        <p>Em caso de dúvidas sobre nossos termos ou privacidade, entre em contato via Direct: <strong>@ba.homeliving</strong>.</p>
+        
+        <div class="footer">
+            &copy; 2026 BA Home & Living. Todos os direitos reservados.
+        </div>
+    </div>
+</body>
+</html>"""
+
+
+@app.get("/termos", response_class=HTMLResponse)
+@app.get("/terms", response_class=HTMLResponse)
+def pagina_termos():
+    return """<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Serviço - BA Home & Living</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; color: #2C221E; background: #FAF7F2; }
+        .card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Termos de Serviço — BA Home & Living</h1>
+        <p>Ao interagir com as publicações da <strong>@ba.homeliving</strong> no Instagram, o usuário concorda em receber mensagens diretas contendo links informativos e de afiliados dos produtos apresentados.</p>
+        <p>Os preços e estoques dos produtos divulgados são de responsabilidade das lojas parceiras e podem sofrer alterações a qualquer momento.</p>
+    </div>
+</body>
+</html>"""
+
+
+@app.get("/exclusao", response_class=HTMLResponse)
+def pagina_exclusao():
+    return """<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Instruções de Exclusão de Dados - BA Home & Living</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; padding: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Instruções para Exclusão de Dados de Usuário</h1>
+    <p>Conforme as diretrizes da Meta Platform, você pode solicitar a exclusão de qualquer dado de interação associado à sua conta:</p>
+    <ol>
+        <li>Acesse o Instagram e abra uma conversa com <strong>@ba.homeliving</strong>.</li>
+        <li>Envie uma mensagem solicitando a exclusão dos dados de interação.</li>
+        <li>Nossa equipe processará a solicitação e confirmará a remoção em até 48 horas.</li>
+    </ol>
+</body>
+</html>"""
 
 
 if __name__ == "__main__":
