@@ -147,17 +147,30 @@ def permalink(media_id):
         return ""
 
 
-def comentarios(media_id):
-    """Todos os comentários de um post (com paginação)."""
-    itens, url, params = [], None, {"fields": "id,text,timestamp,username,from{id,username}", "limit": 50}
+def comentarios(media_id, ig_id=None):
+    """Todos os comentários de um post (com paginação), tentando page_token e user_token."""
     caminho = f"{media_id}/comments"
-    while True:
-        corpo = _req("GET", caminho, params=params, url=url)
-        itens += corpo.get("data", [])
-        url = (corpo.get("paging") or {}).get("next")
-        if not url:
-            return itens
-        params = None
+    info = obter_info_pagina(ig_id)
+    page_tok = info.get("page_token") if info else None
+    tokens = list(dict.fromkeys([t for t in [page_tok, token()] if t]))
+
+    ultimo_erro = None
+    for tok in tokens:
+        try:
+            itens, url = [], None
+            params = {"fields": "id,text,timestamp,username,from{id,username}", "limit": 50}
+            while True:
+                corpo = _req("GET", caminho, params=params, url=url, custom_token=tok)
+                itens += corpo.get("data", [])
+                url = (corpo.get("paging") or {}).get("next")
+                if not url:
+                    return itens
+                params = None
+        except Exception as e:
+            ultimo_erro = e
+    if ultimo_erro:
+        raise ultimo_erro
+    return []
 
 
 def resposta_privada(ig_id, comment_id, texto):

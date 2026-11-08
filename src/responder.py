@@ -204,9 +204,10 @@ def responder(api=instagram):
             print(f"::warning::Respostas do Top 5 falharam: {e}")
     for o in posts:
         try:
-            coms = api.comentarios(o["id_post"])
+            coms = api.comentarios(o["id_post"], (minha or {}).get("user_id"))
         except Exception as e:
-            print(f"⚠️  Comentários do post {o['id_post']}: {e}")
+            if "subcode 33" not in str(e):
+                print(f"⚠️  Comentários do post {o['id_post']}: {e}")
             continue
         for c in coms:
             cid = c["id"]
@@ -372,9 +373,10 @@ def responder_top(api, minha, tops, respondidos):
     for post_id, info in tops.items():
         itens = info.get("itens") or []
         try:
-            coms = api.comentarios(post_id)
+            coms = api.comentarios(post_id, (minha or {}).get("user_id"))
         except Exception as e:
-            print(f"⚠️  Comentários do Top {post_id}: {e}")
+            if "subcode 33" not in str(e):
+                print(f"⚠️  Comentários do Top {post_id}: {e}")
             continue
         for c in coms:
             cid = c["id"]
