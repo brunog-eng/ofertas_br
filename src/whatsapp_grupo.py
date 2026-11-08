@@ -30,6 +30,23 @@ def configurado() -> bool:
     """Verifica se as variáveis essenciais estão presentes."""
     return bool(EVOLUTION_API_URL and EVOLUTION_API_KEY and WHATSAPP_GRUPO_JID)
 
+def aquecer_servidor(tentativas: int = 3) -> bool:
+    """Acorda a Evolution API caso esteja dormindo no Render (cold start do plano gratuito)."""
+    if not EVOLUTION_API_URL:
+        return True
+    print(f"⏳ Verificando/Aquecendo Evolution API ({EVOLUTION_API_URL})...")
+    for i in range(tentativas):
+        try:
+            r = requests.get(EVOLUTION_API_URL, headers=_headers(), timeout=45)
+            if r.status_code in (200, 201):
+                print(f"🟢 Evolution API online e pronta (tentativa {i+1})!")
+                return True
+        except Exception as e:
+            print(f"   Aguardando servidor acordar ({i+1}/{tentativas}): {e}")
+            time.sleep(10)
+    return False
+
+
 
 def texto_grupo(oferta: dict) -> str:
     """Gera mensagem elegante e estruturada no WhatsApp com emojis e valores um embaixo do outro."""
@@ -141,7 +158,15 @@ def enviar_oferta(oferta: dict, foto_path_ou_url=None, grupo_jid: str = None) ->
     }
 
     try:
-        resp = requests.post(url, headers=_headers(), json=payload, timeout=30)
+        for tentativa in range(2):
+            try:
+                resp = requests.post(url, headers=_headers(), json=payload, timeout=60)
+                break
+            except Exception as e_req:
+                if tentativa == 1:
+                    raise e_req
+                print(f"   Tentando reenviar item ({e_req})...")
+                time.sleep(5)
         if resp.status_code in (200, 201):
             print(f"✅ Oferta enviada para o grupo do WhatsApp ({jid}): {oferta.get('titulo')}")
             return True

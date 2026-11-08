@@ -37,6 +37,13 @@ jobs:
           # Revisão / Métricas
           if [ "$HQ" = "08:00" ]; then WFS="$WFS revisao.yml"; fi
 
+          # Postagens WhatsApp a cada 2h (09h, 11h, 13h, 15h, 17h, 19h, 21h)
+          case "$HQ" in
+            "09:00"|"11:00"|"13:00"|"15:00"|"17:00"|"19:00"|"21:00")
+              WFS="$WFS whatsapp.yml"
+              ;;
+          esac
+
           for WF in $WFS; do
             echo "▶️ Disparando $WF"
             gh api -X POST "repos/$REPO/actions/workflows/$WF/dispatches" -f ref=main || echo "::warning::Falhou ao disparar $WF"

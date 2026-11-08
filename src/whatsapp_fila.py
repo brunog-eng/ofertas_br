@@ -130,6 +130,12 @@ def rodar(qtd: int = 4, min_esp: int = None, max_esp: int = None):
         notificar_erro_telegram("Evolution API / WhatsApp Grupo não configurado no ambiente.")
         return
 
+    # Garante que a Evolution API está acordada antes de iniciar os disparos
+    if not whatsapp_grupo.aquecer_servidor():
+        print("::warning::Evolution API não respondeu a tempo para os envios.")
+        notificar_erro_telegram("Evolution API demorou para acordar no Render.")
+        return
+
     min_esp = min_esp if min_esp is not None else int(os.getenv("WHATSAPP_ESPERA_MIN", "60"))
     max_esp = max_esp if max_esp is not None else int(os.getenv("WHATSAPP_ESPERA_MAX", "300"))
 

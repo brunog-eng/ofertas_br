@@ -371,6 +371,15 @@ def monitor_loop():
                     log_debug(f"⚡ Monitor contínuo: {n} link(s) enviado(s) no direct com sucesso!")
                 elif ciclos % 6 == 0:
                     log_debug(f"💓 Monitor contínuo ativo (ciclo #{ciclos}). Aguardando novos comentários...")
+
+            # Keep-Alive da Evolution API para evitar que durma no plano gratuito do Render
+            if ciclos % 20 == 0:
+                evo_url = os.getenv("EVOLUTION_API_URL") or "https://evolution-api-bahome.onrender.com"
+                try:
+                    requests.get(evo_url, timeout=10)
+                except Exception:
+                    pass
+
         except Exception as e:
             log_debug(f"Aviso no monitor contínuo: {e}")
         time.sleep(INTERVALO_MONITOR_S)
