@@ -10,27 +10,25 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Verificar Bot e Mensagens Recebidas
+      - name: Enviar Token Seguro no Telegram
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_PRIVADO: ${{ secrets.TELEGRAM_CHAT_PRIVADO }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
         run: |
           python -c "
           import os, urllib.request, json
-          token = os.getenv('TELEGRAM_BOT_TOKEN', '').strip()
-          if not token:
-              print('TELEGRAM_BOT_TOKEN não configurado')
-              exit(1)
-          def req(endpoint):
-              url = f'https://api.telegram.org/bot{token}/{endpoint}'
-              with urllib.request.urlopen(url, timeout=30) as r:
-                  return json.loads(r.read().decode())
-
-          me = req('getMe')
-          print('BOT:', me.get('result', {}).get('username'))
-          updates = req('getUpdates')
-          print('MENSAGENS_RECEBIDAS:', len(updates.get('result', [])))
-          for u in updates.get('result', []):
-              msg = u.get('message', {})
-              chat = msg.get('chat', {})
-              print(f\"Chat ID: {chat.get('id')} | De: {chat.get('first_name', '')} (@{chat.get('username', '')})\")
+          bot = os.getenv('TELEGRAM_BOT_TOKEN')
+          chat = os.getenv('TELEGRAM_CHAT_PRIVADO')
+          token = os.getenv('IG_ACCESS_TOKEN')
+          if bot and chat and token:
+              data = json.dumps({
+                  'chat_id': chat,
+                  'text': f'🔑 <b>Seu IG_ACCESS_TOKEN atual:</b>\n\n<code>{token}</code>\n\n<i>Toque no código acima para copiar e colar na variável IG_ACCESS_TOKEN do Render!</i>',
+                  'parse_mode': 'HTML'
+              }).encode('utf-8')
+              req = urllib.request.Request(f'https://api.telegram.org/bot{bot}/sendMessage',
+                                           data=data, headers={'Content-Type': 'application/json'})
+              urllib.request.urlopen(req)
+              print('Enviado com sucesso no Telegram privado!')
           "
