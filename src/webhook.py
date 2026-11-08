@@ -8,6 +8,7 @@ import html
 import json
 import os
 import sys
+import threading
 import time
 import requests
 from collections import OrderedDict
@@ -335,6 +336,48 @@ def debug():
 def rota_inscrever():
     res = inscrever_pagina()
     return {"resultado": res}
+
+
+@app.get("/checar")
+def rota_checar():
+    """Força uma verificação manual imediata de comentários recentes."""
+    if not instagram.tem_token():
+        return {"status": "erro", "motivo": "IG_ACCESS_TOKEN não configurado"}
+    try:
+        os.environ["RESPOSTA_ESPERA_MAX_S"] = "0"
+        responder.ESPERA_MAX_S = 0
+        n = responder.responder()
+        return {"status": "sucesso", "links_enviados": n, "ultimos_logs": ULTIMOS_LOGS[-10:]}
+    except Exception as e:
+        return {"status": "erro", "erro": str(e)}
+
+
+MONITOR_ATIVO = True
+INTERVALO_MONITOR_S = int(os.getenv("INTERVALO_MONITOR_S", "25"))
+
+
+def monitor_loop():
+    time.sleep(10)  # Aguarda startup do servidor
+    log_debug(f"🚀 Monitor contínuo iniciado! Verificando comentários a cada {INTERVALO_MONITOR_S}s...")
+    ciclos = 0
+    while MONITOR_ATIVO:
+        try:
+            ciclos += 1
+            if instagram.tem_token():
+                os.environ["RESPOSTA_ESPERA_MAX_S"] = "0"
+                responder.ESPERA_MAX_S = 0
+                n = responder.responder()
+                if n and n > 0:
+                    log_debug(f"⚡ Monitor contínuo: {n} link(s) enviado(s) no direct com sucesso!")
+                elif ciclos % 6 == 0:
+                    log_debug(f"💓 Monitor contínuo ativo (ciclo #{ciclos}). Aguardando novos comentários...")
+        except Exception as e:
+            log_debug(f"Aviso no monitor contínuo: {e}")
+        time.sleep(INTERVALO_MONITOR_S)
+
+
+# Inicia o monitor em segundo plano 24/7
+threading.Thread(target=monitor_loop, daemon=True).start()
 
 
 @app.post("/")
