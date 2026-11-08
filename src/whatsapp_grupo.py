@@ -15,6 +15,15 @@ EVOLUTION_API_KEY = (os.getenv("EVOLUTION_API_KEY") or "").strip()
 EVOLUTION_INSTANCE = (os.getenv("EVOLUTION_INSTANCE") or "bahome").strip()
 WHATSAPP_GRUPO_JID = (os.getenv("WHATSAPP_GRUPO_JID") or "").strip()
 
+ICONES_CAT = {
+    "casa_e_decoracao": "🛋️",
+    "utilidades_praticas": "💡",
+    "eletronicos_e_gadgets": "📱",
+    "cozinha": "🍳",
+    "organizacao": "🧺",
+    "iluminacao": "✨"
+}
+
 
 def configurado() -> bool:
     """Verifica se as variáveis essenciais estão presentes."""
@@ -22,34 +31,54 @@ def configurado() -> bool:
 
 
 def texto_grupo(oferta: dict) -> str:
-    """Gera o texto com formatação nativa do WhatsApp (*negrito*, ~riscado~, _itálico_)."""
+    """Gera mensagem elegante e estruturada no WhatsApp com emojis e valores um embaixo do outro."""
     titulo = oferta.get("titulo") or oferta.get("nome") or "Oferta Imperdível"
     preco_fmt = oferta.get("preco_fmt") or "0,00"
     link = oferta.get("link_afiliado") or ""
+    cat = oferta.get("categoria", "")
+    icone = ICONES_CAT.get(cat, "📦")
 
-    linhas = [f"✨ *{titulo}*", ""]
+    linhas = [
+        "✨ *ACHADINHO DO DIA* ✨",
+        "",
+        f"{icone} *{titulo.upper()}*",
+        ""
+    ]
 
-    # Preço e Desconto
+    # Valores um embaixo do outro
     if oferta.get("preco_de") and oferta.get("desconto"):
         preco_de_fmt = f"{oferta['preco_de']:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
-        linhas.append(f"💰 De ~R$ {preco_de_fmt}~ por *R$ {preco_fmt}* (-{oferta['desconto']}%)")
+        linhas += [
+            f"❌ De: ~R$ {preco_de_fmt}~",
+            f"💥 *Por apenas: R$ {preco_fmt}*",
+            f"🏷️ Economia: *{oferta['desconto']}% OFF*",
+        ]
     else:
-        linhas.append(f"💰 Por apenas *R$ {preco_fmt}*")
+        linhas += [
+            f"💥 *Por apenas: R$ {preco_fmt}*"
+        ]
 
     # Prova Social / Avaliação
+    linhas.append("")
     if marcas.eh_marca(oferta):
-        linhas.append(f"🏬 {marcas.texto_oficial(oferta)}")
+        linhas.append(f"🏬 Loja Oficial: *{marcas.texto_oficial(oferta)}*")
     else:
-        nota = str(oferta.get("nota", "4.8")).replace(".", ",")
+        nota = str(oferta.get("nota", "4.9")).replace(".", ",")
         vendas = f"{oferta.get('vendas', 0):,}".replace(",", ".")
-        linhas.append(f"⭐ Nota {nota} • {vendas}+ vendidos")
+        linhas += [
+            f"⭐ Avaliação: *{nota} / 5.0*",
+            f"📦 Vendidos: *+{vendas} unidades vendidas*",
+        ]
 
     linhas += [
         "",
-        "🛒 *Compre com desconto direto aqui:*",
+        "⚡ _Preço e estoque sujeitos a alteração a qualquer momento._",
+        "",
+        "🛒 *CLIQUE NO LINK PARA GARANTIR:*",
         f"👉 {link}",
         "",
-        f"Obrigado por apoiar a {config.NOME_MARCA}! ✨"
+        "━━━━━━━━━━━━━━━━━━━━",
+        f"✨ _{config.NOME_MARCA} · Detalhes para o seu lar_"
     ]
     return "\n".join(linhas)
 
@@ -62,7 +91,7 @@ def _headers() -> dict:
 
 
 def enviar_oferta(oferta: dict, foto_path_ou_url=None, grupo_jid: str = None) -> bool:
-    """Envia uma oferta completa (imagem + legenda + link direto) para o grupo."""
+    """Envia uma oferta completa (imagem + legenda estruturada + link direto) para o grupo."""
     if not EVOLUTION_API_URL or not EVOLUTION_API_KEY:
         print("⏸️  Evolution API não configurada (EVOLUTION_API_URL / EVOLUTION_API_KEY ausentes).")
         return False
@@ -142,7 +171,7 @@ if __name__ == "__main__":
         if fila_path.exists():
             fila = json.loads(fila_path.read_text(encoding="utf-8"))
             for o in fila.get("ofertas", {}).values():
-                if o.get("titulo"):
+                if o.get("titulo") and o.get("preco_de"):
                     print(f"🧪 Enviando oferta de teste: {o['titulo']}")
                     enviar_oferta(o)
                     break
