@@ -80,5 +80,35 @@
     "dm": "ok",
     "curtida": "ok",
     "publica": "ok"
+  },
+  "18209213221372193": {
+    "post": "18145602076578808",
+    "oferta": "58256475899",
+    "usuario": "bru_nogss",
+    "autor": "1739796660458049",
+    "em": "2026-11-08 01:24:30",
+    "top": 1,
+    "dm": "erro: HTTP 400: (#-1) O comentário ao qual você está tentando responder já tem uma resposta. (code -1, subcode 2534023)",
+    "publica": "ok"
+  },
+  "18102563594434805": {
+    "post": "18145602076578808",
+    "oferta": "top",
+    "usuario": "bru_nogss",
+    "autor": "1739796660458049",
+    "em": "2026-11-08 01:24:43",
+    "top": "todos",
+    "dm": "erro: HTTP 400: (#-1) O comentário ao qual você está tentando responder já tem uma resposta. (code -1, subcode 2534023)",
+    "publica": "ok"
+  },
+  "17958164850273089": {
+    "post": "18119844761005622",
+    "oferta": "42612303244",
+    "usuario": "bru_nogss",
+    "autor": "1739796660458049",
+    "em": "2026-11-08 01:24:53",
+    "top": 3,
+    "dm": "erro: HTTP 400: (#-1) O comentário ao qual você está tentando responder já tem uma resposta. (code -1, subcode 2534023)",
+    "publica": "ok"
   }
 }
