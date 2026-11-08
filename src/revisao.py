@@ -36,7 +36,8 @@ ARQ_TOP = config.PASTA_PERFIL / "top.json"
 
 # Workflows principais de produção do robô
 PRODUCAO = {
-    "achados.yml": "Carrossel & WhatsApp",
+    "achados.yml": "Carrossel Instagram",
+    "whatsapp.yml": "Postagens WhatsApp (2 em 2h)",
     "garimpo.yml": "Garimpo Shopee",
     "responder.yml": "Robô do Direct",
     "token.yml": "Renovação Token IG",
@@ -137,7 +138,21 @@ def obter_metricas_semana():
     except Exception as e:
         print(f"Aviso ao ler fila.json: {e}")
 
-    # 3. Pedidos de link em respondidos.json
+    # 3. WhatsApp (data/fila_whatsapp.json)
+    arq_zap = config.PASTA_DADOS / "fila_whatsapp.json"
+    zap_postados = 0
+    zap_pendentes = 0
+    if arq_zap.exists():
+        try:
+            dados_zap = json.loads(arq_zap.read_text(encoding="utf-8")).get("ofertas", {})
+            zap_postados = sum(1 for o in dados_zap.values() if o.get("status") == "postado" and o.get("postado_em", "") >= corte_str)
+            zap_pendentes = sum(1 for o in dados_zap.values() if o.get("status") == "pendente")
+        except Exception as e:
+            print(f"Aviso ao ler fila_whatsapp.json: {e}")
+    else:
+        zap_postados = len(whatsapp)
+
+    # 4. Pedidos de link em respondidos.json
     respondidos = []
     usuarios_unicos = set()
     top_pedidos = []
@@ -164,7 +179,8 @@ def obter_metricas_semana():
         "carrosseis": len(carrosseis),
         "produtos_carrossel": total_prods_carrossel,
         "stories": len(stories),
-        "whatsapp": len(whatsapp),
+        "whatsapp": zap_postados,
+        "whatsapp_pendentes": zap_pendentes,
         "pedidos_link": len(respondidos),
         "usuarios_unicos": len(usuarios_unicos),
         "top_pedidos": top_pedidos,
@@ -184,7 +200,7 @@ def montar_mensagem():
         "✨ <b>Postagens Realizadas:</b>",
         f"• 🖼️ <b>{m['carrosseis']}</b> carrosséis no Feed ({m['produtos_carrossel']} achados divulgados)",
         f"• 📱 <b>{m['stories']}</b> stories publicados",
-        f"• 💬 <b>{m['whatsapp']}</b> ofertas enviadas no WhatsApp",
+        f"• 💬 <b>{m['whatsapp']}</b> ofertas enviadas no WhatsApp" + (f" ({m['whatsapp_pendentes']} na fila)" if m['whatsapp_pendentes'] else ""),
         "",
         "👥 <b>Interações & Pedidos de Link:</b>",
         f"• 💌 <b>{m['pedidos_link']}</b> links enviados no Direct",

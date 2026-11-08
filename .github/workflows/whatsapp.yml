@@ -1,0 +1,63 @@
+name: 4 - Postar no WhatsApp (2 em 2h)
+
+# Envia 4 itens a cada 2 horas, das 09:00 às 21:00 (horário de Brasília)
+# Categorias permitidas: Gold e Silver ('ouro', 'prata', 'achado')
+# Intervalo randômico entre 1 e 5 minutos entre cada postagem.
+on:
+  schedule:
+    # 09h, 11h, 13h, 15h, 17h, 19h e 21h Horário de Brasília (BRT = UTC-3):
+    # 09h BRT -> 12h UTC
+    # 11h BRT -> 14h UTC
+    # 13h BRT -> 16h UTC
+    # 15h BRT -> 18h UTC
+    # 17h BRT -> 20h UTC
+    # 19h BRT -> 22h UTC
+    # 21h BRT -> 00h UTC
+    - cron: '0 0,12,14,16,18,20,22 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: grava-repositorio
+  cancel-in-progress: false
+
+jobs:
+  whatsapp:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Postar 4 ofertas no WhatsApp com intervalo
+        env:
+          EVOLUTION_API_URL: ${{ secrets.EVOLUTION_API_URL }}
+          EVOLUTION_API_KEY: ${{ secrets.EVOLUTION_API_KEY }}
+          EVOLUTION_INSTANCE: ${{ secrets.EVOLUTION_INSTANCE }}
+          WHATSAPP_GRUPO_JID: ${{ secrets.WHATSAPP_GRUPO_JID }}
+          WHATSAPP_ESPERA_MIN: "60"
+          WHATSAPP_ESPERA_MAX: "300"
+        run: python -m src.whatsapp_fila 4
+
+      - name: Salvar fila do WhatsApp
+        if: always()
+        run: |
+          git config user.name "AutoOfertasBot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/fila_whatsapp.json
+          git diff --cached --quiet && exit 0
+          git commit -m "💬 WhatsApp: 4 ofertas enviadas $(TZ=America/Sao_Paulo date +'%d/%m/%Y %H:%M')"
+          for i in 1 2 3 4 5; do
+            git pull --rebase && git push && break
+            [ $i = 5 ] && exit 1
+            sleep $((i * 5))
+          done

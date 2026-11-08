@@ -69,8 +69,9 @@ def _youtube():
 
 
 # chave → (nome na mensagem, função)
+from . import config
+
 CANAIS = {
-    from . import config
     "instagram": (f"Instagram {config.ARROBA}", lambda: _instagram("IG_ACCESS_TOKEN")),
     "facebook": ("Facebook Garimpo VIP", _facebook),
     "telegram": ("Telegram", _telegram),
