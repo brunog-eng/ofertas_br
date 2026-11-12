@@ -43,10 +43,10 @@
   "utilidades domésticas criativas": {
    "cat": "lar",
    "origem": "fixa",
-   "usos": 6,
+   "usos": 7,
    "achados": 0,
    "criado": "2026-10-09",
-   "ultimo_uso": "2026-11-08"
+   "ultimo_uso": "2026-11-12"
   },
   "lanterna tática": {
    "cat": "masculino",
@@ -379,10 +379,10 @@
   "lâmpada inteligente": {
    "cat": "eletronicos",
    "origem": "fixa",
-   "usos": 17,
-   "achados": 15,
+   "usos": 18,
+   "achados": 16,
    "criado": "2026-10-09",
-   "ultimo_uso": "2026-11-08"
+   "ultimo_uso": "2026-11-12"
   },
   "brinquedo interativo gato": {
    "cat": "pet",
@@ -403,10 +403,10 @@
   "luminária sensor de presença": {
    "cat": "lar",
    "origem": "fixa",
-   "usos": 13,
-   "achados": 1,
+   "usos": 14,
+   "achados": 3,
    "criado": "2026-10-09",
-   "ultimo_uso": "2026-11-04"
+   "ultimo_uso": "2026-11-12"
   },
   "compressor de ar portátil": {
    "cat": "automotivo",
@@ -467,10 +467,10 @@
   "fone bluetooth": {
    "cat": "eletronicos",
    "origem": "fixa",
-   "usos": 13,
+   "usos": 14,
    "achados": 0,
    "criado": "2026-10-09",
-   "ultimo_uso": "2026-11-04"
+   "ultimo_uso": "2026-11-12"
   },
   "organizador porta malas": {
    "cat": "automotivo",
@@ -571,10 +571,10 @@
   "potes herméticos": {
    "cat": "lar",
    "origem": "fixa",
-   "usos": 16,
+   "usos": 17,
    "achados": 6,
    "criado": "2026-10-10",
-   "ultimo_uso": "2026-10-27"
+   "ultimo_uso": "2026-11-12"
   },
   "brinquedo montessori": {
    "cat": "brinquedos",
@@ -723,10 +723,10 @@
   "dispenser automático": {
    "cat": "lar",
    "origem": "fixa",
-   "usos": 9,
-   "achados": 3,
+   "usos": 10,
+   "achados": 4,
    "criado": "2026-10-17",
-   "ultimo_uso": "2026-11-08"
+   "ultimo_uso": "2026-11-12"
   },
   "pista hot wheels": {
    "cat": "brinquedos",
@@ -735,70 +735,6 @@
    "achados": 0,
    "criado": "2026-10-20",
    "ultimo_uso": "2026-10-24"
-  },
-  "chaveiro multiuso canivete": {
-   "cat": "masculino",
-   "origem": "ia",
-   "usos": 1,
-   "achados": 0,
-   "criado": "2026-10-21",
-   "ultimo_uso": "2026-10-21"
-  },
-  "cubo labirinto magnético": {
-   "cat": "brinquedos",
-   "origem": "ia",
-   "usos": 1,
-   "achados": 0,
-   "criado": "2026-10-21",
-   "ultimo_uso": "2026-10-21"
-  },
-  "lâmpada projeção constelação": {
-   "cat": "eletronicos",
-   "origem": "ia",
-   "usos": 1,
-   "achados": 0,
-   "criado": "2026-10-21",
-   "ultimo_uso": "2026-10-21"
-  },
-  "porta guardanapo dobrável bambu": {
-   "cat": "lar",
-   "origem": "ia",
-   "usos": 1,
-   "achados": 0,
-   "criado": "2026-10-21",
-   "ultimo_uso": "2026-10-21"
-  },
-  "câmera pet wifi portátil": {
-   "cat": "pet",
-   "origem": "ia",
-   "usos": 1,
-   "achados": 0,
-   "criado": "2026-10-21",
-   "ultimo_uso": "2026-10-21"
-  },
-  "lanterna mágica portátil": {
-   "cat": "brinquedos",
-   "origem": "ia",
-   "usos": 1,
-   "achados": 0,
-   "criado": "2026-10-21",
-   "ultimo_uso": "2026-10-21"
-  },
-  "suporte copo ventosa universal": {
-   "cat": "automotivo",
-   "origem": "ia",
-   "usos": 1,
-   "achados": 0,
-   "criado": "2026-10-21",
-   "ultimo_uso": "2026-10-21"
-  },
-  "dispensador espuma lavanda": {
-   "cat": "lar",
-   "origem": "ia",
-   "usos": 1,
-   "achados": 0,
-   "criado": "2026-10-21",
-   "ultimo_uso": "2026-10-21"
   },
   "brinquedo bola com luz": {
    "cat": "pet",
@@ -4259,26 +4195,26 @@
   "porta joias": {
    "cat": "casa_e_decoracao",
    "origem": "fixa",
-   "usos": 5,
-   "achados": 13,
+   "usos": 6,
+   "achados": 15,
    "criado": "2026-10-31",
-   "ultimo_uso": "2026-11-08"
+   "ultimo_uso": "2026-11-12"
   },
   "organizador acrílico": {
    "cat": "casa_e_decoracao",
    "origem": "fixa",
-   "usos": 6,
+   "usos": 7,
    "achados": 15,
    "criado": "2026-10-31",
-   "ultimo_uso": "2026-11-08"
+   "ultimo_uso": "2026-11-12"
   },
   "massageador elétrico": {
    "cat": "utilidades_praticas",
    "origem": "fixa",
-   "usos": 6,
-   "achados": 14,
+   "usos": 7,
+   "achados": 16,
    "criado": "2026-10-31",
-   "ultimo_uso": "2026-11-08"
+   "ultimo_uso": "2026-11-12"
   },
   "copo térmico": {
    "cat": "casa_e_decoracao",
@@ -4315,10 +4251,10 @@
   "sensor temperatura toque": {
    "cat": "eletronicos_e_gadgets",
    "origem": "ia",
-   "usos": 4,
+   "usos": 5,
    "achados": 1,
    "criado": "2026-11-01",
-   "ultimo_uso": "2026-11-08"
+   "ultimo_uso": "2026-11-12"
   },
   "vaso levitante": {
    "cat": "casa_e_decoracao",
@@ -4435,10 +4371,10 @@
   "difusor de aromas": {
    "cat": "utilidades_praticas",
    "origem": "fixa",
-   "usos": 4,
-   "achados": 6,
+   "usos": 5,
+   "achados": 10,
    "criado": "2026-11-02",
-   "ultimo_uso": "2026-11-08"
+   "ultimo_uso": "2026-11-12"
   },
   "vaso auto regador": {
    "cat": "casa_e_decoracao",
@@ -4739,10 +4675,10 @@
   "cortina luz solar": {
    "cat": "casa_e_decoracao",
    "origem": "ia",
-   "usos": 1,
-   "achados": 1,
+   "usos": 2,
+   "achados": 4,
    "criado": "2026-11-08",
-   "ultimo_uso": "2026-11-08"
+   "ultimo_uso": "2026-11-12"
   },
   "cortador legumes espiral": {
    "cat": "utilidades_praticas",
@@ -4799,6 +4735,70 @@
    "achados": 3,
    "criado": "2026-11-08",
    "ultimo_uso": "2026-11-08"
+  },
+  "abridor garrafa automático": {
+   "cat": "utilidades_praticas",
+   "origem": "ia",
+   "usos": 1,
+   "achados": 1,
+   "criado": "2026-11-12",
+   "ultimo_uso": "2026-11-12"
+  },
+  "sensor luz noturna toque": {
+   "cat": "eletronicos_e_gadgets",
+   "origem": "ia",
+   "usos": 1,
+   "achados": 0,
+   "criado": "2026-11-12",
+   "ultimo_uso": "2026-11-12"
+  },
+  "cortina luz led 3d": {
+   "cat": "casa_e_decoracao",
+   "origem": "ia",
+   "usos": 1,
+   "achados": 0,
+   "criado": "2026-11-12",
+   "ultimo_uso": "2026-11-12"
+  },
+  "esponja limpeza ultrassônica": {
+   "cat": "utilidades_praticas",
+   "origem": "ia",
+   "usos": 1,
+   "achados": 0,
+   "criado": "2026-11-12",
+   "ultimo_uso": "2026-11-12"
+  },
+  "fita led controle bluetooth": {
+   "cat": "eletronicos_e_gadgets",
+   "origem": "ia",
+   "usos": 1,
+   "achados": 1,
+   "criado": "2026-11-12",
+   "ultimo_uso": "2026-11-12"
+  },
+  "porta foto magnético": {
+   "cat": "casa_e_decoracao",
+   "origem": "ia",
+   "usos": 1,
+   "achados": 0,
+   "criado": "2026-11-12",
+   "ultimo_uso": "2026-11-12"
+  },
+  "relógio areia digital": {
+   "cat": "casa_e_decoracao",
+   "origem": "ia",
+   "usos": 1,
+   "achados": 0,
+   "criado": "2026-11-12",
+   "ultimo_uso": "2026-11-12"
+  },
+  "tapete antiderrapante 3d": {
+   "cat": "casa_e_decoracao",
+   "origem": "ia",
+   "usos": 1,
+   "achados": 1,
+   "criado": "2026-11-12",
+   "ultimo_uso": "2026-11-12"
   }
  },
  "categorias": {
@@ -4815,9 +4815,9 @@
     "moda": 19,
     "cabelo": 1,
     "casa_fofa": 7,
-    "utilidades_praticas": 190,
-    "eletronicos_e_gadgets": 186,
-    "casa_e_decoracao": 124
+    "utilidades_praticas": 197,
+    "eletronicos_e_gadgets": 202,
+    "casa_e_decoracao": 132
    }
   },
   "100725": {
@@ -4830,9 +4830,9 @@
     "eletronicos": 2432,
     "pet": 813,
     "casa_fofa": 7,
-    "utilidades_praticas": 172,
-    "eletronicos_e_gadgets": 181,
-    "casa_e_decoracao": 106
+    "utilidades_praticas": 177,
+    "eletronicos_e_gadgets": 196,
+    "casa_e_decoracao": 108
    }
   },
   "101273": {
@@ -4845,8 +4845,8 @@
     "eletronicos": 1734,
     "pet": 673,
     "casa_fofa": 7,
-    "utilidades_praticas": 69,
-    "eletronicos_e_gadgets": 126,
+    "utilidades_praticas": 72,
+    "eletronicos_e_gadgets": 139,
     "casa_e_decoracao": 9
    },
    "usos": 1,
@@ -4866,9 +4866,9 @@
     "autocuidado": 24,
     "moda": 376,
     "cabelo": 6,
-    "utilidades_praticas": 19985,
-    "eletronicos_e_gadgets": 4546,
-    "casa_e_decoracao": 31383
+    "utilidades_praticas": 21406,
+    "eletronicos_e_gadgets": 5308,
+    "casa_e_decoracao": 33938
    }
   },
   "100715": {
@@ -4880,9 +4880,9 @@
     "lar": 1938,
     "pet": 128,
     "brinquedos": 417,
-    "utilidades_praticas": 1310,
-    "eletronicos_e_gadgets": 146,
-    "casa_e_decoracao": 36
+    "utilidades_praticas": 1313,
+    "eletronicos_e_gadgets": 161,
+    "casa_e_decoracao": 38
    }
   },
   "101191": {
@@ -4895,7 +4895,7 @@
     "brinquedos": 334,
     "pet": 55,
     "utilidades_praticas": 536,
-    "eletronicos_e_gadgets": 55,
+    "eletronicos_e_gadgets": 62,
     "casa_e_decoracao": 13
    },
    "usos": 1,
@@ -4914,8 +4914,8 @@
     "casa_fofa": 8,
     "cabelo": 2,
     "utilidades_praticas": 676,
-    "eletronicos_e_gadgets": 154,
-    "casa_e_decoracao": 12
+    "eletronicos_e_gadgets": 159,
+    "casa_e_decoracao": 16
    }
   },
   "101941": {
@@ -4945,9 +4945,9 @@
     "eletronicos": 208,
     "cabelo": 5,
     "moda": 3,
-    "utilidades_praticas": 290,
-    "eletronicos_e_gadgets": 38,
-    "casa_e_decoracao": 6
+    "utilidades_praticas": 300,
+    "eletronicos_e_gadgets": 39,
+    "casa_e_decoracao": 11
    }
   },
   "100668": {
@@ -4961,9 +4961,9 @@
     "lar": 524,
     "cabelo": 2,
     "moda": 3,
-    "utilidades_praticas": 260,
+    "utilidades_praticas": 270,
     "eletronicos_e_gadgets": 35,
-    "casa_e_decoracao": 6
+    "casa_e_decoracao": 11
    }
   },
   "100920": {
@@ -4990,9 +4990,9 @@
     "automotivo": 2216,
     "casa_fofa": 28,
     "moda": 2,
-    "eletronicos_e_gadgets": 140,
-    "utilidades_praticas": 383,
-    "casa_e_decoracao": 121
+    "eletronicos_e_gadgets": 150,
+    "utilidades_praticas": 392,
+    "casa_e_decoracao": 131
    }
   },
   "100684": {
@@ -5006,9 +5006,9 @@
     "automotivo": 97,
     "casa_fofa": 6,
     "moda": 2,
-    "utilidades_praticas": 52,
-    "eletronicos_e_gadgets": 22,
-    "casa_e_decoracao": 11
+    "utilidades_praticas": 53,
+    "eletronicos_e_gadgets": 25,
+    "casa_e_decoracao": 13
    }
   },
   "101007": {
@@ -5017,7 +5017,8 @@
     "brinquedos": 20171,
     "pet": 13,
     "eletronicos": 3,
-    "lar": 4
+    "lar": 4,
+    "casa_e_decoracao": 2
    },
    "achados": 29,
    "usos": 15,
@@ -5035,7 +5036,7 @@
     "beleza": 4,
     "cabelo": 1,
     "moda": 1,
-    "casa_e_decoracao": 423,
+    "casa_e_decoracao": 466,
     "utilidades_praticas": 854,
     "eletronicos_e_gadgets": 7
    }
@@ -5050,7 +5051,7 @@
     "eletronicos": 6092,
     "automotivo": 11,
     "cabelo": 1,
-    "casa_e_decoracao": 181,
+    "casa_e_decoracao": 200,
     "eletronicos_e_gadgets": 7,
     "utilidades_praticas": 570
    }
@@ -5078,8 +5079,8 @@
     "beleza": 1,
     "cabelo": 1,
     "casa_fofa": 2,
-    "eletronicos_e_gadgets": 56,
-    "casa_e_decoracao": 163,
+    "eletronicos_e_gadgets": 74,
+    "casa_e_decoracao": 203,
     "utilidades_praticas": 18
    }
   },
@@ -5092,8 +5093,8 @@
     "automotivo": 27,
     "eletronicos": 204,
     "lar": 2,
-    "casa_e_decoracao": 16,
-    "eletronicos_e_gadgets": 12
+    "casa_e_decoracao": 17,
+    "eletronicos_e_gadgets": 14
    }
   },
   "101409": {
@@ -5103,7 +5104,7 @@
     "automotivo": 8,
     "eletronicos": 10,
     "pet": 96,
-    "eletronicos_e_gadgets": 12
+    "eletronicos_e_gadgets": 14
    }
   },
   "101012": {
@@ -5114,7 +5115,7 @@
     "lar": 24,
     "pet": 188,
     "casa_fofa": 2,
-    "eletronicos_e_gadgets": 14,
+    "eletronicos_e_gadgets": 17,
     "utilidades_praticas": 3,
     "casa_e_decoracao": 5
    },
@@ -5148,9 +5149,9 @@
     "cabelo": 1,
     "casa_fofa": 2,
     "moda": 1,
-    "eletronicos_e_gadgets": 5225,
-    "casa_e_decoracao": 74,
-    "utilidades_praticas": 318
+    "eletronicos_e_gadgets": 5263,
+    "casa_e_decoracao": 90,
+    "utilidades_praticas": 322
    }
   },
   "100703": {
@@ -5165,9 +5166,9 @@
     "cabelo": 1,
     "casa_fofa": 2,
     "moda": 1,
-    "eletronicos_e_gadgets": 218,
-    "casa_e_decoracao": 74,
-    "utilidades_praticas": 251
+    "eletronicos_e_gadgets": 234,
+    "casa_e_decoracao": 90,
+    "utilidades_praticas": 255
    }
   },
   "101111": {
@@ -5181,9 +5182,9 @@
     "masculino": 39,
     "cabelo": 1,
     "casa_fofa": 1,
-    "casa_e_decoracao": 73,
-    "utilidades_praticas": 144,
-    "eletronicos_e_gadgets": 83
+    "casa_e_decoracao": 81,
+    "utilidades_praticas": 148,
+    "eletronicos_e_gadgets": 98
    }
   },
   "100630": {
@@ -5198,9 +5199,9 @@
     "beleza": 2690,
     "cabelo": 2979,
     "autocuidado": 4,
-    "casa_e_decoracao": 1751,
-    "utilidades_praticas": 1564,
-    "eletronicos_e_gadgets": 173
+    "casa_e_decoracao": 1824,
+    "utilidades_praticas": 1588,
+    "eletronicos_e_gadgets": 183
    }
   },
   "100663": {
@@ -5215,9 +5216,9 @@
     "beleza": 1589,
     "cabelo": 2942,
     "autocuidado": 4,
-    "casa_e_decoracao": 1706,
-    "utilidades_praticas": 594,
-    "eletronicos_e_gadgets": 50
+    "casa_e_decoracao": 1775,
+    "utilidades_praticas": 617,
+    "eletronicos_e_gadgets": 54
    }
   },
   "100886": {
@@ -5229,9 +5230,10 @@
     "pet": 10,
     "brinquedos": 5,
     "beleza": 1272,
-    "utilidades_praticas": 333,
+    "utilidades_praticas": 354,
     "eletronicos_e_gadgets": 5
-   }
+   },
+   "achados": 1
   },
   "100662": {
    "nivel": 1,
@@ -5245,7 +5247,7 @@
     "beleza": 4,
     "utilidades_praticas": 19,
     "casa_e_decoracao": 12,
-    "eletronicos_e_gadgets": 61
+    "eletronicos_e_gadgets": 63
    }
   },
   "100882": {
@@ -5267,7 +5269,7 @@
     "eletronicos": 47,
     "cabelo": 7,
     "utilidades_praticas": 705,
-    "casa_e_decoracao": 12
+    "casa_e_decoracao": 15
    }
   },
   "100877": {
@@ -5279,7 +5281,7 @@
     "eletronicos": 44,
     "cabelo": 7,
     "utilidades_praticas": 705,
-    "casa_e_decoracao": 12
+    "casa_e_decoracao": 15
    },
    "achados": 1,
    "usos": 2,
@@ -5379,11 +5381,11 @@
     "pet": 11,
     "beleza": 313,
     "cabelo": 1,
-    "casa_e_decoracao": 1693,
+    "casa_e_decoracao": 1762,
     "utilidades_praticas": 175,
-    "eletronicos_e_gadgets": 40
+    "eletronicos_e_gadgets": 44
    },
-   "achados": 3
+   "achados": 4
   },
   "100870": {
    "nivel": 2,
@@ -5403,8 +5405,8 @@
     "beleza": 4,
     "autocuidado": 510,
     "casa_e_decoracao": 21,
-    "utilidades_praticas": 5044,
-    "eletronicos_e_gadgets": 42
+    "utilidades_praticas": 5453,
+    "eletronicos_e_gadgets": 46
    }
   },
   "100002": {
@@ -5433,7 +5435,7 @@
     "eletronicos": 46,
     "utilidades_praticas": 230,
     "eletronicos_e_gadgets": 5,
-    "casa_e_decoracao": 88
+    "casa_e_decoracao": 121
    }
   },
   "101176": {
@@ -5451,8 +5453,8 @@
     "pet": 6,
     "eletronicos": 8,
     "automotivo": 1,
-    "utilidades_praticas": 107,
-    "casa_e_decoracao": 51,
+    "utilidades_praticas": 115,
+    "casa_e_decoracao": 58,
     "eletronicos_e_gadgets": 19
    }
   },
@@ -5472,9 +5474,9 @@
     "automotivo": 492,
     "pet": 1659,
     "casa_fofa": 113,
-    "eletronicos_e_gadgets": 32,
-    "utilidades_praticas": 76,
-    "casa_e_decoracao": 4943
+    "eletronicos_e_gadgets": 47,
+    "utilidades_praticas": 82,
+    "casa_e_decoracao": 6220
    }
   },
   "101156": {
@@ -5487,7 +5489,7 @@
     "automotivo": 62,
     "pet": 1012,
     "casa_fofa": 59,
-    "casa_e_decoracao": 106
+    "casa_e_decoracao": 442
    }
   },
   "100658": {
@@ -5568,9 +5570,9 @@
     "moda": 947,
     "cabelo": 40,
     "autocuidado": 1,
-    "casa_e_decoracao": 126,
-    "utilidades_praticas": 54,
-    "eletronicos_e_gadgets": 19
+    "casa_e_decoracao": 131,
+    "utilidades_praticas": 60,
+    "eletronicos_e_gadgets": 24
    }
   },
   "100025": {
@@ -5613,7 +5615,7 @@
     "automotivo": 3,
     "lar": 9,
     "casa_fofa": 1,
-    "utilidades_praticas": 16
+    "utilidades_praticas": 20
    }
   },
   "100629": {
@@ -5656,8 +5658,8 @@
     "moda": 18,
     "casa_fofa": 13,
     "cabelo": 1,
-    "eletronicos_e_gadgets": 8113,
-    "utilidades_praticas": 1265,
+    "eletronicos_e_gadgets": 8177,
+    "utilidades_praticas": 1267,
     "casa_e_decoracao": 27
    }
   },
@@ -5673,8 +5675,8 @@
     "moda": 18,
     "casa_fofa": 13,
     "cabelo": 1,
-    "eletronicos_e_gadgets": 7923,
-    "utilidades_praticas": 1265,
+    "eletronicos_e_gadgets": 7981,
+    "utilidades_praticas": 1267,
     "casa_e_decoracao": 27
    }
   },
@@ -5685,7 +5687,7 @@
     "masculino": 472,
     "automotivo": 2698,
     "lar": 2130,
-    "eletronicos_e_gadgets": 1688,
+    "eletronicos_e_gadgets": 1691,
     "utilidades_praticas": 1227
    },
    "achados": 1
@@ -5702,9 +5704,9 @@
     "cabelo": 4,
     "casa_fofa": 22,
     "moda": 4,
-    "utilidades_praticas": 927,
-    "eletronicos_e_gadgets": 1210,
-    "casa_e_decoracao": 129
+    "utilidades_praticas": 938,
+    "eletronicos_e_gadgets": 1241,
+    "casa_e_decoracao": 217
    }
   },
   "102249": {
@@ -5716,9 +5718,9 @@
     "brinquedos": 45,
     "masculino": 261,
     "pet": 140,
-    "utilidades_praticas": 155,
-    "casa_e_decoracao": 111,
-    "eletronicos_e_gadgets": 345
+    "utilidades_praticas": 157,
+    "casa_e_decoracao": 195,
+    "eletronicos_e_gadgets": 349
    }
   },
   "102593": {
@@ -5728,7 +5730,7 @@
     "automotivo": 4372,
     "lar": 36,
     "masculino": 2,
-    "eletronicos_e_gadgets": 101,
+    "eletronicos_e_gadgets": 102,
     "utilidades_praticas": 4
    }
   },
@@ -5775,7 +5777,8 @@
     "brinquedos": 16,
     "lar": 13,
     "utilidades_praticas": 10,
-    "eletronicos_e_gadgets": 292
+    "eletronicos_e_gadgets": 300,
+    "casa_e_decoracao": 1
    }
   },
   "102551": {
@@ -5787,7 +5790,8 @@
     "brinquedos": 16,
     "lar": 2,
     "eletronicos_e_gadgets": 246,
-    "utilidades_praticas": 5
+    "utilidades_praticas": 5,
+    "casa_e_decoracao": 1
    },
    "achados": 2
   },
@@ -5814,9 +5818,9 @@
     "autocuidado": 34,
     "casa_fofa": 293,
     "cabelo": 2,
-    "eletronicos_e_gadgets": 4003,
-    "utilidades_praticas": 2902,
-    "casa_e_decoracao": 81
+    "eletronicos_e_gadgets": 4030,
+    "utilidades_praticas": 2947,
+    "casa_e_decoracao": 82
    }
   },
   "100042": {
@@ -5828,7 +5832,7 @@
     "masculino": 8,
     "pet": 3,
     "brinquedos": 12,
-    "eletronicos_e_gadgets": 2000,
+    "eletronicos_e_gadgets": 2018,
     "utilidades_praticas": 24
    }
   },
@@ -5838,7 +5842,7 @@
     "eletronicos": 2130,
     "lar": 18,
     "automotivo": 5,
-    "eletronicos_e_gadgets": 1116,
+    "eletronicos_e_gadgets": 1117,
     "utilidades_praticas": 6
    },
    "usos": 1,
@@ -5853,8 +5857,8 @@
     "brinquedos": 33,
     "masculino": 5,
     "casa_fofa": 7,
-    "eletronicos_e_gadgets": 123,
-    "utilidades_praticas": 55,
+    "eletronicos_e_gadgets": 134,
+    "utilidades_praticas": 56,
     "casa_e_decoracao": 3
    }
   },
@@ -5880,9 +5884,9 @@
     "lar": 290,
     "pet": 107,
     "masculino": 7,
-    "utilidades_praticas": 23,
-    "eletronicos_e_gadgets": 52,
-    "casa_e_decoracao": 3
+    "utilidades_praticas": 25,
+    "eletronicos_e_gadgets": 53,
+    "casa_e_decoracao": 6
    },
    "usos": 1,
    "ultimo_uso": "2026-10-12"
@@ -5898,9 +5902,9 @@
     "pet": 65,
     "moda": 12,
     "casa_fofa": 1445,
-    "eletronicos_e_gadgets": 3859,
-    "utilidades_praticas": 2578,
-    "casa_e_decoracao": 2181
+    "eletronicos_e_gadgets": 4559,
+    "utilidades_praticas": 2769,
+    "casa_e_decoracao": 2355
    }
   },
   "100037": {
@@ -5913,8 +5917,8 @@
     "masculino": 8,
     "pet": 69,
     "casa_fofa": 289,
-    "eletronicos_e_gadgets": 1654,
-    "utilidades_praticas": 9,
+    "eletronicos_e_gadgets": 1657,
+    "utilidades_praticas": 10,
     "casa_e_decoracao": 7
    }
   },
@@ -5926,8 +5930,8 @@
     "automotivo": 482,
     "brinquedos": 1552,
     "casa_fofa": 263,
-    "eletronicos_e_gadgets": 1616,
-    "utilidades_praticas": 8,
+    "eletronicos_e_gadgets": 1617,
+    "utilidades_praticas": 9,
     "casa_e_decoracao": 5
    },
    "achados": 5,
@@ -5943,8 +5947,8 @@
     "eletronicos": 1595,
     "masculino": 22,
     "casa_fofa": 7,
-    "eletronicos_e_gadgets": 238,
-    "utilidades_praticas": 6,
+    "eletronicos_e_gadgets": 286,
+    "utilidades_praticas": 7,
     "casa_e_decoracao": 11
    },
    "achados": 8
@@ -5960,9 +5964,9 @@
     "automotivo": 68,
     "casa_fofa": 7,
     "beleza": 2,
-    "eletronicos_e_gadgets": 68,
-    "casa_e_decoracao": 12,
-    "utilidades_praticas": 56
+    "eletronicos_e_gadgets": 83,
+    "casa_e_decoracao": 13,
+    "utilidades_praticas": 58
    }
   },
   "100046": {
@@ -5984,7 +5988,7 @@
     "lar": 18,
     "eletronicos": 202,
     "automotivo": 73,
-    "eletronicos_e_gadgets": 348,
+    "eletronicos_e_gadgets": 349,
     "utilidades_praticas": 4
    }
   },
@@ -5997,9 +6001,9 @@
     "pet": 276,
     "masculino": 100,
     "brinquedos": 10,
-    "eletronicos_e_gadgets": 126,
+    "eletronicos_e_gadgets": 129,
     "utilidades_praticas": 18,
-    "casa_e_decoracao": 3
+    "casa_e_decoracao": 6
    }
   },
   "101997": {
@@ -6011,7 +6015,7 @@
     "masculino": 54,
     "brinquedos": 10,
     "automotivo": 23,
-    "eletronicos_e_gadgets": 34,
+    "eletronicos_e_gadgets": 37,
     "utilidades_praticas": 13
    }
   },
@@ -6025,9 +6029,9 @@
     "pet": 88,
     "masculino": 6,
     "casa_fofa": 48,
-    "eletronicos_e_gadgets": 23,
-    "casa_e_decoracao": 436,
-    "utilidades_praticas": 38
+    "eletronicos_e_gadgets": 36,
+    "casa_e_decoracao": 451,
+    "utilidades_praticas": 39
    }
   },
   "102251": {
@@ -6037,7 +6041,7 @@
     "automotivo": 1644,
     "masculino": 3,
     "eletronicos": 3,
-    "eletronicos_e_gadgets": 8
+    "eletronicos_e_gadgets": 13
    }
   },
   "102252": {
@@ -6061,8 +6065,8 @@
     "casa_fofa": 270,
     "autocuidado": 1,
     "eletronicos_e_gadgets": 9,
-    "utilidades_praticas": 600,
-    "casa_e_decoracao": 2637
+    "utilidades_praticas": 606,
+    "casa_e_decoracao": 2657
    }
   },
   "101209": {
@@ -6086,7 +6090,7 @@
     "lar": 817,
     "masculino": 155,
     "cabelo": 2,
-    "utilidades_praticas": 520,
+    "utilidades_praticas": 528,
     "casa_e_decoracao": 6,
     "eletronicos_e_gadgets": 2
    }
@@ -6139,7 +6143,7 @@
     "eletronicos": 28,
     "masculino": 13,
     "lar": 18,
-    "utilidades_praticas": 76,
+    "utilidades_praticas": 84,
     "eletronicos_e_gadgets": 2
    },
    "usos": 1,
@@ -6165,8 +6169,8 @@
     "eletronicos": 57,
     "brinquedos": 22,
     "autocuidado": 1,
-    "casa_e_decoracao": 42,
-    "utilidades_praticas": 70,
+    "casa_e_decoracao": 48,
+    "utilidades_praticas": 73,
     "eletronicos_e_gadgets": 2
    }
   },
@@ -6233,8 +6237,8 @@
     "pet": 68,
     "autocuidado": 27,
     "cabelo": 2,
-    "utilidades_praticas": 2066,
-    "eletronicos_e_gadgets": 40,
+    "utilidades_praticas": 2091,
+    "eletronicos_e_gadgets": 41,
     "casa_e_decoracao": 29
    }
   },
@@ -6274,7 +6278,7 @@
     "pet": 40,
     "casa_fofa": 2,
     "moda": 840,
-    "casa_e_decoracao": 40,
+    "casa_e_decoracao": 48,
     "utilidades_praticas": 6,
     "eletronicos_e_gadgets": 1
    }
@@ -6290,7 +6294,7 @@
     "pet": 40,
     "casa_fofa": 2,
     "moda": 6,
-    "casa_e_decoracao": 19,
+    "casa_e_decoracao": 22,
     "utilidades_praticas": 2
    }
   },
@@ -6371,7 +6375,7 @@
     "cabelo": 1,
     "eletronicos_e_gadgets": 5,
     "utilidades_praticas": 23,
-    "casa_e_decoracao": 6
+    "casa_e_decoracao": 10
    },
    "achados": 4
   },
@@ -6392,7 +6396,8 @@
     "brinquedos": 77,
     "automotivo": 49,
     "utilidades_praticas": 11,
-    "casa_e_decoracao": 20
+    "casa_e_decoracao": 20,
+    "eletronicos_e_gadgets": 2
    }
   },
   "100671": {
@@ -6473,9 +6478,9 @@
     "brinquedos": 24,
     "masculino": 12,
     "beleza": 43,
-    "casa_e_decoracao": 243,
-    "utilidades_praticas": 4221,
-    "eletronicos_e_gadgets": 23
+    "casa_e_decoracao": 251,
+    "utilidades_praticas": 4288,
+    "eletronicos_e_gadgets": 25
    }
   },
   "101138": {
@@ -6485,7 +6490,7 @@
     "lar": 73,
     "masculino": 3,
     "beleza": 40,
-    "utilidades_praticas": 57
+    "utilidades_praticas": 60
    },
    "usos": 1,
    "ultimo_uso": "2026-10-29"
@@ -6501,8 +6506,8 @@
     "masculino": 332,
     "casa_fofa": 34,
     "moda": 5,
-    "casa_e_decoracao": 4121,
-    "utilidades_praticas": 49,
+    "casa_e_decoracao": 4128,
+    "utilidades_praticas": 51,
     "eletronicos_e_gadgets": 199
    }
   },
@@ -6529,8 +6534,8 @@
     "automotivo": 9,
     "eletronicos": 37,
     "masculino": 190,
-    "casa_e_decoracao": 53,
-    "utilidades_praticas": 14
+    "casa_e_decoracao": 67,
+    "utilidades_praticas": 16
    }
   },
   "101014": {
@@ -6553,7 +6558,7 @@
     "masculino": 63,
     "eletronicos": 10,
     "beleza": 1,
-    "casa_e_decoracao": 43,
+    "casa_e_decoracao": 44,
     "utilidades_praticas": 5
    }
   },
@@ -6566,7 +6571,7 @@
     "automotivo": 5,
     "masculino": 4,
     "eletronicos": 10,
-    "casa_e_decoracao": 36,
+    "casa_e_decoracao": 37,
     "utilidades_praticas": 3
    }
   },
@@ -6581,7 +6586,7 @@
     "eletronicos": 1162,
     "beleza": 3,
     "utilidades_praticas": 269,
-    "casa_e_decoracao": 153
+    "casa_e_decoracao": 167
    }
   },
   "101347": {
@@ -6604,8 +6609,8 @@
     "moda": 64,
     "cabelo": 3,
     "casa_fofa": 2,
-    "eletronicos_e_gadgets": 11,
-    "casa_e_decoracao": 42,
+    "eletronicos_e_gadgets": 12,
+    "casa_e_decoracao": 45,
     "utilidades_praticas": 6
    }
   },
@@ -6620,8 +6625,8 @@
     "moda": 64,
     "cabelo": 3,
     "casa_fofa": 1,
-    "eletronicos_e_gadgets": 11,
-    "casa_e_decoracao": 35
+    "eletronicos_e_gadgets": 12,
+    "casa_e_decoracao": 38
    }
   },
   "101026": {
@@ -6632,7 +6637,7 @@
     "eletronicos": 6,
     "lar": 5,
     "moda": 32,
-    "eletronicos_e_gadgets": 2
+    "eletronicos_e_gadgets": 3
    },
    "usos": 1,
    "ultimo_uso": "2026-10-17"
@@ -6648,7 +6653,7 @@
     "automotivo": 7,
     "casa_e_decoracao": 5,
     "utilidades_praticas": 1,
-    "eletronicos_e_gadgets": 3
+    "eletronicos_e_gadgets": 6
    }
   },
   "100972": {
@@ -6669,8 +6674,8 @@
     "pet": 9,
     "automotivo": 4,
     "casa_fofa": 4,
-    "utilidades_praticas": 30,
-    "eletronicos_e_gadgets": 89
+    "utilidades_praticas": 31,
+    "eletronicos_e_gadgets": 91
    }
   },
   "100888": {
@@ -6680,7 +6685,7 @@
     "pet": 15,
     "eletronicos": 14,
     "lar": 3,
-    "utilidades_praticas": 6
+    "utilidades_praticas": 7
    },
    "usos": 1,
    "ultimo_uso": "2026-10-16",
@@ -6695,9 +6700,9 @@
     "eletronicos": 1633,
     "automotivo": 9,
     "brinquedos": 3,
-    "utilidades_praticas": 747,
+    "utilidades_praticas": 765,
     "eletronicos_e_gadgets": 16,
-    "casa_e_decoracao": 45
+    "casa_e_decoracao": 46
    }
   },
   "100203": {
@@ -6763,9 +6768,9 @@
     "pet": 742,
     "automotivo": 895,
     "moda": 8,
-    "utilidades_praticas": 5332,
+    "utilidades_praticas": 5989,
     "eletronicos_e_gadgets": 8,
-    "casa_e_decoracao": 3917
+    "casa_e_decoracao": 4336
    }
   },
   "101228": {
@@ -6817,7 +6822,7 @@
     "lar": 835,
     "pet": 710,
     "eletronicos": 25,
-    "utilidades_praticas": 652
+    "utilidades_praticas": 669
    },
    "usos": 1,
    "ultimo_uso": "2026-10-17"
@@ -6865,8 +6870,8 @@
     "masculino": 199,
     "pet": 35,
     "automotivo": 71,
-    "utilidades_praticas": 224,
-    "casa_e_decoracao": 186
+    "utilidades_praticas": 227,
+    "casa_e_decoracao": 193
    },
    "usos": 2,
    "ultimo_uso": "2026-10-10",
@@ -6891,9 +6896,9 @@
     "casa_fofa": 678,
     "moda": 4,
     "cabelo": 5,
-    "utilidades_praticas": 2155,
-    "eletronicos_e_gadgets": 60,
-    "casa_e_decoracao": 10739
+    "utilidades_praticas": 2157,
+    "eletronicos_e_gadgets": 62,
+    "casa_e_decoracao": 11332
    }
   },
   "101256": {
@@ -6906,7 +6911,7 @@
     "eletronicos": 42,
     "casa_fofa": 4,
     "moda": 4,
-    "casa_e_decoracao": 345,
+    "casa_e_decoracao": 350,
     "utilidades_praticas": 442
    }
   },
@@ -6923,7 +6928,7 @@
     "automotivo": 9,
     "eletronicos": 1537,
     "eletronicos_e_gadgets": 2,
-    "casa_e_decoracao": 13
+    "casa_e_decoracao": 14
    }
   },
   "100212": {
@@ -6933,7 +6938,7 @@
     "pet": 1,
     "eletronicos": 42,
     "brinquedos": 3,
-    "utilidades_praticas": 18,
+    "utilidades_praticas": 19,
     "casa_e_decoracao": 8
    }
   },
@@ -6952,8 +6957,8 @@
     "lar": 5221,
     "automotivo": 587,
     "pet": 5,
-    "casa_e_decoracao": 902,
-    "utilidades_praticas": 150
+    "casa_e_decoracao": 913,
+    "utilidades_praticas": 151
    },
    "achados": 6,
    "usos": 4,
@@ -6989,8 +6994,8 @@
     "masculino": 712,
     "brinquedos": 22,
     "moda": 8,
-    "utilidades_praticas": 225,
-    "casa_e_decoracao": 1023,
+    "utilidades_praticas": 230,
+    "casa_e_decoracao": 1421,
     "eletronicos_e_gadgets": 1
    },
    "achados": 18,
@@ -7054,7 +7059,7 @@
     "eletronicos": 13,
     "lar": 2640,
     "cabelo": 1,
-    "eletronicos_e_gadgets": 3
+    "eletronicos_e_gadgets": 4
    }
   },
   "100923": {
@@ -7122,8 +7127,8 @@
     "eletronicos": 58,
     "brinquedos": 9,
     "casa_fofa": 1,
-    "eletronicos_e_gadgets": 31,
-    "utilidades_praticas": 53
+    "eletronicos_e_gadgets": 35,
+    "utilidades_praticas": 54
    }
   },
   "102592": {
@@ -7183,7 +7188,7 @@
     "lar": 214,
     "brinquedos": 21,
     "casa_fofa": 6,
-    "eletronicos_e_gadgets": 62,
+    "eletronicos_e_gadgets": 68,
     "casa_e_decoracao": 3
    },
    "usos": 3,
@@ -7200,7 +7205,7 @@
     "pet": 77,
     "lar": 1,
     "eletronicos_e_gadgets": 13,
-    "casa_e_decoracao": 3
+    "casa_e_decoracao": 5
    }
   },
   "100108": {
@@ -7224,8 +7229,8 @@
     "pet": 23,
     "moda": 4,
     "casa_fofa": 15,
-    "eletronicos_e_gadgets": 121,
-    "casa_e_decoracao": 9
+    "eletronicos_e_gadgets": 124,
+    "casa_e_decoracao": 12
    }
   },
   "102536": {
@@ -7236,7 +7241,7 @@
     "lar": 32,
     "pet": 17,
     "brinquedos": 3,
-    "casa_e_decoracao": 5
+    "casa_e_decoracao": 7
    }
   },
   "100661": {
@@ -7294,7 +7299,7 @@
     "automotivo": 2156,
     "brinquedos": 43,
     "lar": 16,
-    "eletronicos_e_gadgets": 365,
+    "eletronicos_e_gadgets": 368,
     "casa_e_decoracao": 3
    }
   },
@@ -7320,7 +7325,7 @@
     "lar": 3,
     "pet": 28,
     "automotivo": 2,
-    "casa_e_decoracao": 3
+    "casa_e_decoracao": 6
    }
   },
   "101936": {
@@ -7387,8 +7392,8 @@
     "autocuidado": 5,
     "cabelo": 1,
     "utilidades_praticas": 275,
-    "eletronicos_e_gadgets": 2,
-    "casa_e_decoracao": 2074
+    "eletronicos_e_gadgets": 3,
+    "casa_e_decoracao": 2087
    }
   },
   "101175": {
@@ -7402,7 +7407,8 @@
     "masculino": 1,
     "casa_fofa": 1,
     "utilidades_praticas": 8,
-    "casa_e_decoracao": 8
+    "casa_e_decoracao": 8,
+    "eletronicos_e_gadgets": 1
    }
   },
   "100917": {
@@ -7433,7 +7439,7 @@
     "masculino": 28,
     "eletronicos": 346,
     "automotivo": 291,
-    "eletronicos_e_gadgets": 21,
+    "eletronicos_e_gadgets": 24,
     "casa_e_decoracao": 2,
     "utilidades_praticas": 14
    }
@@ -7447,7 +7453,7 @@
     "eletronicos": 15,
     "automotivo": 7,
     "moda": 1,
-    "casa_e_decoracao": 38,
+    "casa_e_decoracao": 46,
     "utilidades_praticas": 7
    }
   },
@@ -7459,7 +7465,7 @@
     "brinquedos": 28,
     "eletronicos": 11,
     "automotivo": 6,
-    "casa_e_decoracao": 9
+    "casa_e_decoracao": 11
    }
   },
   "101186": {
@@ -7481,9 +7487,9 @@
     "brinquedos": 2,
     "casa_fofa": 1,
     "cabelo": 5,
-    "utilidades_praticas": 577,
+    "utilidades_praticas": 578,
     "eletronicos_e_gadgets": 4,
-    "casa_e_decoracao": 812
+    "casa_e_decoracao": 838
    },
    "achados": 3,
    "usos": 1,
@@ -7500,8 +7506,8 @@
     "pet": 29,
     "moda": 347,
     "casa_fofa": 6,
-    "eletronicos_e_gadgets": 20,
-    "casa_e_decoracao": 176,
+    "eletronicos_e_gadgets": 30,
+    "casa_e_decoracao": 181,
     "utilidades_praticas": 13
    }
   },
@@ -7516,8 +7522,8 @@
     "pet": 29,
     "moda": 321,
     "casa_fofa": 3,
-    "eletronicos_e_gadgets": 18,
-    "casa_e_decoracao": 88
+    "eletronicos_e_gadgets": 28,
+    "casa_e_decoracao": 92
    },
    "achados": 3,
    "usos": 1,
@@ -7531,7 +7537,7 @@
     "eletronicos": 175,
     "masculino": 10,
     "pet": 172,
-    "casa_e_decoracao": 138,
+    "casa_e_decoracao": 151,
     "utilidades_praticas": 30
    }
   },
@@ -7545,7 +7551,7 @@
     "brinquedos": 9,
     "pet": 12,
     "utilidades_praticas": 37,
-    "eletronicos_e_gadgets": 42,
+    "eletronicos_e_gadgets": 44,
     "casa_e_decoracao": 5
    }
   },
@@ -7560,8 +7566,8 @@
     "brinquedos": 6,
     "cabelo": 1,
     "casa_fofa": 5,
-    "eletronicos_e_gadgets": 271,
-    "utilidades_praticas": 8,
+    "eletronicos_e_gadgets": 272,
+    "utilidades_praticas": 9,
     "casa_e_decoracao": 11
    }
   },
@@ -7573,7 +7579,7 @@
     "automotivo": 6,
     "eletronicos": 3,
     "casa_fofa": 1,
-    "casa_e_decoracao": 18,
+    "casa_e_decoracao": 19,
     "utilidades_praticas": 3
    }
   },
@@ -7633,7 +7639,7 @@
     "eletronicos": 62,
     "masculino": 34,
     "utilidades_praticas": 101,
-    "casa_e_decoracao": 25,
+    "casa_e_decoracao": 26,
     "eletronicos_e_gadgets": 3
    },
    "usos": 1,
@@ -7644,7 +7650,7 @@
    "votos": {
     "automotivo": 480,
     "lar": 21,
-    "casa_e_decoracao": 143,
+    "casa_e_decoracao": 150,
     "utilidades_praticas": 11
    }
   },
@@ -7698,7 +7704,7 @@
     "lar": 88,
     "masculino": 2,
     "eletronicos_e_gadgets": 4,
-    "casa_e_decoracao": 78
+    "casa_e_decoracao": 136
    }
   },
   "101261": {
@@ -7710,8 +7716,8 @@
     "masculino": 2,
     "pet": 2,
     "utilidades_praticas": 190,
-    "eletronicos_e_gadgets": 45,
-    "casa_e_decoracao": 209
+    "eletronicos_e_gadgets": 47,
+    "casa_e_decoracao": 214
    },
    "usos": 3,
    "ultimo_uso": "2026-10-27"
@@ -7736,7 +7742,7 @@
     "brinquedos": 5,
     "casa_fofa": 1,
     "eletronicos_e_gadgets": 37,
-    "casa_e_decoracao": 4
+    "casa_e_decoracao": 7
    }
   },
   "100749": {
@@ -7768,7 +7774,7 @@
     "masculino": 5,
     "casa_fofa": 1,
     "eletronicos_e_gadgets": 17,
-    "casa_e_decoracao": 4
+    "casa_e_decoracao": 7
    }
   },
   "101417": {
@@ -7776,7 +7782,8 @@
    "votos": {
     "automotivo": 4157,
     "lar": 4,
-    "masculino": 5
+    "masculino": 5,
+    "casa_e_decoracao": 1
    },
    "usos": 1,
    "ultimo_uso": "2026-10-17"
@@ -7793,9 +7800,9 @@
     "autocuidado": 10,
     "moda": 27,
     "casa_fofa": 1,
-    "utilidades_praticas": 138,
+    "utilidades_praticas": 140,
     "casa_e_decoracao": 37,
-    "eletronicos_e_gadgets": 44
+    "eletronicos_e_gadgets": 49
    }
   },
   "100087": {
@@ -7809,9 +7816,9 @@
     "brinquedos": 1,
     "autocuidado": 10,
     "moda": 3,
-    "utilidades_praticas": 117,
+    "utilidades_praticas": 119,
     "casa_e_decoracao": 37,
-    "eletronicos_e_gadgets": 44
+    "eletronicos_e_gadgets": 49
    }
   },
   "100324": {
@@ -7848,7 +7855,7 @@
     "lar": 28,
     "eletronicos": 33,
     "moda": 5,
-    "casa_e_decoracao": 16,
+    "casa_e_decoracao": 21,
     "utilidades_praticas": 2,
     "eletronicos_e_gadgets": 1
    }
@@ -7868,7 +7875,7 @@
     "automotivo": 122,
     "eletronicos": 1,
     "pet": 1,
-    "casa_e_decoracao": 3
+    "casa_e_decoracao": 4
    }
   },
   "100338": {
@@ -7878,7 +7885,7 @@
     "masculino": 1471,
     "lar": 9,
     "eletronicos": 2,
-    "casa_e_decoracao": 6,
+    "casa_e_decoracao": 9,
     "eletronicos_e_gadgets": 1
    }
   },
@@ -7911,9 +7918,9 @@
     "autocuidado": 5,
     "moda": 19,
     "cabelo": 1,
-    "utilidades_praticas": 16,
-    "casa_e_decoracao": 18,
-    "eletronicos_e_gadgets": 4
+    "utilidades_praticas": 18,
+    "casa_e_decoracao": 24,
+    "eletronicos_e_gadgets": 5
    }
   },
   "101323": {
@@ -7927,8 +7934,8 @@
     "lar": 24,
     "cabelo": 1,
     "moda": 7,
-    "casa_e_decoracao": 14,
-    "eletronicos_e_gadgets": 4
+    "casa_e_decoracao": 17,
+    "eletronicos_e_gadgets": 5
    },
    "usos": 2,
    "ultimo_uso": "2026-10-22"
@@ -8042,7 +8049,8 @@
     "pet": 60,
     "lar": 578,
     "brinquedos": 7,
-    "eletronicos_e_gadgets": 4
+    "eletronicos_e_gadgets": 4,
+    "casa_e_decoracao": 1
    }
   },
   "100945": {
@@ -8050,7 +8058,8 @@
    "votos": {
     "masculino": 4,
     "pet": 4,
-    "eletronicos": 2
+    "eletronicos": 2,
+    "casa_e_decoracao": 1
    }
   },
   "100610": {
@@ -8075,8 +8084,8 @@
     "lar": 9532,
     "brinquedos": 1,
     "casa_fofa": 58,
-    "casa_e_decoracao": 2114,
-    "utilidades_praticas": 393
+    "casa_e_decoracao": 2126,
+    "utilidades_praticas": 394
    },
    "achados": 12,
    "usos": 4,
@@ -8114,9 +8123,9 @@
     "pet": 21,
     "automotivo": 12,
     "moda": 20,
-    "casa_e_decoracao": 21,
-    "eletronicos_e_gadgets": 9,
-    "utilidades_praticas": 12
+    "casa_e_decoracao": 22,
+    "eletronicos_e_gadgets": 11,
+    "utilidades_praticas": 14
    }
   },
   "100160": {
@@ -8126,7 +8135,7 @@
     "brinquedos": 2,
     "pet": 16,
     "eletronicos": 4,
-    "eletronicos_e_gadgets": 3
+    "eletronicos_e_gadgets": 4
    }
   },
   "102271": {
@@ -8154,7 +8163,7 @@
     "masculino": 5801,
     "eletronicos": 11226,
     "automotivo": 1267,
-    "eletronicos_e_gadgets": 35
+    "eletronicos_e_gadgets": 38
    }
   },
   "100270": {
@@ -8163,7 +8172,7 @@
     "masculino": 4161,
     "eletronicos": 11135,
     "automotivo": 4,
-    "eletronicos_e_gadgets": 29
+    "eletronicos_e_gadgets": 31
    }
   },
   "100534": {
@@ -8172,7 +8181,7 @@
     "masculino": 4367,
     "eletronicos": 1278,
     "moda": 213,
-    "casa_e_decoracao": 69
+    "casa_e_decoracao": 75
    }
   },
   "100574": {
@@ -8197,7 +8206,7 @@
     "masculino": 489,
     "eletronicos": 27,
     "moda": 10,
-    "casa_e_decoracao": 15
+    "casa_e_decoracao": 16
    }
   },
   "100726": {
@@ -8316,7 +8325,7 @@
     "pet": 2,
     "eletronicos": 2,
     "moda": 868,
-    "utilidades_praticas": 8,
+    "utilidades_praticas": 10,
     "casa_e_decoracao": 1
    }
   },
@@ -8372,7 +8381,7 @@
     "lar": 979,
     "automotivo": 42,
     "pet": 1,
-    "eletronicos_e_gadgets": 163,
+    "eletronicos_e_gadgets": 166,
     "utilidades_praticas": 17
    }
   },
@@ -8383,7 +8392,7 @@
     "lar": 967,
     "automotivo": 31,
     "pet": 1,
-    "eletronicos_e_gadgets": 163,
+    "eletronicos_e_gadgets": 166,
     "utilidades_praticas": 7
    },
    "achados": 4
@@ -8411,7 +8420,7 @@
     "autocuidado": 24,
     "cabelo": 2,
     "eletronicos_e_gadgets": 9,
-    "utilidades_praticas": 14,
+    "utilidades_praticas": 15,
     "casa_e_decoracao": 10
    }
   },
@@ -8422,11 +8431,11 @@
     "automotivo": 23,
     "lar": 2308,
     "brinquedos": 15,
-    "eletronicos_e_gadgets": 26,
-    "utilidades_praticas": 99,
+    "eletronicos_e_gadgets": 27,
+    "utilidades_praticas": 122,
     "casa_e_decoracao": 10
    },
-   "achados": 6
+   "achados": 8
   },
   "100947": {
    "nivel": 2,
@@ -8445,7 +8454,7 @@
     "brinquedos": 17,
     "pet": 27,
     "masculino": 3,
-    "casa_e_decoracao": 3,
+    "casa_e_decoracao": 5,
     "eletronicos_e_gadgets": 1
    }
   },
@@ -8454,7 +8463,7 @@
    "votos": {
     "eletronicos": 15,
     "brinquedos": 17,
-    "casa_e_decoracao": 3,
+    "casa_e_decoracao": 5,
     "eletronicos_e_gadgets": 1
    }
   },
@@ -8484,8 +8493,8 @@
     "pet": 32,
     "eletronicos": 18,
     "casa_fofa": 2,
-    "eletronicos_e_gadgets": 5,
-    "casa_e_decoracao": 25
+    "eletronicos_e_gadgets": 6,
+    "casa_e_decoracao": 33
    }
   },
   "101385": {
@@ -8526,8 +8535,8 @@
     "pet": 5,
     "automotivo": 32,
     "beleza": 1,
-    "eletronicos_e_gadgets": 31,
-    "casa_e_decoracao": 46,
+    "eletronicos_e_gadgets": 46,
+    "casa_e_decoracao": 77,
     "utilidades_praticas": 7
    }
   },
@@ -8540,8 +8549,8 @@
     "lar": 157,
     "automotivo": 28,
     "pet": 4,
-    "eletronicos_e_gadgets": 30,
-    "casa_e_decoracao": 24,
+    "eletronicos_e_gadgets": 45,
+    "casa_e_decoracao": 27,
     "utilidades_praticas": 3
    }
   },
@@ -8634,7 +8643,7 @@
     "masculino": 2,
     "casa_fofa": 19,
     "cabelo": 1,
-    "casa_e_decoracao": 537,
+    "casa_e_decoracao": 544,
     "utilidades_praticas": 153
    },
    "achados": 23,
@@ -8703,7 +8712,7 @@
     "eletronicos": 58,
     "pet": 138,
     "lar": 89,
-    "utilidades_praticas": 32
+    "utilidades_praticas": 33
    },
    "usos": 7,
    "ultimo_uso": "2026-10-28",
@@ -8754,7 +8763,7 @@
     "eletronicos": 10,
     "casa_fofa": 1,
     "utilidades_praticas": 152,
-    "casa_e_decoracao": 1622,
+    "casa_e_decoracao": 1710,
     "eletronicos_e_gadgets": 3
    },
    "achados": 4
@@ -8776,7 +8785,7 @@
     "pet": 5,
     "moda": 4,
     "casa_fofa": 15,
-    "eletronicos_e_gadgets": 119,
+    "eletronicos_e_gadgets": 122,
     "casa_e_decoracao": 1
    },
    "usos": 1,
@@ -8805,7 +8814,7 @@
     "lar": 8455,
     "casa_fofa": 2,
     "eletronicos_e_gadgets": 14,
-    "utilidades_praticas": 3058,
+    "utilidades_praticas": 3543,
     "casa_e_decoracao": 4
    }
   },
@@ -8817,9 +8826,9 @@
     "lar": 5991,
     "casa_fofa": 2,
     "eletronicos_e_gadgets": 14,
-    "utilidades_praticas": 2087
+    "utilidades_praticas": 2411
    },
-   "achados": 2,
+   "achados": 3,
    "usos": 1,
    "ultimo_uso": "2026-10-31"
   },
@@ -8828,7 +8837,7 @@
    "votos": {
     "automotivo": 1601,
     "lar": 26,
-    "eletronicos_e_gadgets": 2
+    "eletronicos_e_gadgets": 7
    },
    "usos": 1,
    "ultimo_uso": "2026-10-10",
@@ -8839,7 +8848,7 @@
    "votos": {
     "automotivo": 156,
     "eletronicos": 51,
-    "eletronicos_e_gadgets": 9
+    "eletronicos_e_gadgets": 11
    }
   },
   "100170": {
@@ -8851,7 +8860,7 @@
     "masculino": 8,
     "lar": 41,
     "casa_fofa": 26,
-    "eletronicos_e_gadgets": 36,
+    "eletronicos_e_gadgets": 38,
     "utilidades_praticas": 1,
     "casa_e_decoracao": 2
    },
@@ -8948,7 +8957,7 @@
     "lar": 3,
     "utilidades_praticas": 13,
     "eletronicos_e_gadgets": 101,
-    "casa_e_decoracao": 22
+    "casa_e_decoracao": 23
    }
   },
   "101252": {
@@ -9030,10 +9039,11 @@
     "masculino": 2547,
     "eletronicos": 24,
     "automotivo": 21,
-    "utilidades_praticas": 1818
+    "utilidades_praticas": 2464
    },
    "usos": 1,
-   "ultimo_uso": "2026-10-13"
+   "ultimo_uso": "2026-10-13",
+   "achados": 1
   },
   "101351": {
    "nivel": 2,
@@ -9072,7 +9082,7 @@
     "automotivo": 121,
     "lar": 53,
     "casa_fofa": 7,
-    "eletronicos_e_gadgets": 1885,
+    "eletronicos_e_gadgets": 2339,
     "casa_e_decoracao": 21,
     "utilidades_praticas": 1
    }
@@ -9086,7 +9096,7 @@
     "automotivo": 18,
     "casa_fofa": 7,
     "casa_e_decoracao": 15,
-    "eletronicos_e_gadgets": 26
+    "eletronicos_e_gadgets": 27
    }
   },
   "100625": {
@@ -9098,7 +9108,7 @@
     "automotivo": 12,
     "casa_fofa": 6,
     "casa_e_decoracao": 15,
-    "eletronicos_e_gadgets": 22
+    "eletronicos_e_gadgets": 23
    },
    "achados": 1,
    "usos": 2,
@@ -9159,7 +9169,7 @@
     "automotivo": 37,
     "autocuidado": 5,
     "utilidades_praticas": 14,
-    "eletronicos_e_gadgets": 18,
+    "eletronicos_e_gadgets": 21,
     "casa_e_decoracao": 1
    }
   },
@@ -9203,7 +9213,7 @@
     "masculino": 148,
     "eletronicos": 86,
     "automotivo": 7,
-    "eletronicos_e_gadgets": 6
+    "eletronicos_e_gadgets": 7
    }
   },
   "100951": {
@@ -9227,7 +9237,7 @@
     "lar": 19,
     "automotivo": 3,
     "eletronicos": 31,
-    "casa_e_decoracao": 10,
+    "casa_e_decoracao": 12,
     "utilidades_praticas": 2
    },
    "usos": 2,
@@ -9251,7 +9261,7 @@
     "automotivo": 6,
     "lar": 10,
     "autocuidado": 1,
-    "casa_e_decoracao": 18
+    "casa_e_decoracao": 21
    }
   },
   "100109": {
@@ -9342,9 +9352,10 @@
     "eletronicos": 22,
     "brinquedos": 3,
     "eletronicos_e_gadgets": 9,
-    "utilidades_praticas": 225
+    "utilidades_praticas": 235,
+    "casa_e_decoracao": 1
    },
-   "achados": 9,
+   "achados": 10,
    "usos": 2,
    "ultimo_uso": "2026-10-31"
   },
@@ -9418,7 +9429,7 @@
     "eletronicos": 12,
     "lar": 1863,
     "cabelo": 1,
-    "eletronicos_e_gadgets": 3
+    "eletronicos_e_gadgets": 4
    },
    "usos": 1,
    "ultimo_uso": "2026-10-12"
@@ -9430,7 +9441,7 @@
     "brinquedos": 11,
     "eletronicos": 10,
     "lar": 72,
-    "casa_e_decoracao": 53
+    "casa_e_decoracao": 86
    },
    "achados": 1
   },
@@ -9450,7 +9461,7 @@
     "masculino": 29,
     "brinquedos": 19,
     "automotivo": 10,
-    "eletronicos_e_gadgets": 1789
+    "eletronicos_e_gadgets": 2234
    }
   },
   "100077": {
@@ -9461,7 +9472,7 @@
     "pet": 22,
     "lar": 19,
     "masculino": 11,
-    "eletronicos_e_gadgets": 18
+    "eletronicos_e_gadgets": 19
    }
   },
   "102543": {
@@ -9469,7 +9480,7 @@
    "votos": {
     "eletronicos": 166,
     "automotivo": 8,
-    "eletronicos_e_gadgets": 32
+    "eletronicos_e_gadgets": 40
    }
   },
   "100331": {
@@ -9481,7 +9492,7 @@
     "lar": 4492,
     "automotivo": 906,
     "autocuidado": 10,
-    "eletronicos_e_gadgets": 32,
+    "eletronicos_e_gadgets": 37,
     "utilidades_praticas": 2
    }
   },
@@ -9493,7 +9504,7 @@
     "masculino": 567,
     "lar": 5,
     "casa_e_decoracao": 55,
-    "eletronicos_e_gadgets": 10,
+    "eletronicos_e_gadgets": 13,
     "utilidades_praticas": 1
    }
   },
@@ -9502,7 +9513,7 @@
    "votos": {
     "eletronicos": 11,
     "masculino": 24,
-    "eletronicos_e_gadgets": 2,
+    "eletronicos_e_gadgets": 3,
     "casa_e_decoracao": 10
    }
   },
@@ -9513,7 +9524,7 @@
     "masculino": 41,
     "lar": 14,
     "automotivo": 5,
-    "eletronicos_e_gadgets": 30,
+    "eletronicos_e_gadgets": 36,
     "casa_e_decoracao": 6,
     "utilidades_praticas": 1
    }
@@ -9522,7 +9533,7 @@
    "nivel": 2,
    "votos": {
     "eletronicos": 42,
-    "eletronicos_e_gadgets": 8
+    "eletronicos_e_gadgets": 10
    }
   },
   "100579": {
@@ -9532,7 +9543,7 @@
     "automotivo": 83,
     "masculino": 3,
     "lar": 6,
-    "eletronicos_e_gadgets": 11
+    "eletronicos_e_gadgets": 13
    }
   },
   "100620": {
@@ -9540,7 +9551,7 @@
    "votos": {
     "eletronicos": 86,
     "automotivo": 2,
-    "eletronicos_e_gadgets": 8
+    "eletronicos_e_gadgets": 10
    }
   },
   "100325": {
@@ -9565,7 +9576,7 @@
     "lar": 160,
     "masculino": 2,
     "casa_fofa": 17,
-    "eletronicos_e_gadgets": 4,
+    "eletronicos_e_gadgets": 5,
     "casa_e_decoracao": 46,
     "utilidades_praticas": 16
    }
@@ -9638,8 +9649,8 @@
     "brinquedos": 19,
     "pet": 724,
     "masculino": 1,
-    "casa_e_decoracao": 35,
-    "utilidades_praticas": 2290,
+    "casa_e_decoracao": 37,
+    "utilidades_praticas": 2318,
     "eletronicos_e_gadgets": 5
    }
   },
@@ -9659,7 +9670,7 @@
     "lar": 6,
     "masculino": 16,
     "eletronicos": 12,
-    "casa_e_decoracao": 11,
+    "casa_e_decoracao": 13,
     "utilidades_praticas": 2
    }
   },
@@ -9679,10 +9690,10 @@
     "masculino": 26,
     "eletronicos": 5,
     "pet": 3,
-    "casa_e_decoracao": 3494,
+    "casa_e_decoracao": 3874,
     "utilidades_praticas": 56
    },
-   "achados": 4
+   "achados": 5
   },
   "101419": {
    "nivel": 2,
@@ -9708,7 +9719,8 @@
    "votos": {
     "automotivo": 6689,
     "lar": 55,
-    "pet": 29
+    "pet": 29,
+    "casa_e_decoracao": 22
    },
    "usos": 1,
    "ultimo_uso": "2026-10-20"
@@ -9720,7 +9732,7 @@
     "eletronicos": 59,
     "lar": 22,
     "masculino": 1,
-    "eletronicos_e_gadgets": 3
+    "eletronicos_e_gadgets": 4
    },
    "usos": 1,
    "ultimo_uso": "2026-10-10"
@@ -9791,7 +9803,8 @@
     "masculino": 4,
     "eletronicos": 194,
     "lar": 1,
-    "casa_e_decoracao": 9
+    "casa_e_decoracao": 11,
+    "utilidades_praticas": 2
    }
   },
   "100072": {
@@ -9799,7 +9812,7 @@
    "votos": {
     "automotivo": 10,
     "eletronicos": 491,
-    "eletronicos_e_gadgets": 115
+    "eletronicos_e_gadgets": 117
    }
   },
   "101143": {
@@ -9810,8 +9823,8 @@
     "eletronicos": 48,
     "masculino": 4,
     "pet": 29,
-    "casa_e_decoracao": 60,
-    "utilidades_praticas": 173,
+    "casa_e_decoracao": 61,
+    "utilidades_praticas": 174,
     "eletronicos_e_gadgets": 4
    },
    "achados": 2,
@@ -9825,8 +9838,8 @@
     "pet": 10,
     "automotivo": 6,
     "masculino": 2,
-    "casa_e_decoracao": 15,
-    "utilidades_praticas": 21
+    "casa_e_decoracao": 17,
+    "utilidades_praticas": 22
    }
   },
   "101258": {
@@ -9838,7 +9851,7 @@
     "brinquedos": 20,
     "eletronicos": 2,
     "masculino": 11,
-    "casa_e_decoracao": 1204,
+    "casa_e_decoracao": 1257,
     "utilidades_praticas": 140,
     "eletronicos_e_gadgets": 8
    },
@@ -9914,7 +9927,7 @@
     "lar": 114,
     "automotivo": 39,
     "masculino": 1,
-    "eletronicos_e_gadgets": 79,
+    "eletronicos_e_gadgets": 86,
     "utilidades_praticas": 4
    },
    "achados": 5
@@ -9993,7 +10006,7 @@
     "beleza": 4,
     "autocuidado": 500,
     "casa_e_decoracao": 8,
-    "utilidades_praticas": 5016,
+    "utilidades_praticas": 5424,
     "eletronicos_e_gadgets": 21
    }
   },
@@ -10035,12 +10048,12 @@
     "masculino": 13,
     "automotivo": 36,
     "autocuidado": 499,
-    "utilidades_praticas": 4559,
+    "utilidades_praticas": 4967,
     "eletronicos_e_gadgets": 8
    },
    "usos": 1,
    "ultimo_uso": "2026-10-25",
-   "achados": 19
+   "achados": 20
   },
   "100667": {
    "nivel": 1,
@@ -10061,7 +10074,7 @@
     "brinquedos": 8729,
     "masculino": 8,
     "eletronicos": 26,
-    "casa_e_decoracao": 5
+    "casa_e_decoracao": 6
    },
    "usos": 4,
    "ultimo_uso": "2026-10-24",
@@ -10157,7 +10170,8 @@
     "lar": 7,
     "casa_fofa": 1,
     "moda": 1,
-    "casa_e_decoracao": 1
+    "casa_e_decoracao": 1,
+    "eletronicos_e_gadgets": 1
    }
   },
   "100868": {
@@ -10176,7 +10190,7 @@
     "automotivo": 1,
     "lar": 6,
     "beleza": 3,
-    "casa_e_decoracao": 7
+    "casa_e_decoracao": 8
    }
   },
   "101162": {
@@ -10196,7 +10210,8 @@
     "lar": 87,
     "eletronicos": 16,
     "automotivo": 32,
-    "masculino": 1
+    "masculino": 1,
+    "casa_e_decoracao": 1
    },
    "achados": 1
   },
@@ -10214,7 +10229,7 @@
    "votos": {
     "brinquedos": 9,
     "eletronicos": 2,
-    "casa_e_decoracao": 6,
+    "casa_e_decoracao": 7,
     "utilidades_praticas": 1
    }
   },
@@ -10270,7 +10285,7 @@
     "beleza": 1,
     "utilidades_praticas": 19,
     "casa_e_decoracao": 10,
-    "eletronicos_e_gadgets": 61
+    "eletronicos_e_gadgets": 63
    }
   },
   "100332": {
@@ -10280,7 +10295,7 @@
     "lar": 102,
     "automotivo": 20,
     "brinquedos": 1,
-    "utilidades_praticas": 16,
+    "utilidades_praticas": 18,
     "casa_e_decoracao": 10
    }
   },
@@ -10308,7 +10323,7 @@
     "automotivo": 351,
     "brinquedos": 3,
     "lar": 4,
-    "eletronicos_e_gadgets": 37,
+    "eletronicos_e_gadgets": 39,
     "casa_e_decoracao": 6,
     "utilidades_praticas": 49
    }
@@ -10331,7 +10346,7 @@
     "eletronicos": 1035,
     "masculino": 1157,
     "moda": 200,
-    "casa_e_decoracao": 54
+    "casa_e_decoracao": 59
    }
   },
   "100614": {
@@ -10372,7 +10387,7 @@
     "brinquedos": 172,
     "masculino": 1,
     "moda": 30,
-    "casa_e_decoracao": 35
+    "casa_e_decoracao": 38
    },
    "usos": 3,
    "ultimo_uso": "2026-10-31"
@@ -10383,7 +10398,7 @@
     "brinquedos": 22,
     "eletronicos": 6,
     "lar": 21,
-    "eletronicos_e_gadgets": 2,
+    "eletronicos_e_gadgets": 3,
     "casa_e_decoracao": 11
    }
   },
@@ -10473,7 +10488,7 @@
     "lar": 69,
     "eletronicos": 6,
     "pet": 10,
-    "eletronicos_e_gadgets": 24
+    "eletronicos_e_gadgets": 30
    }
   },
   "101194": {
@@ -10522,7 +10537,7 @@
     "automotivo": 8,
     "lar": 65,
     "masculino": 4,
-    "eletronicos_e_gadgets": 4730,
+    "eletronicos_e_gadgets": 4752,
     "utilidades_praticas": 3
    }
   },
@@ -10533,7 +10548,7 @@
     "pet": 191,
     "automotivo": 8,
     "lar": 24,
-    "eletronicos_e_gadgets": 4394,
+    "eletronicos_e_gadgets": 4416,
     "utilidades_praticas": 3
    },
    "usos": 3,
@@ -10598,7 +10613,7 @@
     "lar": 13,
     "automotivo": 17,
     "casa_fofa": 2,
-    "eletronicos_e_gadgets": 84,
+    "eletronicos_e_gadgets": 87,
     "utilidades_praticas": 96,
     "casa_e_decoracao": 2
    }
@@ -10643,7 +10658,8 @@
     "eletronicos": 170,
     "pet": 7,
     "automotivo": 8,
-    "eletronicos_e_gadgets": 14
+    "eletronicos_e_gadgets": 14,
+    "casa_e_decoracao": 3
    },
    "usos": 1,
    "ultimo_uso": "2026-10-22"
@@ -10655,8 +10671,8 @@
     "automotivo": 19,
     "brinquedos": 5,
     "eletronicos": 138,
-    "casa_e_decoracao": 148,
-    "utilidades_praticas": 1689,
+    "casa_e_decoracao": 152,
+    "utilidades_praticas": 1724,
     "eletronicos_e_gadgets": 2
    },
    "achados": 5,
@@ -10695,7 +10711,7 @@
     "brinquedos": 9,
     "automotivo": 1,
     "casa_fofa": 17,
-    "eletronicos_e_gadgets": 4,
+    "eletronicos_e_gadgets": 5,
     "casa_e_decoracao": 14
    }
   },
@@ -10722,7 +10738,7 @@
     "masculino": 4,
     "pet": 3,
     "brinquedos": 1,
-    "eletronicos_e_gadgets": 325
+    "eletronicos_e_gadgets": 334
    }
   },
   "102270": {
@@ -10734,7 +10750,8 @@
   "101349": {
    "nivel": 2,
    "votos": {
-    "masculino": 148
+    "masculino": 148,
+    "casa_e_decoracao": 3
    }
   },
   "101274": {
@@ -10769,7 +10786,7 @@
    "votos": {
     "pet": 8,
     "eletronicos": 344,
-    "eletronicos_e_gadgets": 18
+    "eletronicos_e_gadgets": 21
    }
   },
   "100672": {
@@ -10801,7 +10818,7 @@
     "brinquedos": 88,
     "automotivo": 3,
     "eletronicos": 7,
-    "casa_e_decoracao": 256,
+    "casa_e_decoracao": 416,
     "utilidades_praticas": 1
    }
   },
@@ -10819,7 +10836,7 @@
     "lar": 239,
     "automotivo": 12,
     "masculino": 1,
-    "casa_e_decoracao": 3316
+    "casa_e_decoracao": 3318
    },
    "achados": 99,
    "usos": 3,
@@ -10858,7 +10875,8 @@
     "masculino": 2,
     "casa_fofa": 4,
     "casa_e_decoracao": 4,
-    "utilidades_praticas": 2
+    "utilidades_praticas": 2,
+    "eletronicos_e_gadgets": 1
    }
   },
   "101965": {
@@ -10887,7 +10905,7 @@
     "pet": 2,
     "lar": 2,
     "casa_fofa": 2,
-    "eletronicos_e_gadgets": 18,
+    "eletronicos_e_gadgets": 21,
     "utilidades_praticas": 3,
     "casa_e_decoracao": 2
    },
@@ -10952,7 +10970,8 @@
     "automotivo": 7,
     "masculino": 3,
     "moda": 1,
-    "utilidades_praticas": 12
+    "utilidades_praticas": 14,
+    "eletronicos_e_gadgets": 1
    }
   },
   "100269": {
@@ -10974,7 +10993,7 @@
     "masculino": 3,
     "lar": 4,
     "cabelo": 1,
-    "casa_e_decoracao": 10,
+    "casa_e_decoracao": 11,
     "eletronicos_e_gadgets": 7
    }
   },
@@ -10999,7 +11018,7 @@
     "brinquedos": 19,
     "eletronicos": 327,
     "pet": 13,
-    "casa_e_decoracao": 10,
+    "casa_e_decoracao": 11,
     "eletronicos_e_gadgets": 5
    },
    "usos": 1,
@@ -11085,7 +11104,7 @@
     "brinquedos": 21,
     "lar": 1,
     "pet": 2,
-    "casa_e_decoracao": 8,
+    "casa_e_decoracao": 9,
     "utilidades_praticas": 3
    }
   },
@@ -11097,7 +11116,7 @@
     "brinquedos": 32,
     "pet": 1,
     "automotivo": 3,
-    "eletronicos_e_gadgets": 3
+    "eletronicos_e_gadgets": 6
    }
   },
   "101337": {
@@ -11128,7 +11147,8 @@
     "eletronicos": 15,
     "lar": 2,
     "beleza": 1,
-    "utilidades_praticas": 4
+    "utilidades_praticas": 4,
+    "casa_e_decoracao": 27
    },
    "usos": 1,
    "ultimo_uso": "2026-10-21"
@@ -11144,8 +11164,8 @@
     "automotivo": 1,
     "autocuidado": 5,
     "casa_e_decoracao": 12,
-    "utilidades_praticas": 13,
-    "eletronicos_e_gadgets": 3
+    "utilidades_praticas": 14,
+    "eletronicos_e_gadgets": 4
    }
   },
   "101158": {
@@ -11157,7 +11177,7 @@
     "masculino": 167,
     "lar": 18,
     "eletronicos_e_gadgets": 3,
-    "casa_e_decoracao": 6
+    "casa_e_decoracao": 103
    },
    "usos": 1,
    "ultimo_uso": "2026-10-12"
@@ -11168,7 +11188,7 @@
     "pet": 25,
     "automotivo": 27,
     "lar": 200,
-    "utilidades_praticas": 152,
+    "utilidades_praticas": 155,
     "eletronicos_e_gadgets": 1
    },
    "usos": 1,
@@ -11196,7 +11216,7 @@
     "pet": 10,
     "eletronicos": 2,
     "casa_fofa": 5,
-    "eletronicos_e_gadgets": 6,
+    "eletronicos_e_gadgets": 8,
     "casa_e_decoracao": 31
    }
   },
@@ -11489,7 +11509,8 @@
     "masculino": 2,
     "automotivo": 15,
     "casa_fofa": 4,
-    "utilidades_praticas": 593
+    "utilidades_praticas": 593,
+    "casa_e_decoracao": 1
    }
   },
   "101983": {
@@ -11536,7 +11557,8 @@
    "nivel": 2,
    "votos": {
     "eletronicos": 207,
-    "utilidades_praticas": 15
+    "utilidades_praticas": 15,
+    "casa_e_decoracao": 5
    }
   },
   "101982": {
@@ -11561,7 +11583,7 @@
    "votos": {
     "eletronicos": 47,
     "lar": 1,
-    "casa_e_decoracao": 17,
+    "casa_e_decoracao": 21,
     "utilidades_praticas": 8
    }
   },
@@ -11586,8 +11608,8 @@
     "eletronicos": 55,
     "brinquedos": 15,
     "masculino": 17,
-    "casa_e_decoracao": 91,
-    "utilidades_praticas": 34,
+    "casa_e_decoracao": 94,
+    "utilidades_praticas": 36,
     "eletronicos_e_gadgets": 2
    },
    "achados": 1
@@ -11596,7 +11618,7 @@
    "nivel": 2,
    "votos": {
     "lar": 68,
-    "casa_e_decoracao": 3
+    "casa_e_decoracao": 6
    },
    "usos": 1,
    "ultimo_uso": "2026-10-26",
@@ -11671,7 +11693,7 @@
    "nivel": 2,
    "votos": {
     "lar": 2048,
-    "utilidades_praticas": 591
+    "utilidades_praticas": 691
    }
   },
   "101127": {
@@ -11680,9 +11702,9 @@
     "lar": 392,
     "eletronicos": 10,
     "automotivo": 2,
-    "utilidades_praticas": 340
+    "utilidades_praticas": 396
    },
-   "achados": 1
+   "achados": 2
   },
   "100139": {
    "nivel": 2,
@@ -11702,7 +11724,7 @@
     "masculino": 1,
     "eletronicos": 4,
     "beleza": 3,
-    "casa_e_decoracao": 6,
+    "casa_e_decoracao": 7,
     "utilidades_praticas": 12
    }
   },
@@ -11749,7 +11771,7 @@
     "pet": 6,
     "masculino": 2,
     "automotivo": 1,
-    "casa_e_decoracao": 46,
+    "casa_e_decoracao": 53,
     "eletronicos_e_gadgets": 3
    }
   },
@@ -11773,7 +11795,7 @@
     "lar": 250,
     "masculino": 19,
     "automotivo": 81,
-    "eletronicos_e_gadgets": 14
+    "eletronicos_e_gadgets": 15
    }
   },
   "101960": {
@@ -11791,7 +11813,7 @@
     "automotivo": 25,
     "lar": 5,
     "brinquedos": 1,
-    "casa_e_decoracao": 75,
+    "casa_e_decoracao": 76,
     "utilidades_praticas": 5
    }
   },
@@ -11817,7 +11839,7 @@
     "lar": 1,
     "casa_fofa": 33,
     "casa_e_decoracao": 2713,
-    "utilidades_praticas": 1,
+    "utilidades_praticas": 2,
     "eletronicos_e_gadgets": 74
    },
    "achados": 1,
@@ -11859,19 +11881,19 @@
     "automotivo": 303,
     "brinquedos": 3,
     "eletronicos": 3,
-    "casa_e_decoracao": 21
+    "casa_e_decoracao": 636
    },
    "usos": 5,
    "ultimo_uso": "2026-10-23",
-   "achados": 1
+   "achados": 2
   },
   "101161": {
    "nivel": 2,
    "votos": {
     "eletronicos": 12,
     "lar": 9,
-    "casa_e_decoracao": 11,
-    "utilidades_praticas": 18
+    "casa_e_decoracao": 12,
+    "utilidades_praticas": 19
    }
   },
   "101399": {
@@ -11883,7 +11905,7 @@
     "pet": 1,
     "eletronicos": 16,
     "automotivo": 1,
-    "casa_e_decoracao": 22
+    "casa_e_decoracao": 23
    },
    "achados": 2
   },
@@ -12012,8 +12034,8 @@
     "masculino": 14,
     "pet": 2,
     "moda": 9,
-    "casa_e_decoracao": 9,
-    "utilidades_praticas": 28
+    "casa_e_decoracao": 10,
+    "utilidades_praticas": 30
    }
   },
   "100186": {
@@ -12029,7 +12051,7 @@
     "pet": 297,
     "automotivo": 5,
     "utilidades_praticas": 3,
-    "casa_e_decoracao": 3
+    "casa_e_decoracao": 54
    },
    "achados": 1,
    "usos": 2,
@@ -12069,7 +12091,7 @@
     "masculino": 4,
     "automotivo": 11,
     "eletronicos_e_gadgets": 2,
-    "casa_e_decoracao": 90,
+    "casa_e_decoracao": 96,
     "utilidades_praticas": 28
    },
    "achados": 4
@@ -12100,8 +12122,8 @@
     "lar": 631,
     "beleza": 86,
     "brinquedos": 1,
-    "utilidades_praticas": 12,
-    "eletronicos_e_gadgets": 52,
+    "utilidades_praticas": 13,
+    "eletronicos_e_gadgets": 56,
     "casa_e_decoracao": 3
    }
   },
@@ -12167,7 +12189,7 @@
    "votos": {
     "eletronicos": 4,
     "lar": 24,
-    "utilidades_praticas": 40,
+    "utilidades_praticas": 45,
     "casa_e_decoracao": 4
    }
   },
@@ -12229,7 +12251,7 @@
     "masculino": 7,
     "automotivo": 19,
     "casa_fofa": 614,
-    "casa_e_decoracao": 752,
+    "casa_e_decoracao": 775,
     "utilidades_praticas": 167
    },
    "usos": 1,
@@ -12250,7 +12272,7 @@
    "votos": {
     "lar": 357,
     "automotivo": 21,
-    "casa_e_decoracao": 168,
+    "casa_e_decoracao": 169,
     "utilidades_praticas": 24
    },
    "achados": 1,
@@ -12478,7 +12500,7 @@
     "pet": 9,
     "automotivo": 3,
     "eletronicos": 1,
-    "casa_e_decoracao": 5
+    "casa_e_decoracao": 12
    }
   },
   "100691": {
@@ -13040,7 +13062,8 @@
    "nivel": 2,
    "votos": {
     "lar": 399,
-    "masculino": 1
+    "masculino": 1,
+    "casa_e_decoracao": 1
    },
    "usos": 1,
    "ultimo_uso": "2026-10-20"
@@ -13069,7 +13092,8 @@
     "brinquedos": 70,
     "lar": 31,
     "eletronicos": 17,
-    "casa_fofa": 4
+    "casa_fofa": 4,
+    "casa_e_decoracao": 1
    },
    "achados": 5,
    "usos": 6,
@@ -13080,7 +13104,7 @@
    "votos": {
     "brinquedos": 25,
     "eletronicos": 4,
-    "casa_e_decoracao": 27
+    "casa_e_decoracao": 33
    },
    "usos": 1,
    "ultimo_uso": "2026-10-31"
@@ -13143,7 +13167,8 @@
     "pet": 4,
     "eletronicos": 20,
     "masculino": 1,
-    "casa_e_decoracao": 2415
+    "casa_e_decoracao": 2415,
+    "utilidades_praticas": 1
    },
    "usos": 1,
    "ultimo_uso": "2026-10-18"
@@ -13251,7 +13276,7 @@
     "lar": 231,
     "pet": 1,
     "brinquedos": 4,
-    "casa_e_decoracao": 51
+    "casa_e_decoracao": 53
    }
   },
   "100999": {
@@ -13388,7 +13413,7 @@
    "nivel": 2,
    "votos": {
     "masculino": 3,
-    "utilidades_praticas": 105
+    "utilidades_praticas": 113
    }
   },
   "102008": {
@@ -13655,7 +13680,7 @@
     "pet": 3,
     "brinquedos": 6,
     "eletronicos": 4,
-    "casa_e_decoracao": 4,
+    "casa_e_decoracao": 7,
     "utilidades_praticas": 3
    }
   },
@@ -13726,7 +13751,7 @@
     "lar": 3,
     "brinquedos": 1,
     "eletronicos": 7,
-    "utilidades_praticas": 12
+    "utilidades_praticas": 13
    }
   },
   "101002": {
@@ -14059,7 +14084,7 @@
    "votos": {
     "masculino": 4,
     "automotivo": 3,
-    "casa_e_decoracao": 6
+    "casa_e_decoracao": 7
    }
   },
   "101319": {
@@ -14146,7 +14171,7 @@
    "nivel": 2,
    "votos": {
     "masculino": 5,
-    "casa_e_decoracao": 50
+    "casa_e_decoracao": 55
    }
   },
   "101001": {
@@ -14164,7 +14189,7 @@
     "automotivo": 2,
     "masculino": 13,
     "autocuidado": 2,
-    "utilidades_praticas": 30
+    "utilidades_praticas": 31
    }
   },
   "101994": {
@@ -14179,7 +14204,7 @@
    "votos": {
     "masculino": 2,
     "eletronicos": 2,
-    "casa_e_decoracao": 22
+    "casa_e_decoracao": 23
    },
    "achados": 5
   },
@@ -14408,7 +14433,7 @@
    "votos": {
     "eletronicos": 1,
     "lar": 4,
-    "eletronicos_e_gadgets": 48
+    "eletronicos_e_gadgets": 52
    }
   },
   "100183": {
@@ -14459,7 +14484,8 @@
    "votos": {
     "automotivo": 2,
     "masculino": 1,
-    "autocuidado": 5
+    "autocuidado": 5,
+    "utilidades_praticas": 1
    }
   },
   "101196": {
@@ -14468,7 +14494,7 @@
     "eletronicos": 10,
     "masculino": 3,
     "lar": 18,
-    "casa_e_decoracao": 2
+    "casa_e_decoracao": 4
    }
   },
   "101972": {
@@ -14540,7 +14566,8 @@
    "nivel": 2,
    "votos": {
     "lar": 1,
-    "utilidades_praticas": 3
+    "utilidades_praticas": 3,
+    "casa_e_decoracao": 2
    }
   },
   "101264": {
@@ -14561,7 +14588,7 @@
    "votos": {
     "eletronicos": 2,
     "masculino": 1,
-    "casa_e_decoracao": 16
+    "casa_e_decoracao": 17
    }
   },
   "101971": {
@@ -14624,7 +14651,7 @@
    "nivel": 2,
    "votos": {
     "brinquedos": 6,
-    "casa_e_decoracao": 6
+    "casa_e_decoracao": 7
    }
   },
   "101024": {
@@ -14681,7 +14708,7 @@
    "votos": {
     "eletronicos": 3,
     "automotivo": 3,
-    "eletronicos_e_gadgets": 12,
+    "eletronicos_e_gadgets": 14,
     "utilidades_praticas": 1
    }
   },
@@ -14710,7 +14737,7 @@
    "votos": {
     "automotivo": 2,
     "lar": 3,
-    "casa_e_decoracao": 4
+    "casa_e_decoracao": 6
    }
   },
   "101039": {
@@ -15044,7 +15071,7 @@
    "votos": {
     "masculino": 2,
     "lar": 1,
-    "utilidades_praticas": 12
+    "utilidades_praticas": 13
    }
   },
   "101367": {
@@ -15362,7 +15389,7 @@
    "nivel": 2,
    "votos": {
     "autocuidado": 3,
-    "utilidades_praticas": 31
+    "utilidades_praticas": 32
    }
   },
   "101269": {
@@ -15444,6 +15471,18 @@
    "votos": {
     "casa_e_decoracao": 1
    }
+  },
+  "101957": {
+   "nivel": 2,
+   "votos": {
+    "eletronicos_e_gadgets": 1
+   }
+  },
+  "101966": {
+   "nivel": 2,
+   "votos": {
+    "eletronicos_e_gadgets": 1
+   }
   }
  },
  "lojas": {
@@ -15488,6 +15527,13 @@
    "desde": "2026-10-10",
    "ultimo_uso": "2026-10-31"
   },
+  "1006215031": {
+   "nome": "Choice Oficial",
+   "achados": 10,
+   "usos": 1,
+   "desde": "2026-10-27",
+   "ultimo_uso": "2026-10-30"
+  },
   "1628808691": {
    "nome": "FlorenceStore",
    "achados": 9,
@@ -15508,13 +15554,6 @@
    "usos": 6,
    "desde": "2026-10-23",
    "ultimo_uso": "2026-10-31"
-  },
-  "1006215031": {
-   "nome": "Choice Oficial",
-   "achados": 8,
-   "usos": 1,
-   "desde": "2026-10-27",
-   "ultimo_uso": "2026-10-30"
   },
   "1284670189": {
    "nome": "LTS - BR",
@@ -15714,6 +15753,18 @@
    "usos": 0,
    "desde": "2026-11-03"
   },
+  "308244953": {
+   "nome": "GOTAGUA",
+   "achados": 4,
+   "usos": 0,
+   "desde": "2026-10-28"
+  },
+  "1028459403": {
+   "nome": "MULTIORIENTAL",
+   "achados": 4,
+   "usos": 0,
+   "desde": "2026-10-31"
+  },
   "389279924": {
    "nome": "Mamãe Reborn",
    "achados": 3,
@@ -15819,12 +15870,6 @@
    "desde": "2026-10-27",
    "ultimo_uso": "2026-10-30"
   },
-  "308244953": {
-   "nome": "GOTAGUA",
-   "achados": 3,
-   "usos": 0,
-   "desde": "2026-10-28"
-  },
   "1746531986": {
    "nome": "Z06 Decoração",
    "achados": 3,
@@ -15857,12 +15902,6 @@
    "usos": 0,
    "desde": "2026-10-31"
   },
-  "1028459403": {
-   "nome": "MULTIORIENTAL",
-   "achados": 3,
-   "usos": 0,
-   "desde": "2026-10-31"
-  },
   "1744102949": {
    "nome": "Perfin Loja Oficial",
    "achados": 3,
@@ -15874,6 +15913,13 @@
    "achados": 3,
    "usos": 0,
    "desde": "2026-11-03"
+  },
+  "569114904": {
+   "nome": "BEST MO",
+   "achados": 3,
+   "usos": 1,
+   "desde": "2026-10-25",
+   "ultimo_uso": "2026-10-27"
   },
   "1640657682": {
    "nome": "Vida Colorida",
@@ -16089,13 +16135,6 @@
    "usos": 0,
    "desde": "2026-10-25"
   },
-  "569114904": {
-   "nome": "BEST MO",
-   "achados": 2,
-   "usos": 1,
-   "desde": "2026-10-25",
-   "ultimo_uso": "2026-10-27"
-  },
   "869809385": {
    "nome": "WolyCasa Oficial",
    "achados": 2,
@@ -16224,6 +16263,25 @@
    "usos": 0,
    "desde": "2026-11-04"
   },
+  "998773037": {
+   "nome": "@LVSHOP",
+   "achados": 2,
+   "usos": 1,
+   "desde": "2026-10-09",
+   "ultimo_uso": "2026-10-10"
+  },
+  "415175805": {
+   "nome": "Isabela Top",
+   "achados": 2,
+   "usos": 0,
+   "desde": "2026-10-25"
+  },
+  "1366709144": {
+   "nome": "M.WU COMERCIO DIGITAL LTDA.",
+   "achados": 2,
+   "usos": 0,
+   "desde": "2026-11-03"
+  },
   "273711213": {
    "nome": "BAISEC BRASIL",
    "achados": 1,
@@ -16254,13 +16312,6 @@
   },
   "348780605": {
    "nome": "Toyscombr",
-   "achados": 1,
-   "usos": 1,
-   "desde": "2026-10-09",
-   "ultimo_uso": "2026-10-10"
-  },
-  "998773037": {
-   "nome": "@LVSHOP",
    "achados": 1,
    "usos": 1,
    "desde": "2026-10-09",
@@ -16970,12 +17021,6 @@
    "usos": 0,
    "desde": "2026-10-25"
   },
-  "415175805": {
-   "nome": "Isabela Top",
-   "achados": 1,
-   "usos": 0,
-   "desde": "2026-10-25"
-  },
   "1738153850": {
    "nome": "Sunshine82",
    "achados": 1,
@@ -17218,12 +17263,6 @@
   },
   "1242226486": {
    "nome": "VTO.VENDAS",
-   "achados": 1,
-   "usos": 0,
-   "desde": "2026-11-03"
-  },
-  "1366709144": {
-   "nome": "M.WU COMERCIO DIGITAL LTDA.",
    "achados": 1,
    "usos": 0,
    "desde": "2026-11-03"
