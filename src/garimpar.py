@@ -68,10 +68,6 @@ def normalizar(no, categoria, palavra):
 
 
 def _pct_min(o, nivel_cfg):
-    """A AliExpress paga 7% padrão no Brasil: lá o mínimo em % é o da config.COMISSAO_PCT_ALIEXPRESS
-    (o mínimo em R$ continua igual, então só passa produto que paga bem de verdade)."""
-    if o.get("plataforma") == "aliexpress":
-        return min(nivel_cfg["comissao_pct"], config.COMISSAO_PCT_ALIEXPRESS)
     return nivel_cfg["comissao_pct"]
 
 
@@ -305,19 +301,7 @@ def coletar_candidatos(fila, buscar=shopee.buscar_ofertas, escolhidas=None, mem=
         print(f"🔎 '{palavra}' ({cat}{', ' + origem if profunda else ''}): {len(nos)} resultados")
         busca_profunda.aprender_categorias(mem, nos, cat)
         ofertas = [normalizar(no, cat, palavra) for no in nos]
-        if aliexpress.configurado():
-            ae = []
-            buscas_ae = [("busca", 1)] + ([("alta", 1), ("busca", 2)] if profunda else [])
-            for tipo, pag in buscas_ae:
-                try:
-                    metodo = aliexpress.METODO_EM_ALTA if tipo == "alta" else aliexpress.METODO_BUSCA
-                    ae += aliexpress.buscar_produtos(palavra, pagina=pag, metodo=metodo)
-                except Exception as e:
-                    if "result is empty" not in str(e).lower():   # busca sem resultado não é erro
-                        print(f"⚠️  AliExpress '{palavra}' ({tipo}, pág. {pag}): {e}")
-            if ae:
-                print(f"   🅰️ AliExpress: {len(ae)} resultados com entrega rápida")
-            ofertas += [aliexpress.normalizar(p, cat, palavra) for p in ae]
+
         _filtrar(fila, ofertas, origem, candidatos, recusas)
     if escolhidas and erros == len(escolhidas):
         raise RuntimeError("Todas as buscas na Shopee falharam — verifique os segredos e a API.")

@@ -156,12 +156,6 @@ def responder(api=instagram):
     minha = minha or (api.conferir_conta() if hasattr(api, "conferir_conta") else api.conta())
     respondidos = carregar_respondidos()
     busca = set()
-    if config.PERFIL in ("garimpo", "ana") and api is instagram:
-        try:
-            from . import busca_ze
-            busca = busca_ze.tomados()   # pediu OUTRO produto no Reels: a Busca do Zé já respondeu
-        except Exception as e:
-            print(f"⚠️  Não li os comentários da Busca do Zé: {e}")
     enviados = falhas = 0
     if tops:
         try:

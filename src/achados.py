@@ -49,7 +49,7 @@ def escolher(fila, conferir=True):
     lista = [o for o in postar.candidatos_ordenados(fila) if not o.get("video_manual") and not o.get("pedido")]
     itens, familias, categorias, ids = [], set(), set(), set()
     shark = False
-    vagas_ae = aliexpress.vagas_hoje(fila, "postado_em", config.ALIEXPRESS_POR_DIA_INSTAGRAM, agora().strftime("%Y-%m-%d"))
+    vagas_ae = 0
 
     def tentar(o, so_categoria_nova):
         nonlocal shark, vagas_ae
