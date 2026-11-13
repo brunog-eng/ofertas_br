@@ -29,6 +29,24 @@ FMT = "%Y-%m-%d %H:%M:%S"
 ARQ_FILA_WHATSAPP = config.PASTA_DADOS / "fila_whatsapp.json"
 
 
+
+def notificar_erro_telegram(msg: str):
+    """Notifica o administrador via Telegram em caso de falha nos envios do WhatsApp."""
+    token = os.getenv("TELEGRAM_BOT_TOKEN", "").strip()
+    chat_id = os.getenv("TELEGRAM_CHAT_PRIVADO", "").strip() or os.getenv("TELEGRAM_CHAT_ID", "").strip()
+    if not token or not chat_id:
+        return
+    try:
+        import requests
+        requests.post(
+            f"https://api.telegram.org/bot{token}/sendMessage",
+            data={"chat_id": chat_id, "text": f"⚠️ [WhatsApp] {msg}"},
+            timeout=10
+        )
+    except Exception as e:
+        print(f"::warning::Erro ao notificar no Telegram: {e}")
+
+
 def agora():
     return datetime.now(BRT)
 

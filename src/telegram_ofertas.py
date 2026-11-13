@@ -26,10 +26,9 @@ def candidatas(fila):
     hoje = agora().strftime("%Y-%m-%d")
     cheias = {p for p, n in marcas.hoje_por_marca(fila, "telegram_em", hoje).items() if n >= config.SHARK_POR_DIA_TELEGRAM}
     ofs = [o for o in ofs if o.get("plataforma") not in cheias]   # cada marca no máximo X por dia: não domina o canal
-    vagas_ae = aliexpress.vagas_hoje(fila, "telegram_em", config.ALIEXPRESS_POR_DIA_TELEGRAM, hoje)
 
     def ae_cheio(o, escolhidas):   # 🌎 internacional: no máximo 2 por dia no canal
-        return o.get("plataforma") == "aliexpress" and sum(e.get("plataforma") == "aliexpress" for e in escolhidas) >= vagas_ae
+        return o.get("plataforma") == "aliexpress"
 
     ofs.sort(key=lambda o: o.get("pontos", 0), reverse=True)
     # variedade: tipo de produto que já foi para o canal nas últimas horas fica para depois
